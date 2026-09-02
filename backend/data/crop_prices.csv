@@ -1,0 +1,1140 @@
+date,crop_name,market_name,price,arrival_quantity,district
+2022-01-01,Tomato,Arakalgud APMC,3000.0,15,Hassan
+2022-02-05,Tomato,Arakalgud APMC,1200.0,40,Hassan
+2022-02-19,Tomato,Arakalgud APMC,1500.0,20,Hassan
+2022-06-25,Tomato,Arakalgud APMC,3000.0,10,Hassan
+2022-07-23,Tomato,Arakalgud APMC,1600.0,30,Hassan
+2023-04-22,Tomato,Arakalgud APMC,2500.0,20,Hassan
+2023-04-29,Tomato,Arakalgud APMC,1600.0,30,Hassan
+2023-12-23,Tomato,Arakalgud APMC,2000.0,25,Hassan
+2024-06-01,Tomato,Arakalgud APMC,2000.0,15,Hassan
+2025-04-19,Tomato,Arakalgud APMC,2000.0,15,Hassan
+2025-08-02,Tomato,Arakalgud APMC,2000.0,15,Hassan
+2025-09-06,Tomato,Arakalgud APMC,2000.0,25,Hassan
+2022-02-08,Tomato,Arasikere APMC,1000.0,11,Hassan
+2022-03-05,Tomato,Arasikere APMC,800.0,19,Hassan
+2022-03-17,Tomato,Arasikere APMC,500.0,1,Hassan
+2022-03-21,Tomato,Arasikere APMC,500.0,100,Hassan
+2022-03-22,Tomato,Arasikere APMC,800.0,4,Hassan
+2022-04-20,Tomato,Arasikere APMC,1000.0,10,Hassan
+2022-04-25,Tomato,Arasikere APMC,1000.0,10,Hassan
+2022-04-26,Tomato,Arasikere APMC,1000.0,53,Hassan
+2022-05-04,Tomato,Arasikere APMC,1000.0,10,Hassan
+2022-05-13,Tomato,Arasikere APMC,4000.0,4,Hassan
+2022-05-25,Tomato,Arasikere APMC,5500.0,4,Hassan
+2022-06-17,Tomato,Arasikere APMC,600.0,30,Hassan
+2022-06-24,Tomato,Arasikere APMC,3100.0,10,Hassan
+2022-07-14,Tomato,Arasikere APMC,2000.0,25,Hassan
+2022-07-22,Tomato,Arasikere APMC,1000.0,10,Hassan
+2022-08-11,Tomato,Arasikere APMC,1000.0,10,Hassan
+2022-08-18,Tomato,Arasikere APMC,480.0,50,Hassan
+2022-09-01,Tomato,Arasikere APMC,2000.0,5,Hassan
+2022-09-08,Tomato,Arasikere APMC,1500.0,20,Hassan
+2022-09-12,Tomato,Arasikere APMC,1500.0,10,Hassan
+2022-09-13,Tomato,Arasikere APMC,2500.0,10,Hassan
+2022-11-03,Tomato,Arasikere APMC,2000.0,40,Hassan
+2022-11-16,Tomato,Arasikere APMC,480.0,40,Hassan
+2022-12-06,Tomato,Arasikere APMC,2000.0,10,Hassan
+2022-12-07,Tomato,Arasikere APMC,800.0,12,Hassan
+2022-12-20,Tomato,Arasikere APMC,800.0,12,Hassan
+2023-01-09,Tomato,Arasikere APMC,1500.0,22,Hassan
+2023-01-13,Tomato,Arasikere APMC,1000.0,25,Hassan
+2023-01-16,Tomato,Arasikere APMC,2000.0,8,Hassan
+2023-01-23,Tomato,Arasikere APMC,1730.0,13,Hassan
+2023-01-27,Tomato,Arasikere APMC,2500.0,6,Hassan
+2023-01-30,Tomato,Arasikere APMC,3165.0,6,Hassan
+2023-02-01,Tomato,Arasikere APMC,2500.0,10,Hassan
+2023-02-06,Tomato,Arasikere APMC,1500.0,10,Hassan
+2023-02-10,Tomato,Arasikere APMC,2200.0,4,Hassan
+2023-02-13,Tomato,Arasikere APMC,1000.0,15,Hassan
+2023-02-20,Tomato,Arasikere APMC,1000.0,15,Hassan
+2023-02-28,Tomato,Arasikere APMC,1000.0,15,Hassan
+2023-03-17,Tomato,Arasikere APMC,1000.0,15,Hassan
+2023-03-23,Tomato,Arasikere APMC,1000.0,14,Hassan
+2023-05-22,Tomato,Arasikere APMC,1000.0,10,Hassan
+2023-06-16,Tomato,Arasikere APMC,2000.0,5,Hassan
+2023-07-07,Tomato,Arasikere APMC,7000.0,3,Hassan
+2023-08-07,Tomato,Arasikere APMC,8000.0,10,Hassan
+2023-08-24,Tomato,Arasikere APMC,2000.0,10,Hassan
+2023-09-25,Tomato,Arasikere APMC,500.0,40,Hassan
+2023-09-27,Tomato,Arasikere APMC,1500.0,3,Hassan
+2023-09-29,Tomato,Arasikere APMC,500.0,40,Hassan
+2023-09-30,Tomato,Arasikere APMC,600.0,6,Hassan
+2023-10-03,Tomato,Arasikere APMC,500.0,22,Hassan
+2023-10-04,Tomato,Arasikere APMC,500.0,90,Hassan
+2023-10-05,Tomato,Arasikere APMC,500.0,40,Hassan
+2023-10-06,Tomato,Arasikere APMC,500.0,5,Hassan
+2023-10-11,Tomato,Arasikere APMC,600.0,29,Hassan
+2023-10-12,Tomato,Arasikere APMC,1000.0,10,Hassan
+2023-10-19,Tomato,Arasikere APMC,558.0,48,Hassan
+2023-10-21,Tomato,Arasikere APMC,1000.0,10,Hassan
+2023-10-30,Tomato,Arasikere APMC,1000.0,10,Hassan
+2023-10-31,Tomato,Arasikere APMC,1000.0,9,Hassan
+2023-11-08,Tomato,Arasikere APMC,2000.0,5,Hassan
+2023-11-13,Tomato,Arasikere APMC,2000.0,15,Hassan
+2023-11-15,Tomato,Arasikere APMC,1200.0,20,Hassan
+2023-11-16,Tomato,Arasikere APMC,1500.0,10,Hassan
+2023-11-21,Tomato,Arasikere APMC,2000.0,1,Hassan
+2024-03-11,Tomato,Arasikere APMC,1248.0,20,Hassan
+2024-03-12,Tomato,Arasikere APMC,1644.0,72,Hassan
+2024-03-14,Tomato,Arasikere APMC,1000.0,3,Hassan
+2024-03-27,Tomato,Arasikere APMC,1000.0,24,Hassan
+2024-04-06,Tomato,Arasikere APMC,1192.0,13,Hassan
+2024-05-04,Tomato,Arasikere APMC,3500.0,2,Hassan
+2024-05-07,Tomato,Arasikere APMC,2500.0,10,Hassan
+2024-05-08,Tomato,Arasikere APMC,3000.0,68,Hassan
+2024-05-13,Tomato,Arasikere APMC,2000.0,19,Hassan
+2024-05-18,Tomato,Arasikere APMC,3000.0,41,Hassan
+2024-05-21,Tomato,Arasikere APMC,2000.0,18,Hassan
+2024-05-27,Tomato,Arasikere APMC,4200.0,43,Hassan
+2024-06-01,Tomato,Arasikere APMC,1600.0,43,Hassan
+2024-06-10,Tomato,Arasikere APMC,2800.0,74,Hassan
+2024-06-11,Tomato,Arasikere APMC,6500.0,2,Hassan
+2024-06-15,Tomato,Arasikere APMC,2500.0,49,Hassan
+2024-06-18,Tomato,Arasikere APMC,12023.0,11,Hassan
+2024-06-24,Tomato,Arasikere APMC,5000.0,70,Hassan
+2024-06-29,Tomato,Arasikere APMC,3000.0,105,Hassan
+2024-07-01,Tomato,Arasikere APMC,2000.0,8,Hassan
+2024-07-06,Tomato,Arasikere APMC,3000.0,130,Hassan
+2024-07-08,Tomato,Arasikere APMC,2500.0,20,Hassan
+2024-07-11,Tomato,Arasikere APMC,2500.0,30,Hassan
+2024-07-12,Tomato,Arasikere APMC,2600.0,30,Hassan
+2024-07-15,Tomato,Arasikere APMC,5000.0,126,Hassan
+2024-07-18,Tomato,Arasikere APMC,2500.0,30,Hassan
+2024-07-20,Tomato,Arasikere APMC,3000.0,123,Hassan
+2024-07-23,Tomato,Arasikere APMC,1200.0,63,Hassan
+2024-07-24,Tomato,Arasikere APMC,900.0,84,Hassan
+2024-07-25,Tomato,Arasikere APMC,950.0,84,Hassan
+2024-07-29,Tomato,Arasikere APMC,800.0,211,Hassan
+2024-07-31,Tomato,Arasikere APMC,6000.0,5,Hassan
+2024-08-01,Tomato,Arasikere APMC,800.0,100,Hassan
+2024-08-03,Tomato,Arasikere APMC,2000.0,126,Hassan
+2024-08-06,Tomato,Arasikere APMC,667.0,120,Hassan
+2024-08-08,Tomato,Arasikere APMC,667.0,120,Hassan
+2024-08-09,Tomato,Arasikere APMC,667.0,120,Hassan
+2024-08-12,Tomato,Arasikere APMC,1200.0,129,Hassan
+2024-08-19,Tomato,Arasikere APMC,600.0,248,Hassan
+2024-08-26,Tomato,Arasikere APMC,1500.0,43,Hassan
+2024-08-29,Tomato,Arasikere APMC,600.0,120,Hassan
+2024-08-31,Tomato,Arasikere APMC,1000.0,68,Hassan
+2024-09-09,Tomato,Arasikere APMC,8000.0,60,Hassan
+2024-09-17,Tomato,Arasikere APMC,1000.0,59,Hassan
+2024-09-21,Tomato,Arasikere APMC,800.0,280,Hassan
+2024-09-30,Tomato,Arasikere APMC,3000.0,31,Hassan
+2024-10-15,Tomato,Arasikere APMC,2500.0,132,Hassan
+2024-10-19,Tomato,Arasikere APMC,4000.0,85,Hassan
+2024-11-04,Tomato,Arasikere APMC,3000.0,15,Hassan
+2024-11-05,Tomato,Arasikere APMC,4000.0,75,Hassan
+2024-11-11,Tomato,Arasikere APMC,2000.0,46,Hassan
+2024-11-16,Tomato,Arasikere APMC,2500.0,70,Hassan
+2024-11-25,Tomato,Arasikere APMC,2500.0,72,Hassan
+2024-11-30,Tomato,Arasikere APMC,4000.0,26,Hassan
+2024-12-07,Tomato,Arasikere APMC,2500.0,20,Hassan
+2024-12-16,Tomato,Arasikere APMC,1000.0,255,Hassan
+2024-12-21,Tomato,Arasikere APMC,2500.0,106,Hassan
+2024-12-30,Tomato,Arasikere APMC,1000.0,171,Hassan
+2025-01-04,Tomato,Arasikere APMC,1500.0,30,Hassan
+2025-01-18,Tomato,Arasikere APMC,1000.0,103,Hassan
+2025-01-27,Tomato,Arasikere APMC,2000.0,29,Hassan
+2025-02-15,Tomato,Arasikere APMC,2000.0,160,Hassan
+2025-02-24,Tomato,Arasikere APMC,1000.0,81,Hassan
+2025-03-10,Tomato,Arasikere APMC,2000.0,120,Hassan
+2025-03-24,Tomato,Arasikere APMC,1000.0,355,Hassan
+2025-03-29,Tomato,Arasikere APMC,1000.0,228,Hassan
+2025-04-05,Tomato,Arasikere APMC,1000.0,40,Hassan
+2025-04-15,Tomato,Arasikere APMC,1000.0,75,Hassan
+2025-04-21,Tomato,Arasikere APMC,1000.0,178,Hassan
+2025-04-29,Tomato,Arasikere APMC,1000.0,161,Hassan
+2025-05-05,Tomato,Arasikere APMC,1000.0,175,Hassan
+2025-05-13,Tomato,Arasikere APMC,1000.0,137,Hassan
+2025-05-19,Tomato,Arasikere APMC,2000.0,94,Hassan
+2025-05-26,Tomato,Arasikere APMC,1000.0,55,Hassan
+2025-05-31,Tomato,Arasikere APMC,1000.0,215,Hassan
+2025-06-09,Tomato,Arasikere APMC,1000.0,125,Hassan
+2025-06-16,Tomato,Arasikere APMC,1500.0,179,Hassan
+2025-06-19,Tomato,Arasikere APMC,3000.0,20,Hassan
+2025-06-21,Tomato,Arasikere APMC,1500.0,158,Hassan
+2025-06-30,Tomato,Arasikere APMC,1000.0,235,Hassan
+2025-07-05,Tomato,Arasikere APMC,2000.0,145,Hassan
+2025-07-14,Tomato,Arasikere APMC,1000.0,234,Hassan
+2025-07-19,Tomato,Arasikere APMC,1000.0,161,Hassan
+2025-07-28,Tomato,Arasikere APMC,2500.0,29,Hassan
+2025-08-02,Tomato,Arasikere APMC,1000.0,181,Hassan
+2025-08-11,Tomato,Arasikere APMC,2000.0,124,Hassan
+2025-08-12,Tomato,Arasikere APMC,2000.0,50,Hassan
+2025-08-25,Tomato,Arasikere APMC,2000.0,326,Hassan
+2025-08-26,Tomato,Arasikere APMC,1000.0,100,Hassan
+2025-08-30,Tomato,Arasikere APMC,1000.0,163,Hassan
+2025-09-08,Tomato,Arasikere APMC,1000.0,280,Hassan
+2025-09-15,Tomato,Arasikere APMC,1000.0,167,Hassan
+2025-09-20,Tomato,Arasikere APMC,1500.0,129,Hassan
+2025-09-23,Tomato,Arasikere APMC,2000.0,30,Hassan
+2025-09-29,Tomato,Arasikere APMC,2000.0,288,Hassan
+2025-10-03,Tomato,Arasikere APMC,1925.0,10,Hassan
+2025-10-06,Tomato,Arasikere APMC,2000.0,127,Hassan
+2025-10-08,Tomato,Arasikere APMC,2000.0,5,Hassan
+2025-10-14,Tomato,Arasikere APMC,1000.0,253,Hassan
+2025-10-18,Tomato,Arasikere APMC,1000.0,278,Hassan
+2025-10-27,Tomato,Arasikere APMC,1000.0,265,Hassan
+2025-11-03,Tomato,Arasikere APMC,1000.0,278,Hassan
+2025-11-07,Tomato,Arasikere APMC,3500.0,2,Hassan
+2025-11-10,Tomato,Arasikere APMC,1000.0,448,Hassan
+2025-11-15,Tomato,Arasikere APMC,1000.0,290,Hassan
+2025-11-24,Tomato,Arasikere APMC,2500.0,127,Hassan
+2025-11-29,Tomato,Arasikere APMC,2000.0,42,Hassan
+2025-11-30,Tomato,Arasikere APMC,2500.0,,Hassan
+2025-12-01,Tomato,Arasikere APMC,2000.0,,Hassan
+2025-12-02,Tomato,Arasikere APMC,5000.0,2,Hassan
+2025-12-03,Tomato,Arasikere APMC,1000.0,,Hassan
+2025-12-04,Tomato,Arasikere APMC,1500.0,,Hassan
+2025-12-05,Tomato,Arasikere APMC,3000.0,,Hassan
+2025-12-06,Tomato,Arasikere APMC,2500.0,,Hassan
+2025-12-07,Tomato,Arasikere APMC,1000.0,,Hassan
+2025-12-08,Tomato,Arasikere APMC,2500.0,62,Hassan
+2025-12-09,Tomato,Arasikere APMC,4233.0,,Hassan
+2025-12-10,Tomato,Arasikere APMC,2500.0,40,Hassan
+2025-12-15,Tomato,Arasikere APMC,1500.0,44,Hassan
+2025-12-22,Tomato,Arasikere APMC,1000.0,325,Hassan
+2025-12-29,Tomato,Arasikere APMC,2500.0,98,Hassan
+2026-01-03,Tomato,Arasikere APMC,1000.0,204,Hassan
+2026-01-05,Tomato,Arasikere APMC,1300.0,65,Hassan
+2026-01-06,Tomato,Arasikere APMC,4233.0,150,Hassan
+2026-01-12,Tomato,Arasikere APMC,3000.0,284,Hassan
+2026-01-19,Tomato,Arasikere APMC,2500.0,90,Hassan
+2026-01-21,Tomato,Arasikere APMC,1000.0,10,Hassan
+2026-01-27,Tomato,Arasikere APMC,1000.0,199,Hassan
+2026-01-31,Tomato,Arasikere APMC,1600.0,285,Hassan
+2026-02-07,Tomato,Arasikere APMC,1000.0,183,Hassan
+2026-02-16,Tomato,Arasikere APMC,1000.0,121,Hassan
+2026-02-21,Tomato,Arasikere APMC,2000.0,21,Hassan
+2026-03-02,Tomato,Arasikere APMC,1000.0,224,Hassan
+2026-03-09,Tomato,Arasikere APMC,1000.0,278,Hassan
+2026-03-18,Tomato,Arasikere APMC,1000.0,245,Hassan
+2026-03-23,Tomato,Arasikere APMC,1000.0,342,Hassan
+2026-03-31,Tomato,Arasikere APMC,1600.0,181,Hassan
+2026-04-13,Tomato,Arasikere APMC,1000.0,190,Hassan
+2026-04-18,Tomato,Arasikere APMC,1000.0,169,Hassan
+2026-04-27,Tomato,Arasikere APMC,1000.0,200,Hassan
+2022-01-02,Tomato,Belur APMC,2500.0,10.0,Hassan
+2022-01-06,Tomato,Belur APMC,2000.0,12.0,Hassan
+2022-01-09,Tomato,Belur APMC,4000.0,10.0,Hassan
+2022-01-23,Tomato,Belur APMC,2000.0,12.0,Hassan
+2022-01-30,Tomato,Belur APMC,2000.0,22.0,Hassan
+2022-02-03,Tomato,Belur APMC,1700.0,14.0,Hassan
+2022-02-06,Tomato,Belur APMC,2000.0,8.0,Hassan
+2022-02-09,Tomato,Belur APMC,2500.0,10.0,Hassan
+2022-02-13,Tomato,Belur APMC,1600.0,10.0,Hassan
+2022-02-20,Tomato,Belur APMC,1000.0,25.0,Hassan
+2022-02-23,Tomato,Belur APMC,1000.0,50.0,Hassan
+2022-02-24,Tomato,Belur APMC,1000.0,25.0,Hassan
+2022-02-27,Tomato,Belur APMC,1000.0,25.0,Hassan
+2022-03-13,Tomato,Belur APMC,1000.0,50.0,Hassan
+2022-03-20,Tomato,Belur APMC,1000.0,113.0,Hassan
+2022-03-21,Tomato,Belur APMC,800.0,20.0,Hassan
+2022-03-23,Tomato,Belur APMC,2000.0,25.0,Hassan
+2022-03-24,Tomato,Belur APMC,1000.0,32.0,Hassan
+2022-03-27,Tomato,Belur APMC,1000.0,25.0,Hassan
+2022-03-30,Tomato,Belur APMC,1000.0,50.0,Hassan
+2022-04-17,Tomato,Belur APMC,2000.0,12.0,Hassan
+2022-04-24,Tomato,Belur APMC,1000.0,24.0,Hassan
+2022-04-28,Tomato,Belur APMC,1000.0,8.0,Hassan
+2022-04-30,Tomato,Belur APMC,1000.0,16.0,Hassan
+2022-05-01,Tomato,Belur APMC,1000.0,33.0,Hassan
+2022-06-23,Tomato,Belur APMC,4000.0,6.0,Hassan
+2022-07-10,Tomato,Belur APMC,2000.0,8.0,Hassan
+2022-07-21,Tomato,Belur APMC,1000.0,25.0,Hassan
+2022-08-03,Tomato,Belur APMC,1000.0,32.0,Hassan
+2022-08-21,Tomato,Belur APMC,1000.0,41.0,Hassan
+2022-08-25,Tomato,Belur APMC,1000.0,50.0,Hassan
+2022-09-22,Tomato,Belur APMC,2000.0,12.0,Hassan
+2022-09-28,Tomato,Belur APMC,2000.0,24.0,Hassan
+2022-10-13,Tomato,Belur APMC,2000.0,25.0,Hassan
+2022-10-16,Tomato,Belur APMC,2000.0,45.0,Hassan
+2022-11-17,Tomato,Belur APMC,2000.0,20.0,Hassan
+2022-12-19,Tomato,Belur APMC,2000.0,8.0,Hassan
+2023-01-04,Tomato,Belur APMC,1300.0,19.0,Hassan
+2023-01-05,Tomato,Belur APMC,2000.0,25.0,Hassan
+2023-01-08,Tomato,Belur APMC,2000.0,25.0,Hassan
+2023-01-12,Tomato,Belur APMC,2000.0,12.0,Hassan
+2023-01-28,Tomato,Belur APMC,2000.0,12.0,Hassan
+2023-02-27,Tomato,Belur APMC,2000.0,25.0,Hassan
+2023-03-05,Tomato,Belur APMC,2000.0,12.0,Hassan
+2023-03-15,Tomato,Belur APMC,1700.0,14.0,Hassan
+2023-03-19,Tomato,Belur APMC,2000.0,22.0,Hassan
+2023-03-26,Tomato,Belur APMC,1000.0,17.0,Hassan
+2023-03-31,Tomato,Belur APMC,1000.0,2.0,Hassan
+2023-04-09,Tomato,Belur APMC,2000.0,12.0,Hassan
+2023-04-12,Tomato,Belur APMC,1300.0,19.0,Hassan
+2023-04-16,Tomato,Belur APMC,1000.0,25.0,Hassan
+2023-04-19,Tomato,Belur APMC,900.0,27.0,Hassan
+2023-04-20,Tomato,Belur APMC,1000.0,25.0,Hassan
+2023-04-23,Tomato,Belur APMC,1000.0,25.0,Hassan
+2023-04-30,Tomato,Belur APMC,1000.0,40.0,Hassan
+2023-05-14,Tomato,Belur APMC,2000.0,25.0,Hassan
+2023-05-18,Tomato,Belur APMC,1000.0,37.0,Hassan
+2023-05-21,Tomato,Belur APMC,2000.0,25.0,Hassan
+2023-06-11,Tomato,Belur APMC,2000.0,16.0,Hassan
+2023-07-02,Tomato,Belur APMC,2500.0,10.0,Hassan
+2023-07-13,Tomato,Belur APMC,7000.0,4.0,Hassan
+2023-08-30,Tomato,Belur APMC,1500.0,22.0,Hassan
+2023-09-17,Tomato,Belur APMC,1000.0,33.0,Hassan
+2023-09-24,Tomato,Belur APMC,1000.0,33.0,Hassan
+2023-10-01,Tomato,Belur APMC,1000.0,33.0,Hassan
+2023-10-11,Tomato,Belur APMC,650.0,14.0,Hassan
+2023-10-22,Tomato,Belur APMC,1000.0,66.0,Hassan
+2023-11-08,Tomato,Belur APMC,1600.0,16.0,Hassan
+2023-12-13,Tomato,Belur APMC,4000.0,25.0,Hassan
+2023-12-17,Tomato,Belur APMC,2000.0,12.0,Hassan
+2024-01-14,Tomato,Belur APMC,2000.0,2.0,Hassan
+2024-01-16,Tomato,Belur APMC,1000.0,2.0,Hassan
+2024-01-21,Tomato,Belur APMC,1200.0,27.0,Hassan
+2024-01-28,Tomato,Belur APMC,2000.0,5.0,Hassan
+2024-02-11,Tomato,Belur APMC,2000.0,8.0,Hassan
+2024-03-03,Tomato,Belur APMC,1000.0,25.0,Hassan
+2024-03-17,Tomato,Belur APMC,1000.0,36.0,Hassan
+2024-03-18,Tomato,Belur APMC,1800.0,37.0,Hassan
+2024-03-24,Tomato,Belur APMC,1000.0,3.0,Hassan
+2024-03-31,Tomato,Belur APMC,1000.0,36.0,Hassan
+2024-04-14,Tomato,Belur APMC,2000.0,16.0,Hassan
+2024-04-21,Tomato,Belur APMC,2000.0,16.0,Hassan
+2024-04-28,Tomato,Belur APMC,2000.0,8.0,Hassan
+2024-05-05,Tomato,Belur APMC,2500.0,36.0,Hassan
+2024-05-12,Tomato,Belur APMC,2000.0,25.0,Hassan
+2024-05-19,Tomato,Belur APMC,1900.0,33.0,Hassan
+2024-05-23,Tomato,Belur APMC,2000.0,18.0,Hassan
+2024-05-26,Tomato,Belur APMC,3000.0,22.0,Hassan
+2024-05-27,Tomato,Belur APMC,2500.0,6.0,Hassan
+2024-06-02,Tomato,Belur APMC,3000.0,11.0,Hassan
+2024-06-09,Tomato,Belur APMC,2500.0,13.0,Hassan
+2024-06-13,Tomato,Belur APMC,5200.0,12.0,Hassan
+2024-06-20,Tomato,Belur APMC,6000.0,5.0,Hassan
+2024-06-23,Tomato,Belur APMC,5000.0,6.0,Hassan
+2024-06-29,Tomato,Belur APMC,1500.0,11.0,Hassan
+2024-07-08,Tomato,Belur APMC,3500.0,5.0,Hassan
+2024-07-10,Tomato,Belur APMC,2000.0,16.0,Hassan
+2024-07-14,Tomato,Belur APMC,2000.0,8.0,Hassan
+2024-09-15,Tomato,Belur APMC,2000.0,4.0,Hassan
+2024-09-18,Tomato,Belur APMC,1500.0,22.0,Hassan
+2024-09-20,Tomato,Belur APMC,1500.0,22.0,Hassan
+2024-10-06,Tomato,Belur APMC,4000.0,8.0,Hassan
+2024-10-13,Tomato,Belur APMC,3000.0,11.0,Hassan
+2024-10-20,Tomato,Belur APMC,5000.0,13.0,Hassan
+2024-11-06,Tomato,Belur APMC,1200.0,27.0,Hassan
+2024-11-07,Tomato,Belur APMC,1400.0,23.0,Hassan
+2024-11-10,Tomato,Belur APMC,1400.0,23.0,Hassan
+2024-11-13,Tomato,Belur APMC,1600.0,20.0,Hassan
+2024-11-17,Tomato,Belur APMC,1000.0,49.0,Hassan
+2024-11-21,Tomato,Belur APMC,1900.0,119.0,Hassan
+2024-11-24,Tomato,Belur APMC,1000.0,33.0,Hassan
+2024-11-25,Tomato,Belur APMC,1400.0,23.0,Hassan
+2024-12-01,Tomato,Belur APMC,3000.0,22.0,Hassan
+2024-12-15,Tomato,Belur APMC,2000.0,17.0,Hassan
+2024-12-22,Tomato,Belur APMC,2000.0,17.0,Hassan
+2024-12-23,Tomato,Belur APMC,2000.0,8.0,Hassan
+2024-12-25,Tomato,Belur APMC,1500.0,44.0,Hassan
+2024-12-29,Tomato,Belur APMC,1000.0,100.0,Hassan
+2025-01-01,Tomato,Belur APMC,1200.0,36.0,Hassan
+2025-01-02,Tomato,Belur APMC,2000.0,65.0,Hassan
+2025-01-03,Tomato,Belur APMC,1000.0,8.0,Hassan
+2025-01-04,Tomato,Belur APMC,1000.0,16.0,Hassan
+2025-01-05,Tomato,Belur APMC,1600.0,80.0,Hassan
+2025-01-06,Tomato,Belur APMC,1000.0,41.0,Hassan
+2025-01-08,Tomato,Belur APMC,1000.0,3.0,Hassan
+2025-01-09,Tomato,Belur APMC,1800.0,60.0,Hassan
+2025-01-12,Tomato,Belur APMC,1000.0,69.0,Hassan
+2025-01-19,Tomato,Belur APMC,2000.0,36.0,Hassan
+2025-01-20,Tomato,Belur APMC,1000.0,25.0,Hassan
+2025-01-26,Tomato,Belur APMC,1000.0,30.0,Hassan
+2025-01-27,Tomato,Belur APMC,1000.0,25.0,Hassan
+2025-01-29,Tomato,Belur APMC,1000.0,8.0,Hassan
+2025-01-30,Tomato,Belur APMC,1500.0,7.0,Hassan
+2025-02-02,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-02-03,Tomato,Belur APMC,1000.0,42.0,Hassan
+2025-02-06,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-02-07,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-02-09,Tomato,Belur APMC,1200.0,28.0,Hassan
+2025-02-10,Tomato,Belur APMC,1000.0,41.0,Hassan
+2025-02-13,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-02-16,Tomato,Belur APMC,1000.0,46.0,Hassan
+2025-02-17,Tomato,Belur APMC,1000.0,24.0,Hassan
+2025-02-20,Tomato,Belur APMC,1000.0,44.0,Hassan
+2025-02-23,Tomato,Belur APMC,1200.0,62.0,Hassan
+2025-02-24,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-02-27,Tomato,Belur APMC,1200.0,27.0,Hassan
+2025-03-02,Tomato,Belur APMC,1000.0,72.0,Hassan
+2025-03-03,Tomato,Belur APMC,1250.0,13.0,Hassan
+2025-03-05,Tomato,Belur APMC,1250.0,13.0,Hassan
+2025-03-06,Tomato,Belur APMC,1250.0,28.0,Hassan
+2025-03-09,Tomato,Belur APMC,1000.0,50.0,Hassan
+2025-03-10,Tomato,Belur APMC,1000.0,56.0,Hassan
+2025-03-16,Tomato,Belur APMC,1250.0,60.0,Hassan
+2025-03-17,Tomato,Belur APMC,1000.0,42.0,Hassan
+2025-03-20,Tomato,Belur APMC,750.0,88.0,Hassan
+2025-03-23,Tomato,Belur APMC,800.0,18.0,Hassan
+2025-03-24,Tomato,Belur APMC,1000.0,43.0,Hassan
+2025-03-26,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-03-27,Tomato,Belur APMC,800.0,21.0,Hassan
+2025-04-03,Tomato,Belur APMC,100.0,33.0,Hassan
+2025-04-06,Tomato,Belur APMC,1000.0,43.0,Hassan
+2025-04-07,Tomato,Belur APMC,1000.0,36.0,Hassan
+2025-04-10,Tomato,Belur APMC,800.0,37.0,Hassan
+2025-04-13,Tomato,Belur APMC,1000.0,100.0,Hassan
+2025-04-17,Tomato,Belur APMC,1500.0,22.0,Hassan
+2025-04-20,Tomato,Belur APMC,2000.0,50.0,Hassan
+2025-04-27,Tomato,Belur APMC,1500.0,44.0,Hassan
+2025-04-28,Tomato,Belur APMC,1222.0,49.0,Hassan
+2025-05-01,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-05-04,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-05-05,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-05-07,Tomato,Belur APMC,1600.0,21.0,Hassan
+2025-05-11,Tomato,Belur APMC,2000.0,33.0,Hassan
+2025-05-12,Tomato,Belur APMC,2000.0,33.0,Hassan
+2025-05-14,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-05-18,Tomato,Belur APMC,2000.0,33.0,Hassan
+2025-05-21,Tomato,Belur APMC,2500.0,13.0,Hassan
+2025-05-25,Tomato,Belur APMC,2000.0,50.0,Hassan
+2025-05-29,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-05-30,Tomato,Belur APMC,2000.0,8.0,Hassan
+2025-06-01,Tomato,Belur APMC,2000.0,16.0,Hassan
+2025-06-05,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-06-08,Tomato,Belur APMC,2000.0,8.0,Hassan
+2025-06-10,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-06-12,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-06-16,Tomato,Belur APMC,1200.0,7.0,Hassan
+2025-06-18,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-06-22,Tomato,Belur APMC,1000.0,50.0,Hassan
+2025-06-23,Tomato,Belur APMC,1000.0,66.0,Hassan
+2025-06-25,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-06-29,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-07-02,Tomato,Belur APMC,1200.0,7.0,Hassan
+2025-07-03,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-07-06,Tomato,Belur APMC,1000.0,3.0,Hassan
+2025-07-07,Tomato,Belur APMC,1500.0,22.0,Hassan
+2025-07-13,Tomato,Belur APMC,1200.0,28.0,Hassan
+2025-07-14,Tomato,Belur APMC,2000.0,4.0,Hassan
+2025-07-17,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-07-20,Tomato,Belur APMC,2000.0,12.0,Hassan
+2025-07-21,Tomato,Belur APMC,1500.0,39.0,Hassan
+2025-07-23,Tomato,Belur APMC,1200.0,28.0,Hassan
+2025-07-27,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-07-28,Tomato,Belur APMC,3200.0,10.0,Hassan
+2025-08-03,Tomato,Belur APMC,2000.0,50.0,Hassan
+2025-08-04,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-08-06,Tomato,Belur APMC,2000.0,8.0,Hassan
+2025-08-10,Tomato,Belur APMC,2000.0,42.0,Hassan
+2025-08-11,Tomato,Belur APMC,2900.0,19.0,Hassan
+2025-08-14,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-08-17,Tomato,Belur APMC,1500.0,26.0,Hassan
+2025-08-20,Tomato,Belur APMC,2500.0,12.0,Hassan
+2025-08-21,Tomato,Belur APMC,3000.0,11.0,Hassan
+2025-08-24,Tomato,Belur APMC,2000.0,42.0,Hassan
+2025-08-25,Tomato,Belur APMC,1600.0,29.0,Hassan
+2025-08-27,Tomato,Belur APMC,1500.0,22.0,Hassan
+2025-08-28,Tomato,Belur APMC,1500.0,22.0,Hassan
+2025-08-31,Tomato,Belur APMC,2500.0,62.0,Hassan
+2025-09-01,Tomato,Belur APMC,2000.0,4.0,Hassan
+2025-09-03,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-09-07,Tomato,Belur APMC,2000.0,49.0,Hassan
+2025-09-08,Tomato,Belur APMC,2000.0,21.0,Hassan
+2025-09-10,Tomato,Belur APMC,2000.0,4.0,Hassan
+2025-09-11,Tomato,Belur APMC,1500.0,22.0,Hassan
+2025-09-14,Tomato,Belur APMC,2000.0,66.0,Hassan
+2025-09-15,Tomato,Belur APMC,2000.0,13.0,Hassan
+2025-09-17,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-09-18,Tomato,Belur APMC,1200.0,28.0,Hassan
+2025-09-21,Tomato,Belur APMC,1100.0,30.0,Hassan
+2025-09-22,Tomato,Belur APMC,2000.0,47.0,Hassan
+2025-09-24,Tomato,Belur APMC,2000.0,17.0,Hassan
+2025-09-28,Tomato,Belur APMC,1200.0,42.0,Hassan
+2025-10-05,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-10-06,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-10-08,Tomato,Belur APMC,1000.0,33.0,Hassan
+2025-10-09,Tomato,Belur APMC,1000.0,56.0,Hassan
+2025-10-12,Tomato,Belur APMC,1500.0,39.0,Hassan
+2025-10-13,Tomato,Belur APMC,1200.0,56.0,Hassan
+2025-10-15,Tomato,Belur APMC,600.0,38.0,Hassan
+2025-10-16,Tomato,Belur APMC,1100.0,15.0,Hassan
+2025-10-19,Tomato,Belur APMC,1000.0,57.0,Hassan
+2025-10-20,Tomato,Belur APMC,900.0,45.0,Hassan
+2025-10-26,Tomato,Belur APMC,1000.0,100.0,Hassan
+2025-10-27,Tomato,Belur APMC,1000.0,17.0,Hassan
+2025-10-30,Tomato,Belur APMC,1000.0,25.0,Hassan
+2025-11-02,Tomato,Belur APMC,1500.0,68.0,Hassan
+2025-11-03,Tomato,Belur APMC,2000.0,5.0,Hassan
+2025-11-05,Tomato,Belur APMC,2000.0,23.0,Hassan
+2025-11-06,Tomato,Belur APMC,1600.0,10.0,Hassan
+2025-11-09,Tomato,Belur APMC,1200.0,38.0,Hassan
+2025-11-10,Tomato,Belur APMC,2000.0,21.0,Hassan
+2025-11-12,Tomato,Belur APMC,2000.0,67.0,Hassan
+2025-11-13,Tomato,Belur APMC,2500.0,13.0,Hassan
+2025-11-16,Tomato,Belur APMC,2000.0,14.0,Hassan
+2025-11-17,Tomato,Belur APMC,2000.0,18.0,Hassan
+2025-11-19,Tomato,Belur APMC,2000.0,33.0,Hassan
+2025-11-23,Tomato,Belur APMC,2500.0,27.0,Hassan
+2025-11-24,Tomato,Belur APMC,2500.0,17.0,Hassan
+2025-11-26,Tomato,Belur APMC,2000.0,29.0,Hassan
+2025-11-27,Tomato,Belur APMC,2500.0,13.0,Hassan
+2025-11-30,Tomato,Belur APMC,2000.0,4.0,Hassan
+2025-12-01,Tomato,Belur APMC,2500.0,20.0,Hassan
+2025-12-03,Tomato,Belur APMC,2500.0,31.0,Hassan
+2025-12-04,Tomato,Belur APMC,2500.0,3.0,Hassan
+2025-12-07,Tomato,Belur APMC,2500.0,13.0,Hassan
+2025-12-08,Tomato,Belur APMC,3500.0,5.0,Hassan
+2025-12-10,Tomato,Belur APMC,2500.0,27.0,Hassan
+2025-12-11,Tomato,Belur APMC,2500.0,,Hassan
+2025-12-12,Tomato,Belur APMC,1200.0,,Hassan
+2025-12-13,Tomato,Belur APMC,1500.0,,Hassan
+2025-12-14,Tomato,Belur APMC,2500.0,7.0,Hassan
+2025-12-15,Tomato,Belur APMC,2500.0,11.0,Hassan
+2025-12-16,Tomato,Belur APMC,2000.0,,Hassan
+2025-12-17,Tomato,Belur APMC,2900.0,20.0,Hassan
+2025-12-18,Tomato,Belur APMC,3000.0,11.0,Hassan
+2025-12-19,Tomato,Belur APMC,1250.0,,Hassan
+2025-12-20,Tomato,Belur APMC,1200.0,,Hassan
+2025-12-21,Tomato,Belur APMC,3800.0,10.0,Hassan
+2025-12-22,Tomato,Belur APMC,3000.0,15.0,Hassan
+2025-12-24,Tomato,Belur APMC,3000.0,22.0,Hassan
+2025-12-28,Tomato,Belur APMC,2500.0,13.0,Hassan
+2025-12-29,Tomato,Belur APMC,2500.0,15.0,Hassan
+2025-12-31,Tomato,Belur APMC,3000.0,30.0,Hassan
+2026-01-01,Tomato,Belur APMC,3000.0,11.0,Hassan
+2026-01-04,Tomato,Belur APMC,2500.0,2.0,Hassan
+2026-01-05,Tomato,Belur APMC,3000.0,10.0,Hassan
+2026-01-07,Tomato,Belur APMC,2500.0,24.0,Hassan
+2026-01-08,Tomato,Belur APMC,3000.0,22.0,Hassan
+2026-01-11,Tomato,Belur APMC,2500.0,9.0,Hassan
+2026-01-12,Tomato,Belur APMC,2500.0,3.0,Hassan
+2026-01-14,Tomato,Belur APMC,1500.0,53.0,Hassan
+2026-01-18,Tomato,Belur APMC,2500.0,30.0,Hassan
+2026-01-19,Tomato,Belur APMC,2000.0,4.0,Hassan
+2026-01-21,Tomato,Belur APMC,1500.0,49.0,Hassan
+2026-01-22,Tomato,Belur APMC,2000.0,2.0,Hassan
+2026-01-25,Tomato,Belur APMC,1800.0,19.0,Hassan
+2026-01-26,Tomato,Belur APMC,1200.0,16.0,Hassan
+2026-01-28,Tomato,Belur APMC,2000.0,51.0,Hassan
+2026-01-29,Tomato,Belur APMC,2500.0,13.0,Hassan
+2026-02-01,Tomato,Belur APMC,1100.0,65.0,Hassan
+2026-02-02,Tomato,Belur APMC,1000.0,21.0,Hassan
+2026-02-04,Tomato,Belur APMC,1200.0,53.0,Hassan
+2026-02-05,Tomato,Belur APMC,1200.0,42.0,Hassan
+2026-02-08,Tomato,Belur APMC,1200.0,58.0,Hassan
+2026-02-09,Tomato,Belur APMC,1250.0,39.0,Hassan
+2026-02-11,Tomato,Belur APMC,1800.0,37.0,Hassan
+2026-02-12,Tomato,Belur APMC,1200.0,34.0,Hassan
+2026-02-15,Tomato,Belur APMC,1200.0,17.0,Hassan
+2026-02-16,Tomato,Belur APMC,1250.0,20.0,Hassan
+2026-02-18,Tomato,Belur APMC,1500.0,22.0,Hassan
+2026-02-19,Tomato,Belur APMC,1500.0,41.0,Hassan
+2026-02-23,Tomato,Belur APMC,1000.0,16.0,Hassan
+2026-02-25,Tomato,Belur APMC,1500.0,50.0,Hassan
+2026-02-26,Tomato,Belur APMC,1200.0,67.0,Hassan
+2026-03-01,Tomato,Belur APMC,1250.0,56.0,Hassan
+2026-03-02,Tomato,Belur APMC,1200.0,27.0,Hassan
+2026-03-04,Tomato,Belur APMC,1250.0,7.0,Hassan
+2026-03-05,Tomato,Belur APMC,1250.0,35.0,Hassan
+2026-03-08,Tomato,Belur APMC,1250.0,38.0,Hassan
+2026-03-09,Tomato,Belur APMC,1250.0,7.0,Hassan
+2026-03-11,Tomato,Belur APMC,1500.0,36.0,Hassan
+2026-03-15,Tomato,Belur APMC,1250.0,9.0,Hassan
+2026-03-16,Tomato,Belur APMC,1400.0,44.0,Hassan
+2026-03-18,Tomato,Belur APMC,1470.0,100.0,Hassan
+2026-03-19,Tomato,Belur APMC,1250.0,7.0,Hassan
+2026-03-22,Tomato,Belur APMC,1500.0,4.0,Hassan
+2026-03-23,Tomato,Belur APMC,1200.0,23.0,Hassan
+2026-03-25,Tomato,Belur APMC,1800.0,22.0,Hassan
+2026-03-26,Tomato,Belur APMC,1500.0,22.0,Hassan
+2026-03-29,Tomato,Belur APMC,1000.0,40.0,Hassan
+2026-03-30,Tomato,Belur APMC,1000.0,65.0,Hassan
+2026-04-01,Tomato,Belur APMC,1200.0,28.0,Hassan
+2026-04-02,Tomato,Belur APMC,1500.0,31.0,Hassan
+2026-04-05,Tomato,Belur APMC,2000.0,6.0,Hassan
+2026-04-06,Tomato,Belur APMC,1500.0,21.0,Hassan
+2026-04-08,Tomato,Belur APMC,1000.0,62.0,Hassan
+2026-04-09,Tomato,Belur APMC,1200.0,30.0,Hassan
+2026-04-12,Tomato,Belur APMC,1200.0,7.0,Hassan
+2026-04-13,Tomato,Belur APMC,2000.0,17.0,Hassan
+2026-04-15,Tomato,Belur APMC,1500.0,26.0,Hassan
+2026-04-19,Tomato,Belur APMC,1500.0,15.0,Hassan
+2026-04-20,Tomato,Belur APMC,1600.0,56.0,Hassan
+2026-04-22,Tomato,Belur APMC,2000.0,33.0,Hassan
+2026-04-23,Tomato,Belur APMC,1800.0,19.0,Hassan
+2026-04-26,Tomato,Belur APMC,1250.0,13.0,Hassan
+2022-01-03,Tomato,C.R. Patna APMC,5000.0,9,Hassan
+2022-01-13,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-01-16,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-01-17,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-01-18,Tomato,C.R. Patna APMC,5000.0,9,Hassan
+2022-01-19,Tomato,C.R. Patna APMC,5000.0,48,Hassan
+2022-01-20,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-01-21,Tomato,C.R. Patna APMC,5000.0,6,Hassan
+2022-01-25,Tomato,C.R. Patna APMC,5000.0,57,Hassan
+2022-01-26,Tomato,C.R. Patna APMC,3000.0,6,Hassan
+2022-01-29,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-02-08,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-02-16,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-02-23,Tomato,C.R. Patna APMC,5000.0,3,Hassan
+2022-03-12,Tomato,C.R. Patna APMC,1500.0,10,Hassan
+2022-03-15,Tomato,C.R. Patna APMC,750.0,40,Hassan
+2022-03-16,Tomato,C.R. Patna APMC,750.0,20,Hassan
+2022-03-17,Tomato,C.R. Patna APMC,1000.0,9,Hassan
+2022-03-18,Tomato,C.R. Patna APMC,1000.0,3,Hassan
+2022-03-19,Tomato,C.R. Patna APMC,1000.0,6,Hassan
+2022-03-20,Tomato,C.R. Patna APMC,1000.0,3,Hassan
+2022-03-21,Tomato,C.R. Patna APMC,1000.0,6,Hassan
+2022-03-22,Tomato,C.R. Patna APMC,1000.0,11,Hassan
+2022-03-23,Tomato,C.R. Patna APMC,1000.0,6,Hassan
+2022-03-24,Tomato,C.R. Patna APMC,1000.0,3,Hassan
+2022-03-25,Tomato,C.R. Patna APMC,1000.0,13,Hassan
+2022-03-27,Tomato,C.R. Patna APMC,1000.0,3,Hassan
+2022-03-28,Tomato,C.R. Patna APMC,1000.0,3,Hassan
+2022-03-29,Tomato,C.R. Patna APMC,1000.0,130,Hassan
+2022-03-30,Tomato,C.R. Patna APMC,1000.0,18,Hassan
+2022-04-01,Tomato,C.R. Patna APMC,1500.0,12,Hassan
+2022-04-05,Tomato,C.R. Patna APMC,1000.0,8,Hassan
+2022-04-07,Tomato,C.R. Patna APMC,1000.0,25,Hassan
+2022-04-08,Tomato,C.R. Patna APMC,1500.0,4,Hassan
+2022-04-13,Tomato,C.R. Patna APMC,1000.0,118,Hassan
+2022-04-19,Tomato,C.R. Patna APMC,1000.0,6,Hassan
+2022-04-21,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-04-25,Tomato,C.R. Patna APMC,1500.0,4,Hassan
+2022-04-26,Tomato,C.R. Patna APMC,2000.0,65,Hassan
+2022-04-28,Tomato,C.R. Patna APMC,1500.0,56,Hassan
+2022-05-02,Tomato,C.R. Patna APMC,3000.0,2,Hassan
+2022-05-03,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-04,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-05,Tomato,C.R. Patna APMC,1500.0,4,Hassan
+2022-05-08,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-13,Tomato,C.R. Patna APMC,5000.0,15,Hassan
+2022-05-15,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-16,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-17,Tomato,C.R. Patna APMC,3000.0,1,Hassan
+2022-05-24,Tomato,C.R. Patna APMC,7500.0,10,Hassan
+2022-05-28,Tomato,C.R. Patna APMC,6000.0,33,Hassan
+2022-06-06,Tomato,C.R. Patna APMC,7000.0,2,Hassan
+2022-06-07,Tomato,C.R. Patna APMC,7000.0,2,Hassan
+2022-06-08,Tomato,C.R. Patna APMC,5500.0,10,Hassan
+2022-06-09,Tomato,C.R. Patna APMC,5700.0,22,Hassan
+2022-06-10,Tomato,C.R. Patna APMC,7000.0,2,Hassan
+2022-06-11,Tomato,C.R. Patna APMC,7000.0,2,Hassan
+2022-06-23,Tomato,C.R. Patna APMC,6000.0,35,Hassan
+2022-06-30,Tomato,C.R. Patna APMC,3000.0,5,Hassan
+2022-07-02,Tomato,C.R. Patna APMC,3000.0,16,Hassan
+2022-07-09,Tomato,C.R. Patna APMC,2000.0,66,Hassan
+2022-07-19,Tomato,C.R. Patna APMC,1000.0,12,Hassan
+2022-07-21,Tomato,C.R. Patna APMC,1000.0,54,Hassan
+2022-07-22,Tomato,C.R. Patna APMC,1000.0,48,Hassan
+2022-07-23,Tomato,C.R. Patna APMC,1000.0,42,Hassan
+2022-08-02,Tomato,C.R. Patna APMC,1000.0,30,Hassan
+2022-08-03,Tomato,C.R. Patna APMC,1000.0,50,Hassan
+2022-08-04,Tomato,C.R. Patna APMC,1000.0,15,Hassan
+2022-08-07,Tomato,C.R. Patna APMC,1000.0,166,Hassan
+2022-08-13,Tomato,C.R. Patna APMC,1000.0,122,Hassan
+2022-08-20,Tomato,C.R. Patna APMC,1000.0,36,Hassan
+2022-08-23,Tomato,C.R. Patna APMC,1000.0,27,Hassan
+2022-08-28,Tomato,C.R. Patna APMC,1000.0,118,Hassan
+2022-09-03,Tomato,C.R. Patna APMC,1000.0,109,Hassan
+2022-09-09,Tomato,C.R. Patna APMC,2000.0,43,Hassan
+2022-09-12,Tomato,C.R. Patna APMC,1000.0,46,Hassan
+2022-09-13,Tomato,C.R. Patna APMC,1000.0,46,Hassan
+2022-09-15,Tomato,C.R. Patna APMC,2000.0,48,Hassan
+2022-09-16,Tomato,C.R. Patna APMC,2000.0,23,Hassan
+2022-09-24,Tomato,C.R. Patna APMC,2000.0,110,Hassan
+2022-10-15,Tomato,C.R. Patna APMC,1000.0,79,Hassan
+2022-10-18,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2022-10-22,Tomato,C.R. Patna APMC,2000.0,56,Hassan
+2022-10-25,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2022-10-29,Tomato,C.R. Patna APMC,2000.0,63,Hassan
+2022-11-05,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2022-11-07,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2022-11-12,Tomato,C.R. Patna APMC,2000.0,43,Hassan
+2022-11-16,Tomato,C.R. Patna APMC,2000.0,18,Hassan
+2022-11-18,Tomato,C.R. Patna APMC,2000.0,24,Hassan
+2022-11-19,Tomato,C.R. Patna APMC,2000.0,43,Hassan
+2022-11-25,Tomato,C.R. Patna APMC,2000.0,25,Hassan
+2022-11-26,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2022-12-01,Tomato,C.R. Patna APMC,2000.0,49,Hassan
+2022-12-02,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2022-12-08,Tomato,C.R. Patna APMC,2000.0,32,Hassan
+2022-12-09,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2022-12-16,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2022-12-17,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2022-12-19,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2022-12-20,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-01-02,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-01-04,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-01-19,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2023-01-28,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-02-04,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-02-09,Tomato,C.R. Patna APMC,2000.0,72,Hassan
+2023-02-10,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-02-25,Tomato,C.R. Patna APMC,2000.0,56,Hassan
+2023-03-18,Tomato,C.R. Patna APMC,2000.0,72,Hassan
+2023-03-27,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2023-04-08,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2023-04-19,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2023-04-27,Tomato,C.R. Patna APMC,2000.0,38,Hassan
+2023-05-04,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-05-12,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-05-27,Tomato,C.R. Patna APMC,2000.0,32,Hassan
+2023-05-31,Tomato,C.R. Patna APMC,2000.0,30,Hassan
+2023-06-01,Tomato,C.R. Patna APMC,2000.0,45,Hassan
+2023-06-10,Tomato,C.R. Patna APMC,2000.0,48,Hassan
+2023-06-19,Tomato,C.R. Patna APMC,2000.0,51,Hassan
+2023-06-24,Tomato,C.R. Patna APMC,2000.0,53,Hassan
+2023-11-16,Tomato,C.R. Patna APMC,2000.0,68,Hassan
+2023-11-17,Tomato,C.R. Patna APMC,2000.0,21,Hassan
+2023-11-18,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-11-20,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-11-29,Tomato,C.R. Patna APMC,2000.0,62,Hassan
+2023-12-18,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-12-21,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2023-12-23,Tomato,C.R. Patna APMC,2000.0,60,Hassan
+2023-12-28,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2023-12-29,Tomato,C.R. Patna APMC,2000.0,26,Hassan
+2024-01-02,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2024-01-03,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-01-12,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-01-17,Tomato,C.R. Patna APMC,2000.0,99,Hassan
+2024-01-23,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-02-09,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2024-02-11,Tomato,C.R. Patna APMC,2000.0,20,Hassan
+2024-02-12,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2024-02-14,Tomato,C.R. Patna APMC,2000.0,27,Hassan
+2024-02-19,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2024-02-23,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-02-24,Tomato,C.R. Patna APMC,2000.0,110,Hassan
+2024-02-29,Tomato,C.R. Patna APMC,2000.0,56,Hassan
+2024-03-01,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-03-04,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2024-03-06,Tomato,C.R. Patna APMC,2000.0,26,Hassan
+2024-03-09,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-03-14,Tomato,C.R. Patna APMC,2000.0,125,Hassan
+2024-03-22,Tomato,C.R. Patna APMC,2000.0,75,Hassan
+2024-03-31,Tomato,C.R. Patna APMC,2000.0,21,Hassan
+2024-04-11,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2024-04-23,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-04-27,Tomato,C.R. Patna APMC,2000.0,28,Hassan
+2024-05-03,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-05-06,Tomato,C.R. Patna APMC,2000.0,13,Hassan
+2024-05-08,Tomato,C.R. Patna APMC,2000.0,101,Hassan
+2024-05-14,Tomato,C.R. Patna APMC,2000.0,76,Hassan
+2024-05-25,Tomato,C.R. Patna APMC,2000.0,7,Hassan
+2024-05-29,Tomato,C.R. Patna APMC,2000.0,66,Hassan
+2024-06-08,Tomato,C.R. Patna APMC,2000.0,83,Hassan
+2024-06-17,Tomato,C.R. Patna APMC,4000.0,45,Hassan
+2024-06-28,Tomato,C.R. Patna APMC,4000.0,59,Hassan
+2024-07-06,Tomato,C.R. Patna APMC,4000.0,28,Hassan
+2024-07-15,Tomato,C.R. Patna APMC,4000.0,48,Hassan
+2024-07-20,Tomato,C.R. Patna APMC,4000.0,43,Hassan
+2024-07-27,Tomato,C.R. Patna APMC,4000.0,20,Hassan
+2024-08-10,Tomato,C.R. Patna APMC,4000.0,22,Hassan
+2024-08-18,Tomato,C.R. Patna APMC,2000.0,19,Hassan
+2024-08-19,Tomato,C.R. Patna APMC,4000.0,17,Hassan
+2024-08-24,Tomato,C.R. Patna APMC,2000.0,25,Hassan
+2024-08-29,Tomato,C.R. Patna APMC,2000.0,37,Hassan
+2024-09-07,Tomato,C.R. Patna APMC,2000.0,25,Hassan
+2024-09-14,Tomato,C.R. Patna APMC,2000.0,74,Hassan
+2024-09-28,Tomato,C.R. Patna APMC,2000.0,87,Hassan
+2024-10-05,Tomato,C.R. Patna APMC,2000.0,23,Hassan
+2024-10-07,Tomato,C.R. Patna APMC,5200.0,17,Hassan
+2024-10-12,Tomato,C.R. Patna APMC,2000.0,64,Hassan
+2024-10-21,Tomato,C.R. Patna APMC,2000.0,131,Hassan
+2024-10-26,Tomato,C.R. Patna APMC,2000.0,21,Hassan
+2024-11-04,Tomato,C.R. Patna APMC,2000.0,58,Hassan
+2024-11-09,Tomato,C.R. Patna APMC,2000.0,103,Hassan
+2024-11-16,Tomato,C.R. Patna APMC,2000.0,24,Hassan
+2024-11-23,Tomato,C.R. Patna APMC,2000.0,111,Hassan
+2024-12-07,Tomato,C.R. Patna APMC,2000.0,31,Hassan
+2024-12-15,Tomato,C.R. Patna APMC,2000.0,6,Hassan
+2024-12-21,Tomato,C.R. Patna APMC,2000.0,80,Hassan
+2024-12-30,Tomato,C.R. Patna APMC,2000.0,49,Hassan
+2025-01-11,Tomato,C.R. Patna APMC,2000.0,27,Hassan
+2025-01-25,Tomato,C.R. Patna APMC,2000.0,30,Hassan
+2025-01-30,Tomato,C.R. Patna APMC,2000.0,12,Hassan
+2025-02-03,Tomato,C.R. Patna APMC,2000.0,76,Hassan
+2025-02-08,Tomato,C.R. Patna APMC,2000.0,80,Hassan
+2025-03-27,Tomato,C.R. Patna APMC,2000.0,204,Hassan
+2025-04-15,Tomato,C.R. Patna APMC,2000.0,50,Hassan
+2025-04-16,Tomato,C.R. Patna APMC,2000.0,64,Hassan
+2025-04-24,Tomato,C.R. Patna APMC,2000.0,41,Hassan
+2025-05-03,Tomato,C.R. Patna APMC,2000.0,25,Hassan
+2025-05-10,Tomato,C.R. Patna APMC,2000.0,116,Hassan
+2025-05-19,Tomato,C.R. Patna APMC,2000.0,117,Hassan
+2025-06-04,Tomato,C.R. Patna APMC,2000.0,133,Hassan
+2025-06-24,Tomato,C.R. Patna APMC,2000.0,85,Hassan
+2025-07-02,Tomato,C.R. Patna APMC,2000.0,49,Hassan
+2025-07-05,Tomato,C.R. Patna APMC,2000.0,50,Hassan
+2025-07-18,Tomato,C.R. Patna APMC,2000.0,19,Hassan
+2025-07-19,Tomato,C.R. Patna APMC,2000.0,49,Hassan
+2025-07-23,Tomato,C.R. Patna APMC,2000.0,98,Hassan
+2025-08-01,Tomato,C.R. Patna APMC,2000.0,15,Hassan
+2025-08-02,Tomato,C.R. Patna APMC,4000.0,9,Hassan
+2025-08-04,Tomato,C.R. Patna APMC,4000.0,18,Hassan
+2025-08-09,Tomato,C.R. Patna APMC,2000.0,76,Hassan
+2025-08-22,Tomato,C.R. Patna APMC,2000.0,37,Hassan
+2025-08-23,Tomato,C.R. Patna APMC,2000.0,84,Hassan
+2025-09-06,Tomato,C.R. Patna APMC,2000.0,55,Hassan
+2025-09-14,Tomato,C.R. Patna APMC,2000.0,60,Hassan
+2025-09-20,Tomato,C.R. Patna APMC,2000.0,44,Hassan
+2025-10-06,Tomato,C.R. Patna APMC,2000.0,55,Hassan
+2025-10-13,Tomato,C.R. Patna APMC,2000.0,68,Hassan
+2025-10-17,Tomato,C.R. Patna APMC,2000.0,69,Hassan
+2025-10-21,Tomato,C.R. Patna APMC,2000.0,53,Hassan
+2025-11-03,Tomato,C.R. Patna APMC,2000.0,85,Hassan
+2025-11-08,Tomato,C.R. Patna APMC,2000.0,98,Hassan
+2025-11-14,Tomato,C.R. Patna APMC,2000.0,32,Hassan
+2025-11-17,Tomato,C.R. Patna APMC,4800.0,20,Hassan
+2025-11-22,Tomato,C.R. Patna APMC,6000.0,10,Hassan
+2025-11-28,Tomato,C.R. Patna APMC,6000.0,26,Hassan
+2025-12-05,Tomato,C.R. Patna APMC,3000.0,32,Hassan
+2025-12-06,Tomato,C.R. Patna APMC,3000.0,16,Hassan
+2025-12-12,Tomato,C.R. Patna APMC,3000.0,48,Hassan
+2025-12-20,Tomato,C.R. Patna APMC,3000.0,52,Hassan
+2026-01-04,Tomato,C.R. Patna APMC,3000.0,16,Hassan
+2026-01-05,Tomato,C.R. Patna APMC,3000.0,56,Hassan
+2026-01-12,Tomato,C.R. Patna APMC,3000.0,32,Hassan
+2026-01-19,Tomato,C.R. Patna APMC,3000.0,83,Hassan
+2026-01-25,Tomato,C.R. Patna APMC,3000.0,68,Hassan
+2026-01-31,Tomato,C.R. Patna APMC,3000.0,64,Hassan
+2026-02-16,Tomato,C.R. Patna APMC,3500.0,47,Hassan
+2026-02-23,Tomato,C.R. Patna APMC,3000.0,44,Hassan
+2026-03-02,Tomato,C.R. Patna APMC,3000.0,51,Hassan
+2026-03-08,Tomato,C.R. Patna APMC,3000.0,36,Hassan
+2026-03-20,Tomato,C.R. Patna APMC,3000.0,44,Hassan
+2026-03-27,Tomato,C.R. Patna APMC,3000.0,28,Hassan
+2026-04-06,Tomato,C.R. Patna APMC,3000.0,44,Hassan
+2026-04-13,Tomato,C.R. Patna APMC,3000.0,44,Hassan
+2026-04-17,Tomato,C.R. Patna APMC,3000.0,48,Hassan
+2026-04-21,Tomato,C.R. Patna APMC,3000.0,44,Hassan
+2025-12-23,Tomato,Channarayapatna APMC,3000.0,,Hassan
+2025-12-24,Tomato,Channarayapatna APMC,3000.0,,Hassan
+2022-01-05,Tomato,Hassan APMC,3500.0,390,Hassan
+2022-01-07,Tomato,Hassan APMC,3828.0,255,Hassan
+2022-01-12,Tomato,Hassan APMC,3000.0,320,Hassan
+2022-01-19,Tomato,Hassan APMC,3200.0,590,Hassan
+2022-01-25,Tomato,Hassan APMC,3333.0,1,Hassan
+2022-01-27,Tomato,Hassan APMC,4000.0,71,Hassan
+2022-02-02,Tomato,Hassan APMC,2000.0,972,Hassan
+2022-02-03,Tomato,Hassan APMC,1500.0,266,Hassan
+2022-02-08,Tomato,Hassan APMC,1667.0,34,Hassan
+2022-02-09,Tomato,Hassan APMC,1946.0,319,Hassan
+2022-02-16,Tomato,Hassan APMC,1562.0,753,Hassan
+2022-02-21,Tomato,Hassan APMC,1000.0,8,Hassan
+2022-02-23,Tomato,Hassan APMC,1000.0,671,Hassan
+2022-03-02,Tomato,Hassan APMC,594.0,1710,Hassan
+2022-03-09,Tomato,Hassan APMC,1000.0,546,Hassan
+2022-03-16,Tomato,Hassan APMC,1300.0,1298,Hassan
+2022-03-18,Tomato,Hassan APMC,500.0,133,Hassan
+2022-03-23,Tomato,Hassan APMC,558.0,1954,Hassan
+2022-03-30,Tomato,Hassan APMC,700.0,5761,Hassan
+2022-03-31,Tomato,Hassan APMC,510.0,218,Hassan
+2022-04-06,Tomato,Hassan APMC,800.0,1554,Hassan
+2022-04-13,Tomato,Hassan APMC,600.0,734,Hassan
+2022-04-20,Tomato,Hassan APMC,2000.0,692,Hassan
+2022-04-21,Tomato,Hassan APMC,2565.0,26,Hassan
+2022-04-27,Tomato,Hassan APMC,4545.0,277,Hassan
+2022-05-04,Tomato,Hassan APMC,2000.0,118,Hassan
+2022-05-11,Tomato,Hassan APMC,5100.0,196,Hassan
+2022-05-18,Tomato,Hassan APMC,5000.0,174,Hassan
+2022-05-25,Tomato,Hassan APMC,6000.0,276,Hassan
+2022-05-26,Tomato,Hassan APMC,10000.0,7,Hassan
+2022-05-27,Tomato,Hassan APMC,10000.0,105,Hassan
+2022-06-01,Tomato,Hassan APMC,6250.0,277,Hassan
+2022-06-08,Tomato,Hassan APMC,5000.0,180,Hassan
+2022-06-15,Tomato,Hassan APMC,3059.0,364,Hassan
+2022-06-21,Tomato,Hassan APMC,4500.0,18,Hassan
+2022-06-22,Tomato,Hassan APMC,3560.0,507,Hassan
+2022-06-28,Tomato,Hassan APMC,4545.0,16,Hassan
+2022-06-29,Tomato,Hassan APMC,3000.0,466,Hassan
+2022-07-07,Tomato,Hassan APMC,2500.0,236,Hassan
+2022-07-12,Tomato,Hassan APMC,1200.0,152,Hassan
+2022-07-13,Tomato,Hassan APMC,2000.0,169,Hassan
+2022-07-14,Tomato,Hassan APMC,1400.0,71,Hassan
+2022-07-20,Tomato,Hassan APMC,1000.0,1284,Hassan
+2022-07-26,Tomato,Hassan APMC,1000.0,83,Hassan
+2022-07-27,Tomato,Hassan APMC,1000.0,154,Hassan
+2022-08-03,Tomato,Hassan APMC,1000.0,1193,Hassan
+2022-08-10,Tomato,Hassan APMC,1000.0,851,Hassan
+2022-08-17,Tomato,Hassan APMC,1000.0,834,Hassan
+2022-08-24,Tomato,Hassan APMC,1400.0,255,Hassan
+2022-08-25,Tomato,Hassan APMC,1200.0,89,Hassan
+2022-09-01,Tomato,Hassan APMC,2000.0,385,Hassan
+2022-09-07,Tomato,Hassan APMC,2000.0,843,Hassan
+2022-09-14,Tomato,Hassan APMC,3000.0,477,Hassan
+2022-09-21,Tomato,Hassan APMC,4000.0,282,Hassan
+2022-09-28,Tomato,Hassan APMC,2500.0,506,Hassan
+2022-09-29,Tomato,Hassan APMC,2500.0,55,Hassan
+2022-10-06,Tomato,Hassan APMC,4000.0,33,Hassan
+2022-10-07,Tomato,Hassan APMC,2300.0,58,Hassan
+2022-10-12,Tomato,Hassan APMC,3330.0,923,Hassan
+2022-10-13,Tomato,Hassan APMC,4000.0,21,Hassan
+2022-10-19,Tomato,Hassan APMC,2300.0,340,Hassan
+2022-10-20,Tomato,Hassan APMC,2035.0,69,Hassan
+2022-10-27,Tomato,Hassan APMC,2000.0,70,Hassan
+2022-11-02,Tomato,Hassan APMC,2020.0,791,Hassan
+2022-11-03,Tomato,Hassan APMC,800.0,104,Hassan
+2022-11-09,Tomato,Hassan APMC,1200.0,154,Hassan
+2022-11-15,Tomato,Hassan APMC,1200.0,83,Hassan
+2022-11-16,Tomato,Hassan APMC,1000.0,661,Hassan
+2022-11-17,Tomato,Hassan APMC,1000.0,138,Hassan
+2022-11-23,Tomato,Hassan APMC,700.0,834,Hassan
+2022-11-24,Tomato,Hassan APMC,800.0,172,Hassan
+2022-11-30,Tomato,Hassan APMC,820.0,169,Hassan
+2022-12-01,Tomato,Hassan APMC,800.0,172,Hassan
+2022-12-03,Tomato,Hassan APMC,1000.0,133,Hassan
+2022-12-07,Tomato,Hassan APMC,600.0,1050,Hassan
+2022-12-14,Tomato,Hassan APMC,1000.0,1219,Hassan
+2022-12-21,Tomato,Hassan APMC,1530.0,1165,Hassan
+2022-12-28,Tomato,Hassan APMC,1000.0,469,Hassan
+2022-12-29,Tomato,Hassan APMC,1000.0,118,Hassan
+2023-01-04,Tomato,Hassan APMC,700.0,948,Hassan
+2023-01-11,Tomato,Hassan APMC,800.0,1320,Hassan
+2023-01-18,Tomato,Hassan APMC,2000.0,353,Hassan
+2023-01-25,Tomato,Hassan APMC,1520.0,736,Hassan
+2023-01-27,Tomato,Hassan APMC,1500.0,80,Hassan
+2023-02-01,Tomato,Hassan APMC,1250.0,488,Hassan
+2023-02-08,Tomato,Hassan APMC,1200.0,762,Hassan
+2023-02-09,Tomato,Hassan APMC,1000.0,155,Hassan
+2023-02-15,Tomato,Hassan APMC,1820.0,1136,Hassan
+2023-02-16,Tomato,Hassan APMC,2500.0,47,Hassan
+2023-02-22,Tomato,Hassan APMC,2000.0,555,Hassan
+2023-03-01,Tomato,Hassan APMC,1581.0,574,Hassan
+2023-03-08,Tomato,Hassan APMC,2000.0,651,Hassan
+2023-03-09,Tomato,Hassan APMC,1500.0,58,Hassan
+2023-03-15,Tomato,Hassan APMC,1200.0,595,Hassan
+2023-03-29,Tomato,Hassan APMC,1000.0,1514,Hassan
+2023-03-30,Tomato,Hassan APMC,1000.0,216,Hassan
+2023-04-05,Tomato,Hassan APMC,1000.0,328,Hassan
+2023-04-12,Tomato,Hassan APMC,1000.0,404,Hassan
+2023-04-19,Tomato,Hassan APMC,1000.0,1463,Hassan
+2023-04-26,Tomato,Hassan APMC,1000.0,375,Hassan
+2023-04-27,Tomato,Hassan APMC,1000.0,16,Hassan
+2023-05-03,Tomato,Hassan APMC,1000.0,1512,Hassan
+2023-05-17,Tomato,Hassan APMC,1500.0,673,Hassan
+2023-05-19,Tomato,Hassan APMC,1500.0,48,Hassan
+2023-05-24,Tomato,Hassan APMC,1830.0,601,Hassan
+2023-05-31,Tomato,Hassan APMC,1500.0,415,Hassan
+2023-06-01,Tomato,Hassan APMC,1510.0,50,Hassan
+2023-06-07,Tomato,Hassan APMC,2220.0,285,Hassan
+2023-06-08,Tomato,Hassan APMC,3000.0,25,Hassan
+2023-06-14,Tomato,Hassan APMC,2100.0,144,Hassan
+2023-06-15,Tomato,Hassan APMC,1500.0,46,Hassan
+2023-06-17,Tomato,Hassan APMC,3050.0,100,Hassan
+2023-06-21,Tomato,Hassan APMC,3515.0,490,Hassan
+2023-06-28,Tomato,Hassan APMC,6250.0,68,Hassan
+2023-07-05,Tomato,Hassan APMC,7550.0,190,Hassan
+2023-07-06,Tomato,Hassan APMC,10000.0,10,Hassan
+2023-07-12,Tomato,Hassan APMC,8200.0,88,Hassan
+2023-07-13,Tomato,Hassan APMC,6010.0,26,Hassan
+2023-07-19,Tomato,Hassan APMC,9000.0,323,Hassan
+2023-07-26,Tomato,Hassan APMC,8005.0,153,Hassan
+2023-07-27,Tomato,Hassan APMC,8000.0,6,Hassan
+2023-08-02,Tomato,Hassan APMC,9500.0,191,Hassan
+2023-08-03,Tomato,Hassan APMC,8333.0,35,Hassan
+2023-08-09,Tomato,Hassan APMC,8192.0,150,Hassan
+2023-08-10,Tomato,Hassan APMC,8000.0,6,Hassan
+2023-08-16,Tomato,Hassan APMC,5000.0,350,Hassan
+2023-08-23,Tomato,Hassan APMC,2000.0,414,Hassan
+2023-08-30,Tomato,Hassan APMC,1600.0,1220,Hassan
+2023-08-31,Tomato,Hassan APMC,833.0,100,Hassan
+2023-09-06,Tomato,Hassan APMC,1004.0,609,Hassan
+2023-09-07,Tomato,Hassan APMC,1000.0,70,Hassan
+2023-09-13,Tomato,Hassan APMC,1506.0,318,Hassan
+2023-09-20,Tomato,Hassan APMC,885.0,832,Hassan
+2023-09-27,Tomato,Hassan APMC,1000.0,557,Hassan
+2023-10-04,Tomato,Hassan APMC,800.0,315,Hassan
+2023-10-11,Tomato,Hassan APMC,600.0,461,Hassan
+2023-10-18,Tomato,Hassan APMC,800.0,417,Hassan
+2023-10-25,Tomato,Hassan APMC,800.0,1031,Hassan
+2023-10-26,Tomato,Hassan APMC,1000.0,61,Hassan
+2023-11-02,Tomato,Hassan APMC,1000.0,781,Hassan
+2023-11-04,Tomato,Hassan APMC,1200.0,1388,Hassan
+2023-11-08,Tomato,Hassan APMC,800.0,384,Hassan
+2023-11-09,Tomato,Hassan APMC,950.0,488,Hassan
+2023-11-15,Tomato,Hassan APMC,990.0,217,Hassan
+2023-11-22,Tomato,Hassan APMC,1400.0,1083,Hassan
+2023-11-23,Tomato,Hassan APMC,1500.0,173,Hassan
+2023-11-29,Tomato,Hassan APMC,1200.0,309,Hassan
+2023-12-06,Tomato,Hassan APMC,1200.0,1221,Hassan
+2023-12-07,Tomato,Hassan APMC,1200.0,122,Hassan
+2023-12-13,Tomato,Hassan APMC,1681.0,336,Hassan
+2023-12-14,Tomato,Hassan APMC,3000.0,55,Hassan
+2023-12-20,Tomato,Hassan APMC,1800.0,730,Hassan
+2023-12-21,Tomato,Hassan APMC,1600.0,40,Hassan
+2023-12-27,Tomato,Hassan APMC,1800.0,230,Hassan
+2023-12-28,Tomato,Hassan APMC,2000.0,35,Hassan
+2024-01-03,Tomato,Hassan APMC,1200.0,966,Hassan
+2024-01-05,Tomato,Hassan APMC,2000.0,67,Hassan
+2024-01-10,Tomato,Hassan APMC,1500.0,751,Hassan
+2024-01-11,Tomato,Hassan APMC,2000.0,163,Hassan
+2024-01-17,Tomato,Hassan APMC,1100.0,549,Hassan
+2024-01-19,Tomato,Hassan APMC,1525.0,388,Hassan
+2024-01-24,Tomato,Hassan APMC,1500.0,1354,Hassan
+2024-01-27,Tomato,Hassan APMC,1201.0,555,Hassan
+2024-01-30,Tomato,Hassan APMC,1212.0,55,Hassan
+2024-02-02,Tomato,Hassan APMC,1500.0,44,Hassan
+2024-02-07,Tomato,Hassan APMC,1500.0,956,Hassan
+2024-02-08,Tomato,Hassan APMC,1503.0,194,Hassan
+2024-02-14,Tomato,Hassan APMC,1500.0,215,Hassan
+2024-02-15,Tomato,Hassan APMC,1400.0,102,Hassan
+2024-02-19,Tomato,Hassan APMC,1501.0,1999,Hassan
+2024-02-21,Tomato,Hassan APMC,1515.0,1174,Hassan
+2024-02-23,Tomato,Hassan APMC,1500.0,54,Hassan
+2024-02-28,Tomato,Hassan APMC,1200.0,678,Hassan
+2024-02-29,Tomato,Hassan APMC,1000.0,180,Hassan
+2024-03-06,Tomato,Hassan APMC,1100.0,969,Hassan
+2024-03-13,Tomato,Hassan APMC,1250.0,822,Hassan
+2024-03-20,Tomato,Hassan APMC,950.0,676,Hassan
+2024-03-21,Tomato,Hassan APMC,1006.0,244,Hassan
+2024-03-27,Tomato,Hassan APMC,900.0,1296,Hassan
+2024-04-03,Tomato,Hassan APMC,4500.0,427,Hassan
+2024-04-10,Tomato,Hassan APMC,1150.0,177,Hassan
+2024-04-17,Tomato,Hassan APMC,1400.0,663,Hassan
+2024-04-24,Tomato,Hassan APMC,1600.0,452,Hassan
+2024-04-25,Tomato,Hassan APMC,1900.0,77,Hassan
+2024-05-02,Tomato,Hassan APMC,1450.0,307,Hassan
+2024-05-08,Tomato,Hassan APMC,2000.0,428,Hassan
+2024-05-09,Tomato,Hassan APMC,1400.0,107,Hassan
+2024-05-15,Tomato,Hassan APMC,2000.0,273,Hassan
+2024-05-16,Tomato,Hassan APMC,1985.0,104,Hassan
+2024-05-22,Tomato,Hassan APMC,1800.0,496,Hassan
+2024-05-23,Tomato,Hassan APMC,2000.0,239,Hassan
+2024-05-29,Tomato,Hassan APMC,2400.0,1900,Hassan
+2024-06-05,Tomato,Hassan APMC,1800.0,94,Hassan
+2024-06-06,Tomato,Hassan APMC,4000.0,39,Hassan
+2024-06-12,Tomato,Hassan APMC,3100.0,213,Hassan
+2024-06-13,Tomato,Hassan APMC,2900.0,34,Hassan
+2024-06-14,Tomato,Hassan APMC,2884.0,26,Hassan
+2024-06-19,Tomato,Hassan APMC,5400.0,185,Hassan
+2024-06-20,Tomato,Hassan APMC,4800.0,20,Hassan
+2024-06-26,Tomato,Hassan APMC,4500.0,123,Hassan
+2024-07-03,Tomato,Hassan APMC,1800.0,70,Hassan
+2024-07-04,Tomato,Hassan APMC,3000.0,176,Hassan
+2024-07-10,Tomato,Hassan APMC,3100.0,297,Hassan
+2024-07-18,Tomato,Hassan APMC,3000.0,306,Hassan
+2024-07-24,Tomato,Hassan APMC,3200.0,416,Hassan
+2024-07-25,Tomato,Hassan APMC,3100.0,56,Hassan
+2024-07-31,Tomato,Hassan APMC,2600.0,176,Hassan
+2024-08-01,Tomato,Hassan APMC,2950.0,28,Hassan
+2024-08-07,Tomato,Hassan APMC,1900.0,281,Hassan
+2024-08-09,Tomato,Hassan APMC,2000.0,155,Hassan
+2024-08-14,Tomato,Hassan APMC,1400.0,325,Hassan
+2024-08-21,Tomato,Hassan APMC,900.0,758,Hassan
+2024-08-28,Tomato,Hassan APMC,900.0,442,Hassan
+2024-08-29,Tomato,Hassan APMC,900.0,228,Hassan
+2024-09-04,Tomato,Hassan APMC,900.0,956,Hassan
+2024-09-05,Tomato,Hassan APMC,950.0,185,Hassan
+2024-09-11,Tomato,Hassan APMC,1000.0,421,Hassan
+2024-09-12,Tomato,Hassan APMC,1600.0,100,Hassan
+2024-09-18,Tomato,Hassan APMC,1400.0,671,Hassan
+2024-09-25,Tomato,Hassan APMC,3500.0,234,Hassan
+2024-09-26,Tomato,Hassan APMC,2500.0,223,Hassan
+2024-10-03,Tomato,Hassan APMC,3400.0,87,Hassan
+2024-10-04,Tomato,Hassan APMC,3400.0,24,Hassan
+2024-10-09,Tomato,Hassan APMC,3000.0,417,Hassan
+2024-10-16,Tomato,Hassan APMC,1800.0,562,Hassan
+2024-10-17,Tomato,Hassan APMC,3100.0,23,Hassan
+2024-10-23,Tomato,Hassan APMC,2400.0,308,Hassan
+2024-10-30,Tomato,Hassan APMC,2400.0,242,Hassan
+2024-11-06,Tomato,Hassan APMC,1900.0,204,Hassan
+2024-11-07,Tomato,Hassan APMC,2000.0,25,Hassan
+2024-11-13,Tomato,Hassan APMC,2100.0,336,Hassan
+2024-11-21,Tomato,Hassan APMC,1400.0,56,Hassan
+2024-11-26,Tomato,Hassan APMC,2300.0,7,Hassan
+2024-11-27,Tomato,Hassan APMC,1800.0,298,Hassan
+2024-12-04,Tomato,Hassan APMC,1100.0,944,Hassan
+2024-12-11,Tomato,Hassan APMC,1200.0,90,Hassan
+2024-12-12,Tomato,Hassan APMC,1900.0,431,Hassan
+2024-12-18,Tomato,Hassan APMC,2700.0,585,Hassan
+2024-12-26,Tomato,Hassan APMC,1200.0,310,Hassan
+2024-12-27,Tomato,Hassan APMC,1960.0,17,Hassan
+2025-01-01,Tomato,Hassan APMC,1100.0,117,Hassan
+2025-01-02,Tomato,Hassan APMC,1400.0,135,Hassan
+2025-01-08,Tomato,Hassan APMC,1100.0,246,Hassan
+2025-01-09,Tomato,Hassan APMC,1000.0,100,Hassan
+2025-01-15,Tomato,Hassan APMC,1000.0,190,Hassan
+2025-01-16,Tomato,Hassan APMC,1000.0,89,Hassan
+2025-01-23,Tomato,Hassan APMC,1800.0,283,Hassan
+2025-01-29,Tomato,Hassan APMC,1800.0,173,Hassan
+2025-01-30,Tomato,Hassan APMC,2500.0,93,Hassan
+2025-02-05,Tomato,Hassan APMC,2100.0,252,Hassan
+2025-02-12,Tomato,Hassan APMC,1600.0,213,Hassan
+2025-02-13,Tomato,Hassan APMC,3070.0,38,Hassan
+2025-02-19,Tomato,Hassan APMC,1500.0,353,Hassan
+2025-03-06,Tomato,Hassan APMC,1000.0,80,Hassan
+2025-03-19,Tomato,Hassan APMC,1500.0,264,Hassan
+2025-03-20,Tomato,Hassan APMC,1000.0,60,Hassan
+2025-03-26,Tomato,Hassan APMC,2400.0,420,Hassan
+2025-04-02,Tomato,Hassan APMC,1600.0,10,Hassan
+2025-04-03,Tomato,Hassan APMC,1000.0,70,Hassan
+2025-04-09,Tomato,Hassan APMC,1095.0,487,Hassan
+2025-04-16,Tomato,Hassan APMC,900.0,40,Hassan
+2025-04-23,Tomato,Hassan APMC,1400.0,397,Hassan
+2025-05-07,Tomato,Hassan APMC,900.0,755,Hassan
+2025-05-14,Tomato,Hassan APMC,900.0,307,Hassan
+2025-05-21,Tomato,Hassan APMC,1200.0,320,Hassan
+2025-05-22,Tomato,Hassan APMC,900.0,84,Hassan
+2025-05-28,Tomato,Hassan APMC,1200.0,221,Hassan
+2025-06-03,Tomato,Hassan APMC,1600.0,10,Hassan
+2025-06-05,Tomato,Hassan APMC,700.0,73,Hassan
+2025-06-11,Tomato,Hassan APMC,800.0,105,Hassan
+2025-06-18,Tomato,Hassan APMC,1600.0,158,Hassan
+2025-06-19,Tomato,Hassan APMC,2000.0,25,Hassan
+2025-06-25,Tomato,Hassan APMC,900.0,269,Hassan
+2025-06-26,Tomato,Hassan APMC,1400.0,28,Hassan
+2025-07-02,Tomato,Hassan APMC,900.0,185,Hassan
+2025-07-03,Tomato,Hassan APMC,2500.0,15,Hassan
+2025-07-09,Tomato,Hassan APMC,1100.0,211,Hassan
+2025-07-10,Tomato,Hassan APMC,1400.0,28,Hassan
+2025-07-16,Tomato,Hassan APMC,1200.0,95,Hassan
+2025-07-17,Tomato,Hassan APMC,1400.0,118,Hassan
+2025-07-23,Tomato,Hassan APMC,1907.0,338,Hassan
+2025-07-30,Tomato,Hassan APMC,1400.0,243,Hassan
+2025-08-06,Tomato,Hassan APMC,3267.0,177,Hassan
+2025-08-13,Tomato,Hassan APMC,2700.0,119,Hassan
+2025-08-20,Tomato,Hassan APMC,3100.0,123,Hassan
+2025-09-03,Tomato,Hassan APMC,1400.0,217,Hassan
+2025-09-10,Tomato,Hassan APMC,1200.0,492,Hassan
+2025-09-17,Tomato,Hassan APMC,700.0,8666,Hassan
+2025-09-24,Tomato,Hassan APMC,950.0,285,Hassan
+2025-10-08,Tomato,Hassan APMC,950.0,445,Hassan
+2025-10-14,Tomato,Hassan APMC,1200.0,166,Hassan
+2025-10-15,Tomato,Hassan APMC,1000.0,60,Hassan
+2025-10-29,Tomato,Hassan APMC,900.0,484,Hassan
+2025-10-30,Tomato,Hassan APMC,900.0,136,Hassan
+2025-11-06,Tomato,Hassan APMC,1514.0,47,Hassan
+2025-11-12,Tomato,Hassan APMC,2690.0,60,Hassan
+2025-11-20,Tomato,Hassan APMC,1200.0,203,Hassan
+2025-11-26,Tomato,Hassan APMC,8000.0,41,Hassan
+2025-12-03,Tomato,Hassan APMC,9500.0,73,Hassan
+2025-12-10,Tomato,Hassan APMC,3500.0,89,Hassan
+2025-12-17,Tomato,Hassan APMC,1200.0,63,Hassan
+2025-12-18,Tomato,Hassan APMC,3800.0,44,Hassan
+2025-12-24,Tomato,Hassan APMC,5100.0,52,Hassan
+2025-12-25,Tomato,Hassan APMC,900.0,,Hassan
+2025-12-26,Tomato,Hassan APMC,1500.0,,Hassan
+2025-12-27,Tomato,Hassan APMC,1500.0,,Hassan
+2025-12-28,Tomato,Hassan APMC,2100.0,,Hassan
+2025-12-29,Tomato,Hassan APMC,2000.0,,Hassan
+2025-12-30,Tomato,Hassan APMC,1900.0,,Hassan
+2025-12-31,Tomato,Hassan APMC,4000.0,220,Hassan
+2026-01-07,Tomato,Hassan APMC,2970.0,79,Hassan
+2026-01-14,Tomato,Hassan APMC,2900.0,121,Hassan
+2026-01-21,Tomato,Hassan APMC,2100.0,194,Hassan
+2026-01-22,Tomato,Hassan APMC,1900.0,41,Hassan
+2026-01-28,Tomato,Hassan APMC,900.0,73,Hassan
+2026-02-04,Tomato,Hassan APMC,1100.0,407,Hassan
+2026-02-11,Tomato,Hassan APMC,1900.0,135,Hassan
+2026-02-18,Tomato,Hassan APMC,2000.0,172,Hassan
+2026-02-25,Tomato,Hassan APMC,1500.0,38,Hassan
+2026-02-26,Tomato,Hassan APMC,1500.0,60,Hassan
+2026-03-04,Tomato,Hassan APMC,1500.0,231,Hassan
+2026-03-11,Tomato,Hassan APMC,2512.0,126,Hassan
+2026-03-12,Tomato,Hassan APMC,1500.0,38,Hassan
+2026-03-18,Tomato,Hassan APMC,900.0,268,Hassan
+2026-03-25,Tomato,Hassan APMC,1490.0,129,Hassan
+2026-03-26,Tomato,Hassan APMC,600.0,56,Hassan
+2026-04-01,Tomato,Hassan APMC,1127.0,204,Hassan
+2026-04-08,Tomato,Hassan APMC,1000.0,1167,Hassan
+2026-04-15,Tomato,Hassan APMC,1000.0,139,Hassan
+2026-04-22,Tomato,Hassan APMC,1500.0,104,Hassan

@@ -1,0 +1,103 @@
+from pathlib import Path
+
+csv_text = """Date,Crop_Name,Market_Name,Price,Arrival_Quantity,District
+2024-02-09,Paddy,Belur APMC,2500,22,Hassan
+2024-03-09,Paddy,Belur APMC,2500,3,Hassan
+2024-03-10,Paddy,Belur APMC,2300,10,Hassan
+2024-04-07,Paddy,Belur APMC,2500,10,Hassan
+2024-04-09,Paddy,Belur APMC,2500,4,Hassan
+2024-06-06,Paddy,Belur APMC,2500,23,Hassan
+2024-07-08,Paddy,Belur APMC,2500,12,Hassan
+2024-07-10,Paddy,Belur APMC,2300,10,Hassan
+2024-12-08,Paddy,Belur APMC,2500,10,Hassan
+2024-12-12,Paddy,Belur APMC,2350,36,Hassan
+2025-01-02,Paddy,Belur APMC,2350,12,Hassan
+2025-04-01,Paddy,Belur APMC,2140,135,Hassan
+2025-10-01,Paddy,Belur APMC,4100,48,Hassan
+2026-01-07,Paddy,Belur APMC,2000,12,Hassan
+2026-01-08,Paddy,Belur APMC,5425,24,Hassan
+2026-02-06,Paddy,Belur APMC,4500,12,Hassan
+2026-02-07,Paddy,Belur APMC,2000,12,Hassan
+2026-02-08,Paddy,Belur APMC,5425,12,Hassan
+2026-03-04,Paddy,Belur APMC,2200,25.9,Hassan
+2026-03-06,Paddy,Belur APMC,2200,21,Hassan
+2026-03-08,Paddy,Belur APMC,3800,12,Hassan
+2026-04-04,Paddy,Belur APMC,1800,18,Hassan
+2026-04-05,Paddy,Belur APMC,2000,6,Hassan
+2026-04-07,Paddy,Belur APMC,4500,12,Hassan
+2026-04-08,Paddy,Belur APMC,4600,12,Hassan
+2026-05-04,Paddy,Belur APMC,2000,12,Hassan
+2026-05-08,Paddy,Belur APMC,2600,22,Hassan
+2026-06-04,Paddy,Belur APMC,2000,12,Hassan
+2026-06-05,Paddy,Belur APMC,2100,10,Hassan
+2026-06-07,Paddy,Belur APMC,2300,25,Hassan
+2026-07-04,Paddy,Belur APMC,2400,15,Hassan
+2026-07-05,Paddy,Belur APMC,2000,26,Hassan
+2026-07-06,Paddy,Belur APMC,3800,12,Hassan
+2021-03-01,Paddy,Channarayapatna APMC,1200,10,Hassan
+2021-10-01,Paddy,Channarayapatna APMC,1200,10,Hassan
+2021-11-01,Paddy,Channarayapatna APMC,1200,10,Hassan
+2024-10-09,Paddy,Channarayapatna APMC,2000,14,Hassan
+2025-01-11,Paddy,Channarayapatna APMC,2200,1.21,Hassan
+2025-02-11,Paddy,Channarayapatna APMC,2200,1.18,Hassan
+2025-07-02,Paddy,Channarayapatna APMC,2200,7,Hassan
+2026-01-04,Paddy,Channarayapatna APMC,2200,9.7,Hassan
+2026-02-04,Paddy,Channarayapatna APMC,2200,9.2,Hassan
+2026-02-05,Paddy,Channarayapatna APMC,3000,11.6,Hassan
+2026-03-02,Paddy,Channarayapatna APMC,1900,38.9,Hassan
+2026-03-06,Paddy,Channarayapatna APMC,2150,7.5,Hassan
+2021-11-10,Paddy,Hassan APMC,1300,12,Hassan
+2023-12-12,Paddy,Hassan APMC,1750,125,Hassan
+2024-01-07,Paddy,Hassan APMC,2105,19,Hassan
+2024-03-09,Paddy,Hassan APMC,2600,10,Hassan
+2024-06-08,Paddy,Hassan APMC,2450,10,Hassan
+2024-09-01,Paddy,Hassan APMC,2383,105,Hassan
+2024-10-01,Paddy,Hassan APMC,2352,82,Hassan
+2024-12-09,Paddy,Hassan APMC,2300,13,Hassan
+2026-01-04,Paddy,Hassan APMC,2800,13,Hassan
+2026-02-06,Paddy,Hassan APMC,2000,9,Hassan
+2026-03-03,Paddy,Hassan APMC,3000,8,Hassan
+2026-03-07,Paddy,Hassan APMC,2300,18,Hassan
+2026-03-08,Paddy,Hassan APMC,2200,20,Hassan
+2026-04-02,Paddy,Hassan APMC,2110,10,Hassan
+2026-04-04,Paddy,Hassan APMC,3000,8,Hassan
+2026-04-06,Paddy,Hassan APMC,1999,9,Hassan
+2026-06-04,Paddy,Hassan APMC,2800,23.8,Hassan
+2026-06-07,Paddy,Hassan APMC,2700,15,Hassan
+2026-07-07,Paddy,Hassan APMC,2700,15,Hassan
+2026-08-03,Paddy,Hassan APMC,2400,15.5,Hassan
+2021-06-02,Paddy,Holenarsipura APMC,1200,5,Hassan
+2026-05-08,Paddy,Holenarsipura APMC,2000,113.2,Hassan
+2026-06-04,Paddy,Holenarsipura APMC,22000,15,Hassan
+2024-03-04,Paddy,Sakaleshpura APMC,2775,8,Hassan
+2024-03-10,Paddy,Sakaleshpura APMC,2500,5,Hassan
+2024-12-09,Paddy,Sakaleshpura APMC,2500,5,Hassan
+2025-03-02,Paddy,Sakaleshpura APMC,2500,7,Hassan
+2025-04-02,Paddy,Sakaleshpura APMC,2500,27,Hassan
+2025-06-02,Paddy,Sakaleshpura APMC,2298,105,Hassan
+2025-10-01,Paddy,Sakaleshpura APMC,2300,421,Hassan
+2025-11-01,Paddy,Sakaleshpura APMC,2250,56,Hassan
+2025-12-01,Paddy,Sakaleshpura APMC,2200,10,Hassan
+2026-01-06,Paddy,Sakaleshpura APMC,2500,7.4,Hassan
+2026-01-08,Paddy,Sakaleshpura APMC,2600,21.2,Hassan
+2026-02-07,Paddy,Sakaleshpura APMC,2150,25,Hassan
+2026-03-06,Paddy,Sakaleshpura APMC,2500,7.2,Hassan
+2026-03-07,Paddy,Sakaleshpura APMC,2545,31,Hassan
+2026-04-04,Paddy,Sakaleshpura APMC,2500,8.6,Hassan
+2026-04-05,Paddy,Sakaleshpura APMC,2400,7.4,Hassan
+2026-04-08,Paddy,Sakaleshpura APMC,2500,7,Hassan
+2026-05-03,Paddy,Sakaleshpura APMC,2460,62.5,Hassan
+2026-06-07,Paddy,Sakaleshpura APMC,2000,6,Hassan
+2026-07-04,Paddy,Sakaleshpura APMC,2300,9.1,Hassan
+2026-07-05,Paddy,Sakaleshpura APMC,2000,12,Hassan
+2026-07-07,Paddy,Sakaleshpura APMC,2450,8.5,Hassan
+2026-08-04,Paddy,Sakaleshpura APMC,2300,13,Hassan
+"""
+
+p = Path('backend/data/paddy_dataset.csv')
+backup = p.with_suffix(p.suffix + '.bak')
+if p.exists():
+    backup.write_text(p.read_text(encoding='utf-8', errors='replace'), encoding='utf-8')
+    print(f'Backup saved to {backup}')
+p.write_text(csv_text, encoding='utf-8')
+print(f"Wrote {p} ({len(csv_text.encode('utf-8'))} bytes)")
