@@ -6,6 +6,7 @@ import pandas as pd
 COLUMN_ALIASES = {
     "date": "date",
     "crop_name": "crop_name",
+    "vegetable_name": "crop_name",
     "crop_name_name": "crop_name",
     "crop name": "crop_name",
     "commodity": "crop_name",

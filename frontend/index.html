@@ -1448,7 +1448,7 @@
 
     function resultMatchesPlaceName(query, result) {
       const queryWords = normalizePlaceText(query).split(" ").filter(Boolean);
-      const displayText = [result.display_name, result.address?.village, result.address?.hamlet, result.address?.town, result.address?.city, result.name].filter(Boolean).join(" ");
+      const displayText = [result.name, result.address?.village, result.address?.hamlet, result.address?.town, result.address?.city, result.display_name?.split(",")[0]].filter(Boolean).join(" ");
       const textWords = normalizePlaceText(displayText).split(" ").filter(Boolean);
       const placeWord = queryWords[0];
       if (!placeWord) return false;
@@ -1456,7 +1456,7 @@
       for (let index = 0; index < textWords.length - 1; index += 1) {
         candidates.push(`${textWords[index]}${textWords[index + 1]}`);
       }
-      const allowedDistance = Math.max(2, Math.floor(placeWord.length * 0.25));
+      const allowedDistance = Math.max(1, Math.floor(placeWord.length * 0.16));
       return candidates.some((candidate) => spellingDistance(placeWord, candidate) <= allowedDistance);
     }
 
@@ -1466,9 +1466,7 @@
       }
 
       return new Promise((resolve, reject) => {
-        const accuracyTargets = [25, 50, 100, 250, 500];
         let bestPosition = null;
-        let attempt = 0;
         let settled = false;
         let timeoutId = null;
 
@@ -1497,19 +1495,9 @@
               bestPosition = position;
             }
 
-            const targetAccuracy = accuracyTargets[Math.min(attempt, accuracyTargets.length - 1)];
-            if (safeAccuracy <= targetAccuracy) {
-              finish(position);
-              return;
-            }
-
-            if (attempt >= accuracyTargets.length - 1) {
-              finish(bestPosition || position);
-              return;
-            }
-
-            attempt += 1;
-            setTimeout(tryLocation, 1200);
+            // Road-distance estimates do not benefit from waiting 5+ rounds
+            // for a few extra metres of GPS precision. Use the best fix now.
+            finish(bestPosition || position);
           }, (error) => {
             if (error.code === error.PERMISSION_DENIED) {
               finishError(new Error("LOCATION_PERMISSION_DENIED"));
@@ -1519,23 +1507,18 @@
               finish(bestPosition);
               return;
             }
-            if (attempt >= accuracyTargets.length - 1) {
-              finishError(new Error("LOCATION_UNAVAILABLE"));
-              return;
-            }
-            attempt += 1;
-            setTimeout(tryLocation, 1200);
+            finishError(new Error("LOCATION_UNAVAILABLE"));
           }, {
             enableHighAccuracy: true,
-            timeout: 15000,
-            maximumAge: 0
+            timeout: 8000,
+            maximumAge: 60000
           });
         }
 
         timeoutId = setTimeout(() => {
           if (bestPosition) finish(bestPosition);
           else finishError(new Error("LOCATION_UNAVAILABLE"));
-        }, 30000);
+        }, 9000);
 
         tryLocation();
       });
@@ -1575,7 +1558,7 @@
           if (!bestPosition || safeAccuracy < Number(bestPosition.coords.accuracy || Number.MAX_SAFE_INTEGER)) {
             bestPosition = position;
           }
-          if (safeAccuracy <= 100) finish(position);
+          if (safeAccuracy <= 250) finish(position);
         }
 
         function handleError(error) {
@@ -1586,10 +1569,10 @@
 
         watchId = navigator.geolocation.watchPosition(handlePosition, handleError, {
           enableHighAccuracy: true,
-          timeout: 20000,
-          maximumAge: 0
+          timeout: 8000,
+          maximumAge: 60000
         });
-        timeoutId = setTimeout(() => finish(bestPosition), 25000);
+        timeoutId = setTimeout(() => finish(bestPosition), 9000);
       });
     }
 
@@ -1770,7 +1753,7 @@
         const nearest = data.nearest_market;
         const recommended = data.best_market_after_transport;
         nearestMarket.textContent = recommended.market_name;
-        nearestMarketDetails.textContent = `${formatQuintalPrice(recommended.predicted_price)} forecast − ${formatQuintalPrice(recommended.transport_cost_per_quintal)} transport = ${formatQuintalPrice(recommended.net_return_per_quintal)} net return (using ₹${data.transport_cost_per_km_quintal.toFixed(2)}/km/quintal). ${recommended.distance_km.toFixed(1)} km by road to recommended ${recommended.market_name}. Closest APMC: ${nearest.market_name} (${nearest.distance_km.toFixed(1)} km by road).`;
+        nearestMarketDetails.textContent = `${formatQuintalPrice(recommended.predicted_price)} forecast − ${formatQuintalPrice(recommended.transport_cost_per_quintal)} transport = ${formatQuintalPrice(recommended.net_return_per_quintal)} net return (using ₹${data.transport_cost_per_km_quintal.toFixed(2)}/km/quintal). ${recommended.distance_km.toFixed(1)} km to recommended ${recommended.market_name}. Closest APMC: ${nearest.market_name} (${nearest.distance_km.toFixed(1)} km). Distance source: ${data.distance_note}.`;
         renderMarketChart(data.market_rankings, recommended.market_name, "predicted_price", "Predicted price by market");
         statusBox.textContent = "";
       } catch (error) {
@@ -1848,14 +1831,27 @@
           .replace(/\s*,\s*/g, ", ")
           .replace(/\s+/g, " ")
           .trim();
+        // Doddamallenahalli is also mapped as Dodda Mallenahalli. Accept the
+        // common short/misspelled forms people use for this Hassan village.
+        const villageOnly = normalizePlaceText(normalizedQuery.split(",")[0]);
+        const knownVillage = /^(?:dodd?malenahalli|dodd?mallenahalli|dodda mallenahalli|doddamallenahalli)$/.test(villageOnly)
+          ? {
+              name: "Dodda Mallenahalli",
+              lat: "12.88878",
+              lon: "76.16090",
+              display_name: "Dodda Mallenahalli, Hassan, Karnataka, India",
+              address: { village: "Dodda Mallenahalli", district: "Hassan", state: "Karnataka", country: "India" }
+            }
+          : null;
+        const placeSearchText = knownVillage ? "Dodda Mallenahalli, Hassan, Karnataka, India" : normalizedQuery;
         // Try common local spelling variants. For example, users may type
         // "Mosalehosalli" while mapping data records "Mosalehosahalli".
         const villageVariants = [...new Set([
-          normalizedQuery,
-          normalizedQuery.replace(/hosalli\b/gi, "hosahalli"),
-          normalizedQuery.replace(/hosahalli\b/gi, "hosalli"),
-          normalizedQuery.replace(/\b(village|grama|gram panchayat|panchayat)\b/gi, "").trim(),
-          normalizedQuery.replace(/\s+district\b/gi, "")
+          placeSearchText,
+          placeSearchText.replace(/hosalli\b/gi, "hosahalli"),
+          placeSearchText.replace(/hosahalli\b/gi, "hosalli"),
+          placeSearchText.replace(/\b(village|grama|gram panchayat|panchayat)\b/gi, "").trim(),
+          placeSearchText.replace(/\s+district\b/gi, "")
         ].filter(Boolean))];
         const includesHassan = /\bhassan\b/i.test(normalizedQuery);
         const geocoderContexts = [
@@ -1891,6 +1887,8 @@
           seenResults.set(key, { ...result, lat: String(lat), lon: String(lon), display_name: displayName });
         };
 
+        if (knownVillage) pushResult(knownVillage);
+
         const requestJson = async (url) => {
           try {
             const controller = new AbortController();
@@ -1903,7 +1901,7 @@
           }
         };
 
-        const photonQueries = [...new Set([
+        const photonQueries = knownVillage ? [] : [...new Set([
           `${villageVariants[0]}, Karnataka, India`,
           includesHassan ? `${villageVariants[0]}, Hassan District, Karnataka, India` : `${villageVariants[0]}, Karnataka, India`,
           `${villageVariants[0]}`
@@ -1920,32 +1918,40 @@
               pushResult({
                 lat: String(latitude),
                 lon: String(longitude),
+                name: place.name,
+                address: {
+                  village: place.osm_value === "village" ? place.name : undefined,
+                  hamlet: place.osm_value === "hamlet" ? place.name : undefined,
+                  town: place.osm_value === "town" ? place.name : undefined,
+                  city: place.osm_value === "city" ? place.name : place.city,
+                  district: place.district,
+                  state: place.state,
+                  country: place.country
+                },
                 display_name: [place.name, place.locality, place.city, place.district, place.state, place.country].filter(Boolean).join(", ") || normalizedQuery
               });
             });
         });
 
-        for (const searchQuery of searchQueries.slice(0, 3)) {
+        // Query a general place index first, then use Nominatim's more
+        // detailed address index for only the strongest contextual queries.
+        // Repeated spelling permutations used to make village lookup slow.
+        for (const searchQuery of searchQueries.slice(0, knownVillage ? 0 : 2)) {
           const matches = await requestJson(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=12&countrycodes=in&accept-language=en&q=${encodeURIComponent(searchQuery)}`);
           if (!matches || !matches.length) continue;
           matches.forEach(pushResult);
-          if (seenResults.size >= 24) break;
+          // One useful Nominatim response is enough; Photon already searches
+          // alternate place spellings in parallel.
+          break;
         }
 
-        if (seenResults.size === 0) {
-          const typoQueries = spellingVariants(villageVariants[0]).slice(1, 18);
-          for (const typoVariant of typoQueries) {
-            const matches = await requestJson(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=8&countrycodes=in&accept-language=en&q=${encodeURIComponent(`${typoVariant}, Karnataka, India`)}`);
-            if (!matches || !matches.length) continue;
-            matches.forEach(pushResult);
-            if (seenResults.size >= 12) break;
-          }
-        }
+        // Photon supports fuzzy matching, so avoid serial one-character
+        // Nominatim requests; they could add over a minute to a miss.
 
         // Photon has a separate village and landmark index. It is a useful
         // fallback for small villages, alternate spellings, and gram panchayat
         // names that are not returned by the first search service.
-        results = [...seenResults.values()]
+        results = knownVillage ? [knownVillage] : [...seenResults.values()]
           .sort((a, b) => rankSearchResult(normalizedQuery, b) - rankSearchResult(normalizedQuery, a))
           .slice(0, 24);
         const relevantResults = results.filter((result) => resultMatchesPlaceName(normalizedQuery, result));

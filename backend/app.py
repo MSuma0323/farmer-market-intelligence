@@ -1,3 +1,4 @@
+import math
 import pickle
 import sys
 import json
@@ -169,17 +170,31 @@ def _osrm_distance_km(latitude_1, longitude_1, latitude_2, longitude_2):
 
 
 def road_distance_km(latitude_1, longitude_1, latitude_2, longitude_2):
+    # Public routers can occasionally snap a village point to a distant road
+    # or return a large detour. Reject routes far out of line with geography.
+    lat_1, lat_2 = math.radians(latitude_1), math.radians(latitude_2)
+    delta_lat = lat_2 - lat_1
+    delta_lon = math.radians(longitude_2 - longitude_1)
+    haversine = (
+        math.sin(delta_lat / 2) ** 2
+        + math.cos(lat_1) * math.cos(lat_2) * math.sin(delta_lon / 2) ** 2
+    )
+    straight_line_km = 6371.0088 * 2 * math.asin(min(1.0, math.sqrt(haversine)))
+    plausible_road_limit_km = max(straight_line_km * 3, straight_line_km + 40)
+
     graphhopper_distance = _graphhopper_distance_km(
         latitude_1, longitude_1, latitude_2, longitude_2
     )
-    if graphhopper_distance is not None:
+    if graphhopper_distance is not None and graphhopper_distance <= plausible_road_limit_km:
         return graphhopper_distance, "GraphHopper driving route"
 
     osrm_distance = _osrm_distance_km(latitude_1, longitude_1, latitude_2, longitude_2)
-    if osrm_distance is not None:
+    if osrm_distance is not None and osrm_distance <= plausible_road_limit_km:
         return osrm_distance, "OSRM driving route"
 
-    return None, None
+    # Keep the recommendation usable during routing outages, while telling the
+    # caller that this is an estimate rather than a measured driving route.
+    return round(straight_line_km * 1.3, 1), "Estimated road distance (1.3× straight-line)"
 
 
 def build_market_features(crop_name: str, market_name: str, days_ahead: int):
