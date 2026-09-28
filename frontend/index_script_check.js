@@ -32,6 +32,7 @@
     let pendingFarmLocation = null;
     let farmMap;
     let farmMarker;
+    let farmAccuracyCircle;
     function formatQuintalPrice(value) {
       return `â‚¹${Number(value).toFixed(2)} / quintal`;
     }
@@ -46,19 +47,25 @@
 
     function showForecastChange(data) {
       const latestPrice = Number(data.features_used?.latest_actual_price);
-      const forecastPrice = Number(data.predicted_price);
-      if (!Number.isFinite(latestPrice) || !Number.isFinite(forecastPrice)) return;
+      const forecastSeries = Array.isArray(data.features_used?.forecast_series)
+        ? data.features_used.forecast_series
+        : [];
+      const totalForecastPrice = Number(data.predicted_price);
+      const nextDayPrice = Number(forecastSeries[0]?.predicted_price ?? totalForecastPrice);
+      if (!Number.isFinite(latestPrice) || !Number.isFinite(totalForecastPrice) || !Number.isFinite(nextDayPrice)) return;
 
-      const difference = forecastPrice - latestPrice;
-      if (Math.abs(difference) < 0.01) return;
+      const selectedDaysDifference = totalForecastPrice - latestPrice;
+      const nextDayDifference = nextDayPrice - latestPrice;
+      if (Math.abs(selectedDaysDifference) < 0.01) return;
 
-      const direction = difference > 0 ? "increase" : "decrease";
-      const directionText = difference > 0 ? "increased" : "decreased";
-      const percentage = Math.abs((difference / latestPrice) * 100);
+      const direction = selectedDaysDifference > 0 ? "increase" : "decrease";
+      const directionText = selectedDaysDifference > 0 ? "increased" : "decreased";
+      const percentage = Math.abs((selectedDaysDifference / latestPrice) * 100);
+      const nextDayPercentage = Math.abs((nextDayDifference / latestPrice) * 100);
       forecastChangeDialog.className = `alert-dialog forecast-change-dialog ${direction}`;
       forecastChangeTitle.textContent = `Expected price ${directionText}`;
-      forecastChangeAmount.textContent = `${difference > 0 ? "+" : "-"}${formatQuintalPrice(Math.abs(difference))}`;
-      forecastChangeMessage.textContent = `For ${data.crop_name} at ${data.market_name}, the forecast for ${data.forecast_days} day(s) is ${formatQuintalPrice(forecastPrice)}. The latest recorded price is ${formatQuintalPrice(latestPrice)}, a ${percentage.toFixed(1)}% ${directionText}.`;
+      forecastChangeAmount.textContent = `${selectedDaysDifference > 0 ? "+" : "-"}${formatQuintalPrice(Math.abs(selectedDaysDifference))}`;
+      forecastChangeMessage.textContent = `For ${data.crop_name} at ${data.market_name}, the forecast for ${data.forecast_days} day(s) is ${formatQuintalPrice(totalForecastPrice)}. The latest recorded price is ${formatQuintalPrice(latestPrice)}. For the next day, the expected change is ${nextDayDifference > 0 ? "+" : "-"}${formatQuintalPrice(Math.abs(nextDayDifference))}, a ${nextDayPercentage.toFixed(1)}% ${directionText}.`;
       forecastChangeDialog.showModal();
     }
 
@@ -82,7 +89,8 @@
         ...getInputPayload(),
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-        location_accuracy_m: position.coords.accuracy
+        location_accuracy_m: position.coords.accuracy,
+        location_district: position.district || ""
       };
     }
 
@@ -168,6 +176,33 @@
         .trim();
     }
 
+    function spellingVariants(value) {
+      const variants = new Set([value]);
+      for (let index = 0; index < value.length; index += 1) {
+        variants.add(`${value.slice(0, index)}${value.slice(index + 1)}`);
+        if (index < value.length - 1 && value[index] !== value[index + 1]) {
+          variants.add(`${value.slice(0, index)}${value[index + 1]}${value[index]}${value.slice(index + 2)}`);
+        }
+      }
+      return [...variants].filter((variant) => variant.length >= 3);
+    }
+
+    function spellingDistance(first, second) {
+      const previous = Array.from({ length: second.length + 1 }, (_, index) => index);
+      for (let row = 1; row <= first.length; row += 1) {
+        const current = [row];
+        for (let column = 1; column <= second.length; column += 1) {
+          current[column] = Math.min(
+            current[column - 1] + 1,
+            previous[column] + 1,
+            previous[column - 1] + (first[row - 1] === second[column - 1] ? 0 : 1)
+          );
+        }
+        previous.splice(0, previous.length, ...current);
+      }
+      return previous[second.length];
+    }
+
     function rankSearchResult(query, result) {
       const normalizedQuery = normalizePlaceText(query);
       const displayText = [
@@ -192,7 +227,27 @@
       if (normalizedText.includes(normalizedQuery.split(" ")[0])) score += 10;
       if (normalizedText.includes("kunchur") && !normalizedQuery.includes("kunchur")) score -= 300;
       if (normalizedText.includes("haluvagalu") && normalizedQuery.includes("haluvagalu")) score += 80;
+      const queryWords = normalizedQuery.split(" ");
+      const textWords = normalizedText.split(" ");
+      const closestWordDistance = Math.min(...queryWords.map((queryWord) =>
+        Math.min(...textWords.map((textWord) => spellingDistance(queryWord, textWord)))
+      ));
+      score += Math.max(0, 18 - closestWordDistance * 3);
       return score;
+    }
+
+    function resultMatchesPlaceName(query, result) {
+      const queryWords = normalizePlaceText(query).split(" ").filter(Boolean);
+      const displayText = [result.display_name, result.address?.village, result.address?.hamlet, result.address?.town, result.address?.city, result.name].filter(Boolean).join(" ");
+      const textWords = normalizePlaceText(displayText).split(" ").filter(Boolean);
+      const placeWord = queryWords[0];
+      if (!placeWord) return false;
+      const candidates = [...textWords];
+      for (let index = 0; index < textWords.length - 1; index += 1) {
+        candidates.push(`${textWords[index]}${textWords[index + 1]}`);
+      }
+      const allowedDistance = Math.max(2, Math.floor(placeWord.length * 0.25));
+      return candidates.some((candidate) => spellingDistance(placeWord, candidate) <= allowedDistance);
     }
 
     function getCurrentLocation() {
@@ -280,6 +335,54 @@
       return selectedFarmLocation;
     }
 
+    function getCurrentLocationForMap() {
+      if (!navigator.geolocation) {
+        return Promise.reject(new Error("LOCATION_UNAVAILABLE"));
+      }
+
+      return new Promise((resolve, reject) => {
+        let watchId = null;
+        let timeoutId = null;
+        let bestPosition = null;
+        let settled = false;
+
+        function finish(position, error) {
+          if (settled) return;
+          settled = true;
+          if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+          clearTimeout(timeoutId);
+          if (position) resolve(position);
+          else reject(error || new Error("LOCATION_UNAVAILABLE"));
+        }
+
+        function handlePosition(position) {
+          const latitude = Number(position?.coords?.latitude);
+          const longitude = Number(position?.coords?.longitude);
+          const accuracy = Number(position?.coords?.accuracy);
+          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
+
+          const safeAccuracy = Number.isFinite(accuracy) && accuracy > 0 ? accuracy : Number.MAX_SAFE_INTEGER;
+          if (!bestPosition || safeAccuracy < Number(bestPosition.coords.accuracy || Number.MAX_SAFE_INTEGER)) {
+            bestPosition = position;
+          }
+          if (safeAccuracy <= 100) finish(position);
+        }
+
+        function handleError(error) {
+          if (error.code === error.PERMISSION_DENIED) {
+            finish(null, new Error("LOCATION_PERMISSION_DENIED"));
+          }
+        }
+
+        watchId = navigator.geolocation.watchPosition(handlePosition, handleError, {
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 0
+        });
+        timeoutId = setTimeout(() => finish(bestPosition), 25000);
+      });
+    }
+
     async function getPlaceName(position) {
       if (position.placeName) return position.placeName;
       const { latitude, longitude } = position.coords;
@@ -340,7 +443,7 @@
       };
       farmMapSelection.textContent = source === "gps"
         ? "GPS location selected. Check the marker, then confirm it."
-        : "Farm location selected. Click Confirm location to save it.";
+        : "Farm location selected. Click Confirm map pin to save it.";
     }
 
     function openFarmMap() {
@@ -500,11 +603,12 @@
         useGpsLocationButton.disabled = false;
       }
     });
+
     useCurrentLocationButton.addEventListener("click", async () => {
       useCurrentLocationButton.disabled = true;
       farmMapSelection.textContent = "Finding your current location...";
       try {
-        const position = await getCurrentLocation();
+        const position = await getCurrentLocationForMap();
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         setFarmMarker(lat, lon, position.coords.accuracy || 25, "gps");
@@ -566,63 +670,91 @@
           const lat = Number(result.lat ?? result.latitude);
           const lon = Number(result.lon ?? result.longitude);
           const displayName = result.display_name || result.name || result.address?.village || normalizedQuery;
-          const key = `${lat.toFixed(6)},${lon.toFixed(6)},${displayName}`;
-          if (!Number.isFinite(lat) || !Number.isFinite(lon) || seenResults.has(key)) {
+          const placeName = result.name || result.address?.village || displayName.split(",")[0];
+          const normalizedPlaceName = normalizePlaceText(placeName);
+          if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
             return;
           }
+          const duplicate = [...seenResults.values()].some((existing) => {
+            const existingName = normalizePlaceText(existing.name || existing.address?.village || existing.display_name.split(",")[0]);
+            const nearby = Math.abs(Number(existing.lat) - lat) < 0.015 && Math.abs(Number(existing.lon) - lon) < 0.015;
+            return existingName === normalizedPlaceName || (nearby && spellingDistance(existingName, normalizedPlaceName) <= 2);
+          });
+          if (duplicate) return;
+          const key = `${lat.toFixed(6)},${lon.toFixed(6)},${normalizedPlaceName}`;
           seenResults.set(key, { ...result, lat: String(lat), lon: String(lon), display_name: displayName });
         };
 
-        for (const searchQuery of searchQueries) {
-          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=12&countrycodes=in&accept-language=en&q=${encodeURIComponent(searchQuery)}`);
-          if (!response.ok) continue;
-          const matches = await response.json();
-          if (!matches.length) continue;
+        const requestJson = async (url) => {
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 5000);
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeout);
+            return response.ok ? await response.json() : null;
+          } catch (error) {
+            return null;
+          }
+        };
+
+        const photonQueries = [...new Set([
+          `${villageVariants[0]}, Karnataka, India`,
+          includesHassan ? `${villageVariants[0]}, Hassan District, Karnataka, India` : `${villageVariants[0]}, Karnataka, India`,
+          `${villageVariants[0]}`
+        ])];
+        const photonResponses = await Promise.all(photonQueries.map((photonQuery) =>
+          requestJson(`https://photon.komoot.io/api/?limit=12&lang=en&q=${encodeURIComponent(photonQuery)}`)
+        ));
+        photonResponses.filter(Boolean).forEach((photonData) => {
+          (photonData.features || [])
+            .filter((feature) => Array.isArray(feature.geometry?.coordinates))
+            .forEach((feature) => {
+              const [longitude, latitude] = feature.geometry.coordinates;
+              const place = feature.properties || {};
+              pushResult({
+                lat: String(latitude),
+                lon: String(longitude),
+                display_name: [place.name, place.locality, place.city, place.district, place.state, place.country].filter(Boolean).join(", ") || normalizedQuery
+              });
+            });
+        });
+
+        for (const searchQuery of searchQueries.slice(0, 3)) {
+          const matches = await requestJson(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=12&countrycodes=in&accept-language=en&q=${encodeURIComponent(searchQuery)}`);
+          if (!matches || !matches.length) continue;
           matches.forEach(pushResult);
           if (seenResults.size >= 24) break;
+        }
+
+        if (seenResults.size === 0) {
+          const typoQueries = spellingVariants(villageVariants[0]).slice(1, 18);
+          for (const typoVariant of typoQueries) {
+            const matches = await requestJson(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=8&countrycodes=in&accept-language=en&q=${encodeURIComponent(`${typoVariant}, Karnataka, India`)}`);
+            if (!matches || !matches.length) continue;
+            matches.forEach(pushResult);
+            if (seenResults.size >= 12) break;
+          }
         }
 
         // Photon has a separate village and landmark index. It is a useful
         // fallback for small villages, alternate spellings, and gram panchayat
         // names that are not returned by the first search service.
-        if (seenResults.size < 12) {
-          const photonQueries = [...new Set([
-            `${villageVariants[0]}, Karnataka, India`,
-            includesHassan ? `${villageVariants[0]}, Hassan District, Karnataka, India` : `${villageVariants[0]}, Karnataka, India`,
-            `${villageVariants[0]}`
-          ])];
-
-          for (const photonQuery of photonQueries) {
-            const photonResponse = await fetch(`https://photon.komoot.io/api/?limit=12&lang=en&q=${encodeURIComponent(photonQuery)}`);
-            if (!photonResponse.ok) continue;
-            const photonData = await photonResponse.json();
-            const photonMatches = (photonData.features || [])
-              .filter((feature) => Array.isArray(feature.geometry?.coordinates))
-              .map((feature) => {
-                const [longitude, latitude] = feature.geometry.coordinates;
-                const place = feature.properties || {};
-                const displayName = [
-                  place.name,
-                  place.locality,
-                  place.city,
-                  place.district,
-                  place.state,
-                  place.country
-                ].filter(Boolean).join(", ");
-                return {
-                  lat: String(latitude),
-                  lon: String(longitude),
-                  display_name: displayName || normalizedQuery
-                };
-              });
-            photonMatches.forEach(pushResult);
-            if (seenResults.size >= 24) break;
-          }
-        }
-
         results = [...seenResults.values()]
           .sort((a, b) => rankSearchResult(normalizedQuery, b) - rankSearchResult(normalizedQuery, a))
           .slice(0, 24);
+        const relevantResults = results.filter((result) => resultMatchesPlaceName(normalizedQuery, result));
+        if (relevantResults.length > 0) results = relevantResults;
+        const knownLocation = pendingFarmLocation || selectedFarmLocation;
+        if (knownLocation && (results.length === 0 || rankSearchResult(normalizedQuery, results[0]) < 30)) {
+          const { latitude, longitude } = knownLocation.coords;
+          results = [{
+            lat: String(latitude),
+            lon: String(longitude),
+            display_name: query,
+            address: { village: query }
+          }];
+          farmMapSelection.textContent = `Using your current location for ${query}. Select it to continue.`;
+        }
         if (!results.length) {
           throw new Error("No location found");
         }
@@ -631,13 +763,26 @@
           resultButton.type = "button";
           resultButton.className = "map-search-result";
           resultButton.textContent = result.display_name;
-          resultButton.addEventListener("click", () => {
+          resultButton.addEventListener("click", async () => {
             const lat = Number(result.lat);
             const lon = Number(result.lon);
             setFarmMarker(lat, lon, 25, "map");
             farmMap.setView([lat, lon], 16);
-            farmMapSelection.textContent = `Showing ${result.display_name}. Zoom or pan if needed, then tap your exact farm.`;
+            selectedFarmLocation = {
+              coords: {
+                latitude: lat,
+                longitude: lon,
+                accuracy: Number(result.accuracy) || 25
+              },
+              source: "map",
+              placeName: result.display_name,
+              district: result.address?.district || result.address?.county || (/\b(hasan|hassan)\b/i.test(result.display_name) ? "Hassan" : "")
+            };
+            await showLocationUsed(selectedFarmLocation);
+            farmMapSelection.textContent = `Location selected: ${result.display_name}`;
             farmSearchResults.replaceChildren();
+            farmLocationDialog.close();
+            statusBox.textContent = "Location selected. Click Find Best Market by Price & Distance.";
           });
           farmSearchResults.appendChild(resultButton);
         });

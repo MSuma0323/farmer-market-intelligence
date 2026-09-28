@@ -2,10 +2,12 @@ import pickle
 import sys
 import json
 import os
+import re
+from html.parser import HTMLParser
 from concurrent.futures import ThreadPoolExecutor
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, RedirectResponse
@@ -18,6 +20,7 @@ from .data_utils import load_price_data
 from .price_model import PriceForecaster
 from dotenv import load_dotenv
 
+load_dotenv(Path(__file__).resolve().parent / ".env")
 load_dotenv()
 
 graphhopper_key = os.getenv("GRAPHHOPPER_API_KEY")
@@ -104,6 +107,7 @@ class NearbyMarketInput(AutoPredictionInput):
     transport_cost_per_km_quintal: float = Field(
         default=DEFAULT_TRANSPORT_COST_PER_KM_QUINTAL, ge=0
     )
+    location_district: str | None = None
 
 
 def get_graphhopper_key():
@@ -201,6 +205,7 @@ def build_market_features(crop_name: str, market_name: str, days_ahead: int):
     latest_date = system_today
     prices = market_data["price"].tolist()
     latest_actual_price = float(prices[-1])
+    latest_actual_date = market_data["date"].iloc[-1].strftime("%Y-%m-%d")
 
     features = None
     predicted_price = None
@@ -231,6 +236,7 @@ def build_market_features(crop_name: str, market_name: str, days_ahead: int):
     features["predicted_price"] = predicted_price
     features["forecast_series"] = forecast_series
     features["latest_actual_price"] = latest_actual_price
+    features["latest_actual_date"] = latest_actual_date
     features["today_date"] = system_today.strftime("%Y-%m-%d")
     features["prediction_date"] = prediction_date.strftime("%Y-%m-%d")
 
@@ -311,6 +317,8 @@ def metadata():
         )
         for crop in crops
     }
+
+
     market_notes = {}
     for crop in crops:
         crop_counts = (
@@ -332,6 +340,132 @@ def metadata():
         "market_map": market_map,
         "market_notes": market_notes,
         "today_date": pd.Timestamp.now().normalize().strftime("%Y-%m-%d"),
+        "unit": "Rs./Quintal",
+    }
+
+
+@app.get("/current-price")
+def current_price(crop_name: str, market_name: str | None = None):
+    """Fetch the latest statewide crop range from Karnataka's KRAMA portal."""
+    class ReportTableParser(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.rows = []
+            self.row = None
+            self.cell = None
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "tr":
+                self.row = []
+            elif tag in ("td", "th") and self.row is not None:
+                self.cell = []
+
+        def handle_data(self, data):
+            if self.cell is not None:
+                self.cell.append(data)
+
+        def handle_endtag(self, tag):
+            if tag in ("td", "th") and self.cell is not None and self.row is not None:
+                self.row.append(" ".join("".join(self.cell).split()))
+                self.cell = None
+            elif tag == "tr" and self.row is not None:
+                if self.row:
+                    self.rows.append(self.row)
+                self.row = None
+
+    portal_url = "https://krama.karnataka.gov.in/"
+    try:
+        request = Request(
+            portal_url,
+            headers={"User-Agent": "FarmerMarketIntelligence/1.0"},
+        )
+        with urlopen(request, timeout=15) as response:
+            html = response.read().decode("utf-8", errors="replace")
+    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
+        raise HTTPException(
+            status_code=502,
+            detail="Could not retrieve prices from Karnataka's KRAMA portal. Try again later.",
+        ) from error
+
+    parser = ReportTableParser()
+    parser.feed(html)
+    normalize = lambda value: re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
+    wanted = normalize(crop_name)
+    # KRAMA's homepage groups varieties beneath commodity headings. Stop
+    # collecting a crop's varieties at every official commodity heading,
+    # including crops that are not present in this project's forecast data.
+    portal_commodities = {
+        "Wheat", "Paddy", "Rice", "Maize", "Jowar", "Bajra", "Ragi", "Navane",
+        "Same/Savi", "Sajje", "Cashewnut", "Dry Grapes", "Cotton", "Lint",
+        "All Flowers", "Rose", "Crysanthamum", "Marygold", "Soapnut",
+        "Tamarind Seed", "Antawala", "Tamarind Fruit", "Apple", "Orange",
+        "Banana", "Pine Apple", "Grapes", "Chikoos (Sapota)", "Papaya",
+        "Water Melon", "Mousambi", "Guava", "Karbuja", "Pomagranate",
+        "Other Fruits", "Cow", "Ox", "Bull", "Calf", "He Baffalo",
+        "She Baffalo", "Sheep", "Goat", "Ram", "Groundnut", "Sesamum",
+        "Mustard", "Soyabeen", "Sunflower", "Safflower", "Cotton Seed",
+        "Gingelly", "Honge Seed", "Neem Seed", "Copra", "Groundnut Seed",
+        "Coconut", "Jaggery", "Tender Coconut", "Coco Brooms", "Arecanut",
+        "Betal Leaves", "Bengalgram", "Blackgram", "Greengram", "Green Peas",
+        "Avare", "Cowpea", "Mataki", "Moath", "Horse Gram", "Tur Dal",
+        "Bengal Gramdal", "Black Gramdal", "Green Gramdal", "Avaredal", "Tur",
+        "Bullar", "Chennangidal", "Garlic", "Ginger", "Pepper", "Turmeric",
+        "Methi Seeds", "Coriander Seed", "Dry Chillies", "Onion", "Potato",
+        "Cauliflower", "Brinjal", "Coriander", "Tomato", "Bitter Gourd",
+        "Bottle Gourd", "Ash Gourd", "Green Chilly", "Chilly Capsicum",
+        "Cowpea (Veg)", "Banana Green", "Beans", "Green Ginger", "Sweet Potato",
+        "Carrot", "Cabbage", "Ladies Finger", "Snakeguard", "Beetroot",
+        "White Pumpkin", "Cucumbar", "Ridgeguard", "Raddish", "Thondekai",
+        "Duster Beans", "Capsicum", "Green Avare (W)", "Alasandikai",
+        "Drum Stick", "Chapparada Avare", "Leafy Vegetables", "Sweet Pumpkin",
+        "Peas Wet", "Seemebadanekai", "Knool Khol", "Suvarnagadde", "Lime (Lemon)",
+        "Bunch Beans",
+    }
+    commodity_names = {normalize(name) for name in portal_commodities}
+    active_crop = False
+    price_ranges = []
+    for cells in parser.rows:
+        row_text = " ".join(cells)
+        normalized_row = normalize(row_text)
+        row_crop = next(
+            (name for name in sorted(commodity_names, key=len, reverse=True)
+             if re.search(rf"\b{re.escape(name)}\b", normalized_row)),
+            None,
+        )
+        if row_crop:
+            active_crop = row_crop == wanted
+        if not active_crop:
+            continue
+        numeric_cells = []
+        for cell in cells:
+            cleaned = cell.replace(",", "").strip()
+            if re.fullmatch(r"\d+(?:\.\d+)?", cleaned):
+                numeric_cells.append(float(cleaned))
+        if len(numeric_cells) >= 2:
+            price_ranges.append((numeric_cells[-2], numeric_cells[-1], row_text))
+
+    if not price_ranges:
+        raise HTTPException(
+            status_code=404,
+            detail=f"KRAMA has no current statewide price range for {crop_name}.",
+        )
+
+    min_price = min(item[0] for item in price_ranges)
+    max_price = max(item[1] for item in price_ranges)
+    yesterday_reported = any("(*)" in item[2] for item in price_ranges)
+    report_date = pd.Timestamp.now().normalize()
+    if yesterday_reported:
+        report_date -= pd.Timedelta(days=1)
+
+    return {
+        "crop_name": crop_name,
+        "min_price": round(min_price, 2),
+        "max_price": round(max_price, 2),
+        "price_date": report_date.strftime("%Y-%m-%d"),
+        "market_name": "All reporting Karnataka markets",
+        "is_today": not yesterday_reported,
+        "source": "KRAMA — Karnataka Department of Agricultural Marketing",
+        "source_url": portal_url,
         "unit": "Rs./Quintal",
     }
 
@@ -425,6 +559,7 @@ def best_market_from_dataset(data: AutoPredictionInput):
             "predicted_price": features["predicted_price"],
             "last_price": features["latest_actual_price"],
             "rolling_avg_7": round(features["rolling_avg_7"], 2),
+            "forecast_series": features["forecast_series"],
         })
 
     if not results:
@@ -460,6 +595,24 @@ def best_market_from_dataset(data: AutoPredictionInput):
 def nearest_market_with_best_price(data: NearbyMarketInput):
     print("USER LOCATION:", data.latitude, data.longitude)
     markets = price_data[price_data["crop_name"] == data.crop_name]["market_name"].unique()
+    requested_district = (
+        (data.location_district or "")
+        .lower()
+        .replace("hasana", "hassan")
+        .replace(" district", "")
+        .replace(" taluk", "")
+        .strip()
+    )
+    if requested_district:
+        markets = [
+            market for market in markets
+            if MARKET_DISTRICTS.get(market, "").lower() == requested_district
+        ]
+        if not markets:
+            raise HTTPException(
+                status_code=404,
+                detail=f"No markets are configured for {data.location_district} district.",
+            )
     def calculate_market(market):
         coordinates = MARKET_COORDINATES.get(market)
         print("MARKET:", market, "COORDINATES:", coordinates)
@@ -492,6 +645,7 @@ def nearest_market_with_best_price(data: NearbyMarketInput):
         return {
             "market_name": market,
             "predicted_price": predicted_price,
+            "forecast_series": features["forecast_series"],
             "distance_km": round(distance_km, 1),
             "revenue": revenue,
             "production_cost": production_cost,

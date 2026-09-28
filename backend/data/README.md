@@ -39,3 +39,11 @@ python backend/train_model.py
 5. Restart the backend app if it is already running.
 
 Tip: for better predictions, include at least 8 to 10 rows per crop/market combination.
+
+## Official Karnataka market prices
+
+The price panel fetches the latest statewide min/max range from Karnataka's
+[KRAMA portal](https://krama.karnataka.gov.in/), maintained by the Department of
+Agricultural Marketing. It uses the portal's public latest-prices page and does
+not need an API key. This is a statewide range across reporting markets, not a
+quote for the selected APMC; the local CSV files continue to power forecasts.
