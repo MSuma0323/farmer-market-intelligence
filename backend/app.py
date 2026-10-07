@@ -33,7 +33,7 @@ sys.modules["price_model"] = _price_model
 app = FastAPI()
 FRONTEND_INDEX = Path(__file__).resolve().parent.parent / "frontend" / "index.html"
 FRONTEND_ASSETS = Path(__file__).resolve().parent.parent / "frontend" / "assets"
-MODEL_PATH = Path(__file__).resolve().parent / "models" / "vegetable_price_model.pkl"
+MODEL_PATH = Path(__file__).resolve().parent / "models" / "crop_price_model.pkl"
 DATA_DIR = Path(__file__).resolve().parent / "data"
 FRONTEND_ASSETS.mkdir(parents=True, exist_ok=True)
 
@@ -90,6 +90,17 @@ MARKET_COORDINATES = {
     "Hassan APMC": (12.9951, 76.0882),
     "Holenarsipura APMC": (12.7863, 76.2433),
     "Sakaleshpura APMC": (12.9410, 75.7850),
+}
+
+MARKET_DISTRICTS = {
+    "Arakalgud APMC": "Hassan",
+    "Arasikere APMC": "Hassan",
+    "Belur APMC": "Hassan",
+    "C.R. Patna APMC": "Hassan",
+    "Channarayapatna APMC": "Hassan",
+    "Hassan APMC": "Hassan",
+    "Holenarsipura APMC": "Hassan",
+    "Sakaleshpura APMC": "Hassan",
 }
 
 # A conservative local hauling estimate used when the farmer has not supplied
@@ -169,6 +180,26 @@ def _osrm_distance_km(latitude_1, longitude_1, latitude_2, longitude_2):
     return round(float(distance_meters) / 1000, 1)
 
 
+def _sanitize_route_distance(straight_line_km: float, route_distance_km: float | None) -> float | None:
+    """Reject unrealistic detours that are much longer than the direct road path."""
+    if route_distance_km is None:
+        return None
+
+    route_distance_km = float(route_distance_km)
+    if straight_line_km <= 0:
+        return round(route_distance_km, 1)
+
+    ratio = route_distance_km / straight_line_km
+    max_reasonable_ratio = 1.35
+    if ratio > max_reasonable_ratio:
+        # Avoid trusting router detours that are far beyond a sensible road
+        # geometry. In rural Karnataka, a 30-35% over-straight-line route is
+        # already a fairly large detour, so we prefer a conservative estimate.
+        return round(straight_line_km * 1.3, 1)
+
+    return round(route_distance_km, 1)
+
+
 def road_distance_km(latitude_1, longitude_1, latitude_2, longitude_2):
     # Public routers can occasionally snap a village point to a distant road
     # or return a large detour. Reject routes far out of line with geography.
@@ -185,10 +216,14 @@ def road_distance_km(latitude_1, longitude_1, latitude_2, longitude_2):
     graphhopper_distance = _graphhopper_distance_km(
         latitude_1, longitude_1, latitude_2, longitude_2
     )
+    if graphhopper_distance is not None:
+        graphhopper_distance = _sanitize_route_distance(straight_line_km, graphhopper_distance)
     if graphhopper_distance is not None and graphhopper_distance <= plausible_road_limit_km:
         return graphhopper_distance, "GraphHopper driving route"
 
     osrm_distance = _osrm_distance_km(latitude_1, longitude_1, latitude_2, longitude_2)
+    if osrm_distance is not None:
+        osrm_distance = _sanitize_route_distance(straight_line_km, osrm_distance)
     if osrm_distance is not None and osrm_distance <= plausible_road_limit_km:
         return osrm_distance, "OSRM driving route"
 

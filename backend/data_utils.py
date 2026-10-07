@@ -38,7 +38,8 @@ def load_price_data(data_dir: Path) -> pd.DataFrame:
     frames = []
     for csv_path in csv_files:
         try:
-            df = pd.read_csv(csv_path, encoding='utf-8', on_bad_lines='skip')
+            # Accept UTF-8 CSVs with or without a BOM (Excel commonly adds one).
+            df = pd.read_csv(csv_path, encoding='utf-8-sig', on_bad_lines='skip')
         except (pd.errors.EmptyDataError, pd.errors.ParserError, UnicodeDecodeError):
             continue
         if df.empty:

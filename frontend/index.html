@@ -43,55 +43,83 @@
       background-size: cover;
       background-position: center;
       color: #ffffff;
-      min-height: 280px;
-      padding: 34px 20px 30px;
+      min-height: 400px;
+      padding: 48px 24px;
       display: flex;
       align-items: center;
-      box-shadow: inset 0 -80px 120px rgba(0, 0, 0, 0.16);
+      box-shadow: inset 0 -100px 140px rgba(0, 0, 0, 0.2);
     }
 
     .header-inner,
     main {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1440px, calc(100% - 32px));
       margin: 0 auto;
     }
 
     .header-inner {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
-      gap: 22px;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
+      gap: clamp(28px, 5vw, 76px);
       align-items: center;
       animation: fadeUp 0.7s ease both;
     }
 
+    .hero-copy {
+      max-width: 850px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: #f6d58e;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: #e6b65f;
+    }
+
     h1 {
-      margin: 0 0 8px;
-      font-size: clamp(30px, 4vw, 50px);
-      line-height: 1.2;
+      max-width: 820px;
+      margin: 0 0 18px;
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 1.06;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .subtitle {
+      max-width: 590px;
       margin: 0;
-      color: #dcebdd;
-      font-size: 15px;
+      color: rgba(238, 246, 237, 0.88);
+      font-size: 17px;
+      line-height: 1.65;
     }
 
     .hero-card {
       border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.13);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
-      animation: floatCard 4s ease-in-out infinite;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+      animation: floatCard 5s ease-in-out infinite;
       backdrop-filter: blur(6px);
     }
 
     .hero-card img {
       display: block;
       width: 100%;
-      height: 200px;
+      aspect-ratio: 1.58;
       object-fit: cover;
+      object-position: center 44%;
     }
 
     .hero-card div {
@@ -378,8 +406,26 @@
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      align-items: baseline;
+      align-items: center;
       margin-bottom: 12px;
+    }
+
+    .market-chart-title-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .market-chart-crop-image {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #eef7ee;
+      padding: 4px;
+      flex-shrink: 0;
+      box-shadow: inset 0 0 0 1px rgba(47, 111, 67, 0.12);
     }
 
     .market-chart-heading strong {
@@ -834,8 +880,14 @@
     }
 
     @media (max-width: 820px) {
+      header {
+        min-height: 0;
+        padding: 48px 20px;
+      }
+
       .header-inner {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.8fr);
+        gap: 24px;
       }
 
       main {
@@ -848,6 +900,34 @@
     }
 
     @media (max-width: 560px) {
+      header {
+        padding: 38px 16px;
+      }
+
+      .header-inner {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      .hero-eyebrow {
+        margin-bottom: 14px;
+        font-size: 10px;
+      }
+
+      h1 {
+        max-width: 430px;
+        margin-bottom: 12px;
+        font-size: clamp(36px, 10vw, 48px);
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .hero-card {
+        width: min(100%, 420px);
+      }
+
       body::before {
         background-position: 62% center;
         opacity: 0.44;
@@ -855,10 +935,6 @@
 
       form {
         grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 25px;
       }
 
       .market-chart-row {
@@ -879,9 +955,9 @@
 <body>
   <header>
     <div class="header-inner">
-      <div>
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Farmer Market Intelligence</p>
         <h1>Market Intelligence Platform For Farmers</h1>
-         
       </div>
       <div class="hero-card">
         <img src="/assets/farmerA.jpeg" alt="Farmer in the field" />
@@ -974,7 +1050,10 @@
 
       <div class="market-chart" id="marketChart" hidden>
         <div class="market-chart-heading">
-          <strong id="marketChartTitle">Market comparison</strong>
+          <div class="market-chart-title-wrap">
+            <img class="market-chart-crop-image" id="marketChartCropImage" alt="Crop icon" src="" />
+            <strong id="marketChartTitle">Market comparison</strong>
+          </div>
           <span id="marketChartSubtitle">Each market shown with a different color</span>
         </div>
         <div class="market-chart-legend" id="marketChartLegend" aria-label="Market legend"></div>
@@ -1047,6 +1126,8 @@
     // Using the current origin prevents requests from being sent to a
     // different port when the server is started with its default settings.
     const API_BASE_URL = window.location.origin;
+    const COPRA_FALLBACK_API_URL = "http://127.0.0.1:8765";
+    let copraApiBaseUrl = API_BASE_URL;
 
     const form = document.getElementById("predictionForm");
     const statusBox = document.getElementById("status");
@@ -1093,6 +1174,39 @@
         .map((item) => `Day ${item.day}: ${formatQuintalPrice(item.predicted_price)}`)
         .join(" | ");
       return ` Daily forecast: ${dailyPrices}.`;
+    }
+
+    function getSelectedCropName() {
+      return document.getElementById("cropName")?.value || "Crop";
+    }
+
+    function withCropName(title, cropName = getSelectedCropName()) {
+      if (!cropName || !title) return title;
+      return title.toLowerCase().includes(String(cropName).toLowerCase())
+        ? title
+        : `${title} for ${cropName}`;
+    }
+
+    function updateCropTitleImage(cropName = getSelectedCropName()) {
+      const cropImage = document.getElementById("marketChartCropImage");
+      if (!cropImage) return;
+      const crop = String(cropName || "").trim().toLowerCase();
+      const cropImages = {
+        potato: "potato",
+        tomato: "tomato",
+        onion: "onion",
+        maize: "maize",
+        paddy: "paddy",
+        copra: "copra"
+      };
+      const imageName = cropImages[crop];
+      if (!imageName) {
+        cropImage.removeAttribute("src");
+        cropImage.alt = "Crop image unavailable";
+        return;
+      }
+      cropImage.src = `/assets/crop-${imageName}.jpg`;
+      cropImage.alt = cropName || "Crop";
     }
 
     function showForecastChange(data) {
@@ -1145,7 +1259,8 @@
     }
 
     async function postJson(path, payload) {
-      const response = await fetch(`${API_BASE_URL}${path}`, {
+      const apiBaseUrl = payload.crop_name === "Copra" ? copraApiBaseUrl : API_BASE_URL;
+      const response = await fetch(`${apiBaseUrl}${path}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1184,8 +1299,20 @@
 
     async function loadMetadata() {
       try {
-        const response = await fetch(`${API_BASE_URL}/metadata`);
-        const data = await response.json();
+        const response = await fetch(`${API_BASE_URL}/metadata`, { cache: "no-store" });
+        let data = await response.json();
+        if ((data.market_map?.Copra || []).length < 4 && API_BASE_URL !== COPRA_FALLBACK_API_URL) {
+          try {
+            const freshResponse = await fetch(`${COPRA_FALLBACK_API_URL}/metadata`, { cache: "no-store" });
+            const freshData = await freshResponse.json();
+            if ((freshData.market_map?.Copra || []).length >= 4) {
+              data = freshData;
+              copraApiBaseUrl = COPRA_FALLBACK_API_URL;
+            }
+          } catch (fallbackError) {
+            // Keep using the current API if the updated local backend is unavailable.
+          }
+        }
         const cropSelect = document.getElementById("cropName");
 
         if (data.crops && data.crops.length > 0) {
@@ -1206,8 +1333,11 @@
 
     document.getElementById("cropName").addEventListener("change", (event) => {
       populateMarkets(event.target.value);
+      updateCropTitleImage(event.target.value);
       showReadingSource();
     });
+
+    updateCropTitleImage(getSelectedCropName());
 
     document.getElementById("marketName").addEventListener("change", () => {
       showReadingSource();
@@ -1279,6 +1409,7 @@
         });
         marketPointDetails.hidden = true;
         marketChartTitle.textContent = title;
+        updateCropTitleImage(getSelectedCropName());
         marketChartSubtitle.textContent = "Recorded price history by APMC market; click a point for its details";
         marketChartLegend.innerHTML = series.map((market, index) => `<span style="--market-color:${colors[index % colors.length]}"><i></i>${market.market_name}</span>`).join("");
         marketChart.hidden = false;
@@ -1353,6 +1484,7 @@
       });
       marketPointDetails.hidden = true;
       marketChartTitle.textContent = title;
+      updateCropTitleImage(getSelectedCropName());
       marketChartSubtitle.textContent = `Predicted prices by APMC market; click a point to see its market, date, and price`;
       marketChartLegend.innerHTML = series.map((market, index) => `
         <span style="--market-color: ${colors[index % colors.length]}"><i></i>${market.market_name}${market.market_name === suggestedMarket ? " (Suggested)" : ""}</span>
@@ -1465,63 +1597,38 @@
         return Promise.reject(new Error("LOCATION_UNAVAILABLE"));
       }
 
-      return new Promise((resolve, reject) => {
-        let bestPosition = null;
-        let settled = false;
-        let timeoutId = null;
-
-        function finish(position) {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeoutId);
-          resolve(position);
-        }
-
-        function finishError(error) {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeoutId);
-          reject(error);
-        }
-
-        function tryLocation() {
-          if (settled) return;
-
-          navigator.geolocation.getCurrentPosition((position) => {
-            const accuracy = Number(position?.coords?.accuracy);
-            const safeAccuracy = Number.isFinite(accuracy) ? accuracy : Number.MAX_SAFE_INTEGER;
-
-            if (!bestPosition || safeAccuracy < Number(bestPosition.coords.accuracy || Number.MAX_SAFE_INTEGER)) {
-              bestPosition = position;
-            }
-
-            // Road-distance estimates do not benefit from waiting 5+ rounds
-            // for a few extra metres of GPS precision. Use the best fix now.
-            finish(bestPosition || position);
-          }, (error) => {
-            if (error.code === error.PERMISSION_DENIED) {
-              finishError(new Error("LOCATION_PERMISSION_DENIED"));
-              return;
-            }
-            if (bestPosition) {
-              finish(bestPosition);
-              return;
-            }
-            finishError(new Error("LOCATION_UNAVAILABLE"));
-          }, {
-            enableHighAccuracy: true,
-            timeout: 8000,
-            maximumAge: 60000
-          });
-        }
-
-        timeoutId = setTimeout(() => {
-          if (bestPosition) finish(bestPosition);
-          else finishError(new Error("LOCATION_UNAVAILABLE"));
-        }, 9000);
-
-        tryLocation();
+      const readPosition = (options) => new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
       });
+      const isValidPosition = (position) => {
+        const latitude = Number(position?.coords?.latitude);
+        const longitude = Number(position?.coords?.longitude);
+        return Number.isFinite(latitude) && Number.isFinite(longitude)
+          && Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180;
+      };
+
+      return readPosition({ enableHighAccuracy: true, timeout: 15000, maximumAge: 0 })
+        .then((position) => {
+          if (!isValidPosition(position)) throw new Error("LOCATION_UNAVAILABLE");
+          return position;
+        })
+        .catch(async (error) => {
+          if (error.code === error.PERMISSION_DENIED) {
+            throw new Error("LOCATION_PERMISSION_DENIED");
+          }
+          // GPS can time out indoors or on devices without a GPS receiver.
+          // Retry with the device's network or Wi-Fi location, allowing a
+          // recent cached fix so intermittent GPS does not block the farmer.
+          try {
+            const position = await readPosition({ enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
+            if (isValidPosition(position)) return position;
+          } catch (fallbackError) {
+            if (fallbackError.code === fallbackError.PERMISSION_DENIED) {
+              throw new Error("LOCATION_PERMISSION_DENIED");
+            }
+          }
+          throw new Error("LOCATION_UNAVAILABLE");
+        });
     }
 
     function getFarmLocation() {
@@ -1529,51 +1636,7 @@
     }
 
     function getCurrentLocationForMap() {
-      if (!navigator.geolocation) {
-        return Promise.reject(new Error("LOCATION_UNAVAILABLE"));
-      }
-
-      return new Promise((resolve, reject) => {
-        let watchId = null;
-        let timeoutId = null;
-        let bestPosition = null;
-        let settled = false;
-
-        function finish(position, error) {
-          if (settled) return;
-          settled = true;
-          if (watchId !== null) navigator.geolocation.clearWatch(watchId);
-          clearTimeout(timeoutId);
-          if (position) resolve(position);
-          else reject(error || new Error("LOCATION_UNAVAILABLE"));
-        }
-
-        function handlePosition(position) {
-          const latitude = Number(position?.coords?.latitude);
-          const longitude = Number(position?.coords?.longitude);
-          const accuracy = Number(position?.coords?.accuracy);
-          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
-
-          const safeAccuracy = Number.isFinite(accuracy) && accuracy > 0 ? accuracy : Number.MAX_SAFE_INTEGER;
-          if (!bestPosition || safeAccuracy < Number(bestPosition.coords.accuracy || Number.MAX_SAFE_INTEGER)) {
-            bestPosition = position;
-          }
-          if (safeAccuracy <= 250) finish(position);
-        }
-
-        function handleError(error) {
-          if (error.code === error.PERMISSION_DENIED) {
-            finish(null, new Error("LOCATION_PERMISSION_DENIED"));
-          }
-        }
-
-        watchId = navigator.geolocation.watchPosition(handlePosition, handleError, {
-          enableHighAccuracy: true,
-          timeout: 8000,
-          maximumAge: 60000
-        });
-        timeoutId = setTimeout(() => finish(bestPosition), 9000);
-      });
+      return getCurrentLocation();
     }
 
     async function getPlaceName(position) {
@@ -1701,7 +1764,7 @@
           market_name: data.market_name,
           predicted_price: data.predicted_price,
           forecast_series: data.features_used?.forecast_series || []
-        }], data.market_name, "predicted_price", `${data.market_name} price forecast`);
+        }], data.market_name, "predicted_price", withCropName(`${data.market_name} price forecast`, data.crop_name));
         showForecastChange(data);
       } catch (error) {
         statusBox.textContent = `Backend error: ${error.message}`;
@@ -1729,7 +1792,7 @@
             </tr>
           `)
           .join("");
-        renderMarketChart(data.all_predictions, best.market_name, "predicted_price", "Predicted price by market");
+        renderMarketChart(data.all_predictions, best.market_name, "predicted_price", withCropName("Predicted price by market", getSelectedCropName()));
 
         statusBox.textContent = "";
       } catch (error) {
@@ -1753,8 +1816,8 @@
         const nearest = data.nearest_market;
         const recommended = data.best_market_after_transport;
         nearestMarket.textContent = recommended.market_name;
-        nearestMarketDetails.textContent = `${formatQuintalPrice(recommended.predicted_price)} forecast − ${formatQuintalPrice(recommended.transport_cost_per_quintal)} transport = ${formatQuintalPrice(recommended.net_return_per_quintal)} net return (using ₹${data.transport_cost_per_km_quintal.toFixed(2)}/km/quintal). ${recommended.distance_km.toFixed(1)} km to recommended ${recommended.market_name}. Closest APMC: ${nearest.market_name} (${nearest.distance_km.toFixed(1)} km). Distance source: ${data.distance_note}.`;
-        renderMarketChart(data.market_rankings, recommended.market_name, "predicted_price", "Predicted price by market");
+        nearestMarketDetails.textContent = `${formatQuintalPrice(recommended.predicted_price)} forecast − ${formatQuintalPrice(recommended.transport_cost_per_quintal)} transport = ${formatQuintalPrice(recommended.net_return_per_quintal)} net return (using ₹${data.transport_cost_per_km_quintal.toFixed(2)}/km/quintal). ${recommended.distance_km.toFixed(1)} km to recommended ${recommended.market_name}. Closest APMC: ${nearest.market_name} (${nearest.distance_km.toFixed(1)} km).`;
+        renderMarketChart(data.market_rankings, recommended.market_name, "predicted_price", withCropName("Predicted price by market", getSelectedCropName()));
         statusBox.textContent = "";
       } catch (error) {
         if (error.message === "LOCATION_UNAVAILABLE" || error.message === "LOCATION_PERMISSION_DENIED") {

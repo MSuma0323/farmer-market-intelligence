@@ -36,11 +36,11 @@ split_index = int(len(df) * 0.8)
 train_df = df.iloc[:split_index]
 test_df = df.iloc[split_index:]
 
-model = PriceForecaster()
-model.fit(train_df.to_dict("records"))
+evaluation_model = PriceForecaster()
+evaluation_model.fit(train_df.to_dict("records"))
 
 y_test = test_df["price"].to_numpy()
-y_pred = np.array(model.predict(test_df))
+y_pred = np.array(evaluation_model.predict(test_df))
 
 mae = np.mean(np.abs(y_test - y_pred))
 rmse = np.sqrt(np.mean((y_test - y_pred) ** 2))
@@ -49,6 +49,8 @@ ss_tot = np.sum((y_test - np.mean(y_test)) ** 2)
 r2 = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
 
 MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+model = PriceForecaster()
+model.fit(df.to_dict("records"))
 with MODEL_PATH.open("wb") as file:
     pickle.dump(model, file)
 
