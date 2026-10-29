@@ -4,7 +4,7 @@ import sys
 import json
 import os
 import re
-from html.parser import HTMLParser
+from html import unescape
 from concurrent.futures import ThreadPoolExecutor
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -396,129 +396,292 @@ def metadata():
 
 @app.get("/current-price")
 def current_price(crop_name: str, market_name: str | None = None):
-    """Fetch the latest statewide crop range from Karnataka's KRAMA portal."""
-    class ReportTableParser(HTMLParser):
-        def __init__(self):
-            super().__init__(convert_charrefs=True)
-            self.rows = []
-            self.row = None
-            self.cell = None
-
-        def handle_starttag(self, tag, attrs):
-            if tag == "tr":
-                self.row = []
-            elif tag in ("td", "th") and self.row is not None:
-                self.cell = []
-
-        def handle_data(self, data):
-            if self.cell is not None:
-                self.cell.append(data)
-
-        def handle_endtag(self, tag):
-            if tag in ("td", "th") and self.cell is not None and self.row is not None:
-                self.row.append(" ".join("".join(self.cell).split()))
-                self.cell = None
-            elif tag == "tr" and self.row is not None:
-                if self.row:
-                    self.rows.append(self.row)
-                self.row = None
-
-    portal_url = "https://krama.karnataka.gov.in/"
-    try:
-        request = Request(
-            portal_url,
-            headers={"User-Agent": "FarmerMarketIntelligence/1.0"},
-        )
-        with urlopen(request, timeout=15) as response:
-            html = response.read().decode("utf-8", errors="replace")
-    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
-        raise HTTPException(
-            status_code=502,
-            detail="Could not retrieve prices from Karnataka's KRAMA portal. Try again later.",
-        ) from error
-
-    parser = ReportTableParser()
-    parser.feed(html)
+    """Fetch the selected APMC's latest daily price from AGMARKNET."""
     normalize = lambda value: re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
     wanted = normalize(crop_name)
-    # KRAMA's homepage groups varieties beneath commodity headings. Stop
-    # collecting a crop's varieties at every official commodity heading,
-    # including crops that are not present in this project's forecast data.
-    portal_commodities = {
-        "Wheat", "Paddy", "Rice", "Maize", "Jowar", "Bajra", "Ragi", "Navane",
-        "Same/Savi", "Sajje", "Cashewnut", "Dry Grapes", "Cotton", "Lint",
-        "All Flowers", "Rose", "Crysanthamum", "Marygold", "Soapnut",
-        "Tamarind Seed", "Antawala", "Tamarind Fruit", "Apple", "Orange",
-        "Banana", "Pine Apple", "Grapes", "Chikoos (Sapota)", "Papaya",
-        "Water Melon", "Mousambi", "Guava", "Karbuja", "Pomagranate",
-        "Other Fruits", "Cow", "Ox", "Bull", "Calf", "He Baffalo",
-        "She Baffalo", "Sheep", "Goat", "Ram", "Groundnut", "Sesamum",
-        "Mustard", "Soyabeen", "Sunflower", "Safflower", "Cotton Seed",
-        "Gingelly", "Honge Seed", "Neem Seed", "Copra", "Groundnut Seed",
-        "Coconut", "Jaggery", "Tender Coconut", "Coco Brooms", "Arecanut",
-        "Betal Leaves", "Bengalgram", "Blackgram", "Greengram", "Green Peas",
-        "Avare", "Cowpea", "Mataki", "Moath", "Horse Gram", "Tur Dal",
-        "Bengal Gramdal", "Black Gramdal", "Green Gramdal", "Avaredal", "Tur",
-        "Bullar", "Chennangidal", "Garlic", "Ginger", "Pepper", "Turmeric",
-        "Methi Seeds", "Coriander Seed", "Dry Chillies", "Onion", "Potato",
-        "Cauliflower", "Brinjal", "Coriander", "Tomato", "Bitter Gourd",
-        "Bottle Gourd", "Ash Gourd", "Green Chilly", "Chilly Capsicum",
-        "Cowpea (Veg)", "Banana Green", "Beans", "Green Ginger", "Sweet Potato",
-        "Carrot", "Cabbage", "Ladies Finger", "Snakeguard", "Beetroot",
-        "White Pumpkin", "Cucumbar", "Ridgeguard", "Raddish", "Thondekai",
-        "Duster Beans", "Capsicum", "Green Avare (W)", "Alasandikai",
-        "Drum Stick", "Chapparada Avare", "Leafy Vegetables", "Sweet Pumpkin",
-        "Peas Wet", "Seemebadanekai", "Knool Khol", "Suvarnagadde", "Lime (Lemon)",
-        "Bunch Beans",
+    wanted_market = normalize(market_name) if market_name else None
+    # AGMARKNET and public APMC mirrors use several names for the same crop.
+    # Keep lookup aliases separate from the label shown in the app.
+    crop_aliases = {
+        "paddy": ["paddy common", "paddy"],
+        "onion": ["onion", "onions"],
+        "potato": ["potato", "potatoes"],
+        "tomato": ["tomato", "tomatoes"],
+        "maize": ["maize", "corn"],
+        "copra": ["copra", "coconut"],
     }
-    commodity_names = {normalize(name) for name in portal_commodities}
-    active_crop = False
-    price_ranges = []
-    for cells in parser.rows:
-        row_text = " ".join(cells)
-        normalized_row = normalize(row_text)
-        row_crop = next(
-            (name for name in sorted(commodity_names, key=len, reverse=True)
-             if re.search(rf"\b{re.escape(name)}\b", normalized_row)),
-            None,
+    crop_terms = crop_aliases.get(wanted, [wanted])
+    api_base = "https://api.agmarknet.gov.in/v1"
+    api_headers = {
+        "Accept": "application/json, text/plain, */*",
+        "Origin": "https://agmarknet.gov.in",
+        "Referer": "https://agmarknet.gov.in/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+    }
+
+    def api_json(path, payload=None):
+        body = json.dumps(payload).encode("utf-8") if payload is not None else None
+        headers = dict(api_headers)
+        if body is not None:
+            headers["Content-Type"] = "application/json"
+        request = Request(f"{api_base}{path}", data=body, headers=headers)
+        with urlopen(request, timeout=12) as response:
+            return json.loads(response.read().decode("utf-8", errors="replace"))
+
+    def records(value):
+        if isinstance(value, dict):
+            yield value
+            for child in value.values():
+                yield from records(child)
+        elif isinstance(value, list):
+            for child in value:
+                yield from records(child)
+
+    def find_id(catalog, terms, id_keys):
+        found_records = list(records(catalog))
+        label_keys = (
+            "name", "label", "stateName", "state_name", "marketName",
+            "market_name", "mkt_name", "commodityName", "commodity_name",
+            "cmdt_name", "commodity",
+            "market", "state", "title",
         )
-        if row_crop:
-            active_crop = row_crop == wanted
-        if not active_crop:
+        for exact in (True, False):
+            for record in found_records:
+                labels = [normalize(str(record.get(key, ""))) for key in label_keys]
+                matches = any(label == term for label in labels for term in terms) if exact else any(
+                    term in label for label in labels for term in terms
+                )
+                if not matches:
+                    continue
+                for key in id_keys:
+                    if record.get(key) is not None:
+                        return record[key]
+        return None
+
+    try:
+        filters = api_json("/daily-price-arrival/filters")
+        state_id = find_id(filters, ["karnataka"], ("stateId", "state_id", "id", "value"))
+        market_terms = [wanted_market.replace(" apmc", "")] if wanted_market else []
+        market_id = find_id(filters, market_terms, ("marketId", "market_id", "id", "value")) if market_terms else None
+        commodity_id = find_id(filters, crop_terms, ("commodityId", "commodity_id", "cmdt_id", "id", "value"))
+        if state_id is not None and market_id is not None and commodity_id is not None:
+            today = pd.Timestamp.now().strftime("%Y-%m-%d")
+            report = api_json("/prices-and-arrivals/market-report/daily", {
+                "date": today, "marketIds": [market_id], "stateIds": [state_id], "includeExcel": False,
+            })
+            matching = []
+            for row in records(report):
+                row_text = normalize(" ".join(str(v) for v in row.values() if isinstance(v, (str, int, float))))
+                if not any(term in row_text for term in crop_terms):
+                    continue
+                def number(*keys):
+                    for key in keys:
+                        try:
+                            if row.get(key) not in (None, "", "-"):
+                                return float(str(row[key]).replace(",", ""))
+                        except (ValueError, TypeError):
+                            pass
+                    return None
+                low = number("minPrice", "min_price", "minimumPrice", "min_price_rs")
+                high = number("maxPrice", "max_price", "maximumPrice", "max_price_rs")
+                modal = number("modalPrice", "modal_price", "modalPriceRs", "modal_price_rs")
+                if low is not None and high is not None and modal is not None:
+                    matching.append((low, high, modal, row))
+            if matching:
+                modal_values = [row[2] for row in matching if row[2] is not None]
+                report_day = str(matching[0][3].get("date") or today)[:10]
+                return {
+                    "crop_name": crop_name,
+                    "min_price": round(min(row[0] for row in matching), 2),
+                    "max_price": round(max(row[1] for row in matching), 2),
+                    "modal_price": round(sum(modal_values) / len(modal_values), 2),
+                    "price_date": report_day,
+                    "market_name": market_name or "Selected APMC",
+                    "is_today": report_day == today,
+                    "source": "AGMARKNET 2.0 - Government of India",
+                    "source_url": "https://agmarknet.gov.in/home",
+                    "unit": "Rs./Quintal",
+                }
+    except (HTTPError, URLError, TimeoutError, OSError, ValueError, TypeError, KeyError):
+        # AGMARKNET can be unavailable to server-side requests (for example,
+        # when its CAPTCHA gate is active). Continue to a market-specific
+        # secondary source, and identify it clearly in the response.
+        pass
+
+    # ACROP republishes Agmarknet/data.gov.in records by APMC and commodity,
+    # with the per-commodity report date. Try this before the older market
+    # summary pages below so the fallback can return a fresher exact quote.
+    acrop_crop_slugs = {
+        "paddy": "paddy", "onion": "onion", "potato": "potato",
+        "tomato": "tomato", "maize": "maize", "copra": "copra",
+    }
+    acrop_market_slug = re.sub(r"\s+", "-", re.sub(r"[^a-z0-9 ]+", "", (wanted_market or "").replace(" apmc", "")))
+    acrop_market_slugs = {"c r patna": "channarayapatna", "c r patna apmc": "channarayapatna"}
+    acrop_market_slug = acrop_market_slugs.get(wanted_market or "", acrop_market_slug)
+    if wanted in acrop_crop_slugs and wanted_market:
+        acrop_url = f"https://acrop.app/mandi/karnataka/hassan/{acrop_market_slug}/{acrop_crop_slugs[wanted]}"
+        try:
+            acrop_request = Request(acrop_url, headers={"User-Agent": api_headers["User-Agent"], "Accept": "text/html"})
+            with urlopen(acrop_request, timeout=12) as response:
+                acrop_html = response.read().decode("utf-8", errors="replace")
+            acrop_text = re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", acrop_html)))
+            crop_label = r"Paddy\s*(?:\(Common\)|Common)?" if wanted == "paddy" else re.escape(crop_name)
+            acrop_match = re.search(
+                rf"{crop_label}.*?Modal Price\s*₹\s*([\d,]+).*?Price Date\s*(\d{{1,2}}\s+[A-Za-z]+\s+\d{{4}})",
+                acrop_text,
+                re.IGNORECASE,
+            )
+            if acrop_match:
+                modal_price = float(acrop_match.group(1).replace(",", ""))
+                parsed_date = pd.to_datetime(acrop_match.group(2), dayfirst=True, errors="coerce")
+                if modal_price > 0 and not pd.isna(parsed_date):
+                    price_date = parsed_date.strftime("%Y-%m-%d")
+                    today = pd.Timestamp.now().strftime("%Y-%m-%d")
+                    return {
+                        "crop_name": crop_name, "min_price": modal_price,
+                        "max_price": modal_price, "modal_price": modal_price,
+                        "price_date": price_date, "market_name": market_name or "Selected APMC",
+                        "is_today": price_date == today,
+                        "source": "ACROP (Agmarknet/data.gov.in report)",
+                        "source_url": acrop_url, "unit": "Rs./Quintal",
+                    }
+        except (HTTPError, URLError, TimeoutError, OSError, ValueError):
+            pass
+
+    # Mandi Bhav India exposes market-and-commodity history pages. Only accept
+    # a row that contains an explicit date and quote for the selected APMC.
+    mandi_commodity_slugs = {
+        "paddy": "dhan", "onion": "onion", "potato": "aalu",
+        "tomato": "tomato", "maize": "maize", "copra": "copra",
+    }
+    mandi_market_slug = re.sub(r"\s+", "-", re.sub(r"[^a-z0-9 ]+", "", (wanted_market or "").replace(" apmc", "")))
+    mandi_market_slug = {"c r patna": "channarayapatna", "c r patna apmc": "channarayapatna"}.get(wanted_market or "", mandi_market_slug)
+    if wanted in mandi_commodity_slugs and wanted_market:
+        mandi_url = f"https://mandibhavindia.in/en/commodity/{mandi_commodity_slugs[wanted]}/karnataka/hassan/{mandi_market_slug}"
+        try:
+            mandi_request = Request(mandi_url, headers={"User-Agent": api_headers["User-Agent"], "Accept": "text/html"})
+            with urlopen(mandi_request, timeout=12) as response:
+                mandi_html = response.read().decode("utf-8", errors="replace")
+            crop_row_terms = crop_aliases.get(wanted, [wanted])
+            for row_html in re.findall(r"<tr\b[^>]*>(.*?)</tr>", mandi_html, re.IGNORECASE | re.DOTALL):
+                row_text = re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", row_html))).strip()
+                row_normalized = normalize(row_text)
+                if not any(re.search(rf"\b{re.escape(term)}\b", row_normalized) for term in crop_row_terms):
+                    continue
+                date_match = re.search(r"\b(\d{2}/\d{2}/\d{4})\b", row_text)
+                prices = re.findall(r"₹\s*([\d,]+)", row_text)
+                if not date_match or not prices:
+                    continue
+                parsed_date = pd.to_datetime(date_match.group(1), format="%d/%m/%Y", errors="coerce")
+                modal_price = float(prices[-1].replace(",", ""))
+                if pd.isna(parsed_date) or modal_price <= 0:
+                    continue
+                price_date = parsed_date.strftime("%Y-%m-%d")
+                today = pd.Timestamp.now().strftime("%Y-%m-%d")
+                return {
+                    "crop_name": crop_name, "min_price": modal_price,
+                    "max_price": modal_price, "modal_price": modal_price,
+                    "price_date": price_date, "market_name": market_name,
+                    "is_today": price_date == today,
+                    "source": "Mandi Bhav India (market report; Agmarknet/eNAM data)",
+                    "source_url": mandi_url, "unit": "Rs./Quintal",
+                }
+        except (HTTPError, URLError, TimeoutError, OSError, ValueError):
+            pass
+
+    market_slugs = {
+        "c r patna": "cr-patna",
+        "c r patna apmc": "cr-patna",
+    }
+    market_slug = market_slugs.get(wanted_market or "") or re.sub(
+        r"\s+", "-", re.sub(r"[^a-z0-9 ]+", "", (wanted_market or "").replace(" apmc", ""))
+    )
+    crop_page_slugs = {
+        "paddy": ["paddycommon", "paddy-common", "paddy"],
+    }
+    page_slugs = crop_page_slugs.get(wanted, [re.sub(r"\s+", "-", wanted)])
+    label_patterns = {
+        "paddy": r"Paddy\s*\(?\s*Common\s*\)?|Paddy",
+    }
+    label_pattern = label_patterns.get(wanted, re.escape(crop_name))
+    today = pd.Timestamp.now().strftime("%Y-%m-%d")
+    for crop_slug in page_slugs:
+        fallback_url = f"https://hellokisaan.com/mandirates/karnataka/{market_slug}/{crop_slug}"
+        try:
+            fallback_request = Request(
+                fallback_url,
+                headers={"User-Agent": api_headers["User-Agent"], "Accept": "text/html"},
+            )
+            with urlopen(fallback_request, timeout=15) as response:
+                market_html = response.read().decode("utf-8", errors="replace")
+            price_match = re.search(
+                rf"(?:{label_pattern})\s+Modal Price Today.*?<p[^>]*>\s*\u20B9\s*([\d,]+).*?Official APMC modal price updated on\s+(\d{{4}}-\d{{2}}-\d{{2}})",
+                market_html,
+                re.IGNORECASE | re.DOTALL,
+            )
+            market_match = re.search(
+                rf"{re.escape((market_name or '').replace(' APMC', ''))}\s+APMC,\s*Karnataka",
+                market_html,
+                re.IGNORECASE,
+            )
+            if not (price_match and market_match):
+                continue
+            modal_price = float(price_match.group(1).replace(",", ""))
+            if modal_price <= 0:
+                continue
+            price_date = price_match.group(2)
+            return {
+                "crop_name": crop_name,
+                "min_price": modal_price,
+                "max_price": modal_price,
+                "modal_price": modal_price,
+                "price_date": price_date,
+                "market_name": market_name or "Selected APMC",
+                "is_today": price_date == today,
+                "source": "HelloKisaan (third-party APMC report)",
+                "source_url": fallback_url,
+                "unit": "Rs./Quintal",
+            }
+        except (HTTPError, URLError, TimeoutError, OSError, ValueError):
             continue
-        numeric_cells = []
-        for cell in cells:
-            cleaned = cell.replace(",", "").strip()
-            if re.fullmatch(r"\d+(?:\.\d+)?", cleaned):
-                numeric_cells.append(float(cleaned))
-        if len(numeric_cells) >= 2:
-            price_ranges.append((numeric_cells[-2], numeric_cells[-1], row_text))
 
-    if not price_ranges:
-        raise HTTPException(
-            status_code=404,
-            detail=f"KRAMA has no current statewide price range for {crop_name}.",
+    # Every crop/market combination offered by the app also has local actual
+    # market history for forecasting. If live feeds have no usable response,
+    # return that exact pair's latest observed record with its original date.
+    # This is historical, not a prediction, and must remain labeled as such.
+    if market_name and {"crop_name", "market_name", "date", "price"}.issubset(price_data.columns):
+        history_mask = (
+            price_data["crop_name"].astype(str).map(normalize).eq(wanted)
+            & price_data["market_name"].astype(str).map(normalize).eq(wanted_market)
         )
+        history = price_data.loc[history_mask].copy()
+        if not history.empty:
+            history["_price_date"] = pd.to_datetime(history["date"], errors="coerce")
+            history["_actual_price"] = pd.to_numeric(history["price"], errors="coerce")
+            history = history.dropna(subset=["_price_date", "_actual_price"])
+            history = history[history["_actual_price"] > 0].sort_values("_price_date")
+            if not history.empty:
+                latest = history.iloc[-1]
+                actual_price = float(latest["_actual_price"])
+                price_date = latest["_price_date"].strftime("%Y-%m-%d")
+                today = pd.Timestamp.now().strftime("%Y-%m-%d")
+                return {
+                    "crop_name": crop_name,
+                    "min_price": actual_price,
+                    "max_price": actual_price,
+                    "modal_price": actual_price,
+                    "price_date": price_date,
+                    "market_name": market_name,
+                    "is_today": price_date == today,
+                    "source": "App market-price history (last recorded actual; not a live quote)",
+                    "source_url": None,
+                    "unit": "Rs./Quintal",
+                }
 
-    min_price = min(item[0] for item in price_ranges)
-    max_price = max(item[1] for item in price_ranges)
-    yesterday_reported = any("(*)" in item[2] for item in price_ranges)
-    report_date = pd.Timestamp.now().normalize()
-    if yesterday_reported:
-        report_date -= pd.Timedelta(days=1)
-
-    return {
-        "crop_name": crop_name,
-        "min_price": round(min_price, 2),
-        "max_price": round(max_price, 2),
-        "price_date": report_date.strftime("%Y-%m-%d"),
-        "market_name": "All reporting Karnataka markets",
-        "is_today": not yesterday_reported,
-        "source": "KRAMA — Karnataka Department of Agricultural Marketing",
-        "source_url": portal_url,
-        "unit": "Rs./Quintal",
-    }
-
+    raise HTTPException(
+        status_code=404,
+        detail=f"No modal-price quote was found for {crop_name} at {market_name} in AGMARKNET or the available market report.",
+    )
 
 @app.post("/predict-price")
 @app.post("/predict-price/")
@@ -659,9 +822,19 @@ def nearest_market_with_best_price(data: NearbyMarketInput):
             if MARKET_DISTRICTS.get(market, "").lower() == requested_district
         ]
         if not markets:
+            location_label = (data.location_district or "").strip()
+            # Some geocoders/local spellings return the Kannada-English form
+            # "taluku". Treat it as taluk so the UI never says "taluku district".
+            location_match = re.match(r"^(.*?)(?:\s+(taluk|taluka|taluku|district))?\s*$", location_label, re.I)
+            location_name = (location_match.group(1) if location_match else location_label).strip()
+            location_type = (
+                "taluk"
+                if location_match and (location_match.group(2) or "").lower() in {"taluk", "taluka", "taluku"}
+                else "district"
+            )
             raise HTTPException(
                 status_code=404,
-                detail=f"No markets are configured for {data.location_district} district.",
+                detail=f"No markets are configured for {location_name} {location_type}.",
             )
     def calculate_market(market):
         coordinates = MARKET_COORDINATES.get(market)

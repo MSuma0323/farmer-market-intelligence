@@ -42,8 +42,11 @@ Tip: for better predictions, include at least 8 to 10 rows per crop/market combi
 
 ## Official Karnataka market prices
 
-The price panel fetches the latest statewide min/max range from Karnataka's
-[KRAMA portal](https://krama.karnataka.gov.in/), maintained by the Department of
-Agricultural Marketing. It uses the portal's public latest-prices page and does
-not need an API key. This is a statewide range across reporting markets, not a
-quote for the selected APMC; the local CSV files continue to power forecasts.
+The price panel first checks the Government of India's
+[AGMARKNET 2.0](https://agmarknet.gov.in/home) market-wise report. If that feed
+is unavailable or has no matching quote, it checks market-specific reports
+from ACROP, Mandi Bhav India, and
+[HelloKisaan](https://hellokisaan.com/mandirates/karnataka/). The panel
+identifies the source and report date, and flags reports older than 30 days;
+it never borrows a different market's price. The local CSV files continue to
+power forecasts.

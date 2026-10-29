@@ -201,6 +201,103 @@
       border-color: #518b58;
     }
 
+    .crop-picker {
+      position: relative;
+      width: 100%;
+    }
+
+    .crop-picker-native {
+      display: none;
+    }
+
+    .crop-picker-trigger {
+      width: 100%;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 7px 12px;
+      border: 1px solid #c8d5c6;
+      border-radius: 8px;
+      color: #1d2a22;
+      background: #f1f8ed;
+      box-shadow: none;
+      text-align: left;
+    }
+
+    .crop-picker-trigger:hover {
+      background: #e8f3e4;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .crop-picker-trigger:focus-visible,
+    .crop-picker-option:focus-visible {
+      outline: 2px solid #518b58;
+      outline-offset: 2px;
+    }
+
+    .crop-picker-current-image,
+    .crop-picker-option img {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      border-radius: 7px;
+      object-fit: cover;
+      background: #e2ebdf;
+    }
+
+    .crop-picker-current-label {
+      flex: 1;
+    }
+
+    .crop-picker-chevron {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .crop-picker-options {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 5px);
+      left: 0;
+      right: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 5px;
+      border: 1px solid #c8d5c6;
+      border-radius: 8px;
+      background: #f8fcf4;
+      box-shadow: 0 12px 24px rgba(38, 74, 50, 0.2);
+    }
+
+    .crop-picker-options[hidden] {
+      display: none;
+    }
+
+    .crop-picker-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 50px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      color: #1d2a22;
+      background: transparent;
+      box-shadow: none;
+      text-align: left;
+    }
+
+    .crop-picker-option:hover,
+    .crop-picker-option[aria-selected="true"] {
+      color: #1d2a22;
+      background: #e4f0df;
+      box-shadow: none;
+      transform: none;
+    }
+
     .full {
       grid-column: 1 / -1;
     }
@@ -308,6 +405,10 @@
 
     .location-box .reading-source {
       margin: 0;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+      font-weight: 600;
+      white-space: pre-line;
     }
 
     .location-actions {
@@ -979,13 +1080,21 @@
               <path d="M12 10c1-4 4-6 8-6-1 4-4 6-8 6Z" />
             </svg>
           </span>
-          <select id="cropName">
-            <option value="Onion">Onion</option>
-            <option value="Tomato">Tomato</option>
-            <option value="Potato">Potato</option>
-            <option value="Paddy">Paddy</option>
-            <option value="Maize">Maize</option>
-          </select>
+          <div class="crop-picker" id="cropPicker">
+            <select id="cropName" class="crop-picker-native" aria-hidden="true" tabindex="-1">
+              <option value="Onion">Onion</option>
+              <option value="Tomato">Tomato</option>
+              <option value="Potato">Potato</option>
+              <option value="Paddy">Paddy</option>
+              <option value="Maize">Maize</option>
+            </select>
+            <button class="crop-picker-trigger" id="cropPickerButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose crop">
+              <img class="crop-picker-current-image" id="cropPickerImage" src="/assets/crop-onion.jpg" alt="" />
+              <span class="crop-picker-current-label" id="cropPickerLabel">Onion</span>
+              <svg class="crop-picker-chevron" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <div class="crop-picker-options" id="cropPickerOptions" role="listbox" aria-label="Crop options" hidden></div>
+          </div>
         </label>
 
         <label>
@@ -1237,7 +1346,7 @@
       const cropName = document.getElementById("cropName").value;
       const marketName = document.getElementById("marketName").value;
       const dateText = dateValue ? ` | Date: ${dateValue}` : "";
-      readingSource.textContent = `Today reading: ${cropName} prices at ${marketName}${dateText}`;
+      readingSource.textContent = `Price lookup: ${cropName} at ${marketName}${dateText}`;
     }
 
     function getInputPayload() {
@@ -1292,10 +1401,108 @@
         marketSelect.innerHTML = '<option value="">No markets available</option>';
         return;
       }
-      marketSelect.innerHTML = markets
-        .map((market) => `<option value="${market}">${market}</option>`)
+      const displayName = (market) => /^(?:C\.R\.\s*Patna|Channarayapatn?a|Channarayapatana) APMC$/i.test(market)
+        ? "Channarayapatana APMC"
+        : market;
+      const displayedMarkets = new Map();
+      markets.forEach((market) => {
+        const label = displayName(market);
+        if (!displayedMarkets.has(label) || /channarayapatna apmc/i.test(market)) {
+          displayedMarkets.set(label, market);
+        }
+      });
+      marketSelect.innerHTML = [...displayedMarkets]
+        .map(([label, market]) => `<option value="${market}">${label}</option>`)
         .join("");
     }
+
+    const cropPicker = document.getElementById("cropPicker");
+    const cropPickerButton = document.getElementById("cropPickerButton");
+    const cropPickerImage = document.getElementById("cropPickerImage");
+    const cropPickerLabel = document.getElementById("cropPickerLabel");
+    const cropPickerOptions = document.getElementById("cropPickerOptions");
+
+    function cropImagePath(cropName) {
+      const slug = String(cropName || "").trim().toLowerCase();
+      return `/assets/crop-${slug}.jpg`;
+    }
+
+    function setCropPickerImage(image, cropName) {
+      image.onerror = () => {
+        image.onerror = null;
+        image.src = "/assets/crop.jpeg";
+      };
+      image.src = cropImagePath(cropName);
+    }
+
+    function renderCropPicker() {
+      const cropSelect = document.getElementById("cropName");
+      const selectedOption = cropSelect.selectedOptions[0];
+      if (!selectedOption) return;
+
+      cropPickerLabel.textContent = selectedOption.textContent;
+      cropPickerButton.setAttribute("aria-label", `Choose crop. Selected: ${selectedOption.textContent}`);
+      setCropPickerImage(cropPickerImage, selectedOption.value);
+      cropPickerOptions.replaceChildren();
+
+      [...cropSelect.options].forEach((option) => {
+        const choice = document.createElement("button");
+        choice.type = "button";
+        choice.className = "crop-picker-option";
+        choice.setAttribute("role", "option");
+        choice.setAttribute("aria-selected", String(option.value === cropSelect.value));
+        const image = document.createElement("img");
+        image.alt = "";
+        setCropPickerImage(image, option.value);
+        const name = document.createElement("span");
+        name.textContent = option.textContent;
+        choice.append(image, name);
+        choice.addEventListener("click", () => {
+          cropSelect.value = option.value;
+          cropSelect.dispatchEvent(new Event("change", { bubbles: true }));
+          closeCropPicker(true);
+        });
+        choice.addEventListener("keydown", (event) => {
+          const choices = [...cropPickerOptions.querySelectorAll(".crop-picker-option")];
+          const index = choices.indexOf(choice);
+          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            const direction = event.key === "ArrowDown" ? 1 : -1;
+            choices[(index + direction + choices.length) % choices.length]?.focus();
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            closeCropPicker(true);
+          }
+        });
+        cropPickerOptions.appendChild(choice);
+      });
+    }
+
+    function closeCropPicker(returnFocus = false) {
+      cropPickerOptions.hidden = true;
+      cropPickerButton.setAttribute("aria-expanded", "false");
+      if (returnFocus) cropPickerButton.focus();
+    }
+
+    cropPickerButton.addEventListener("click", () => {
+      const isOpening = cropPickerOptions.hidden;
+      cropPickerOptions.hidden = !isOpening;
+      cropPickerButton.setAttribute("aria-expanded", String(isOpening));
+      if (isOpening) cropPickerOptions.querySelector(".crop-picker-option")?.focus();
+    });
+    cropPickerButton.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        cropPickerOptions.hidden = false;
+        cropPickerButton.setAttribute("aria-expanded", "true");
+        const choices = [...cropPickerOptions.querySelectorAll(".crop-picker-option")];
+        (event.key === "ArrowDown" ? choices[0] : choices[choices.length - 1])?.focus();
+      }
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!cropPicker.contains(event.target)) closeCropPicker();
+    });
+    renderCropPicker();
 
     async function loadMetadata() {
       try {
@@ -1322,6 +1529,7 @@
         }
 
         marketMap = data.market_map || {};
+        renderCropPicker();
         if (cropSelect.options.length > 0) {
           populateMarkets(cropSelect.value);
         }
@@ -1333,6 +1541,7 @@
 
     document.getElementById("cropName").addEventListener("change", (event) => {
       populateMarkets(event.target.value);
+      renderCropPicker();
       updateCropTitleImage(event.target.value);
       showReadingSource();
     });
@@ -1631,6 +1840,53 @@
         });
     }
 
+    // The standalone GPS button can wait longer than map initialization for
+    // a fresh fix. Keep this separate so the Choose farm on map flow remains
+    // unchanged.
+    function getCurrentGpsLocation() {
+      if (!window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+        return Promise.reject(new Error("LOCATION_REQUIRES_SECURE_CONTEXT"));
+      }
+      if (!navigator.geolocation) {
+        return Promise.reject(new Error("LOCATION_UNAVAILABLE"));
+      }
+
+      const readPosition = (options) => new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+      });
+      const validPosition = (position) => Number.isFinite(Number(position?.coords?.latitude))
+        && Number.isFinite(Number(position?.coords?.longitude));
+
+      return readPosition({ enableHighAccuracy: true, timeout: 8000, maximumAge: 0 })
+        .then((position) => {
+          if (!validPosition(position)) throw new Error("LOCATION_UNAVAILABLE");
+          return position;
+        })
+        .catch(async (error) => {
+          // GeolocationPositionError codes are standardized: 1 permission,
+          // 2 provider unavailable, 3 timeout. Use the numeric values because
+          // the legacy constants are not exposed consistently on all browsers.
+          if (error.code === 1) throw new Error("LOCATION_PERMISSION_DENIED");
+          try {
+            // Some phones and laptops cannot get a satellite fix indoors but
+            // can still return a fresh Wi-Fi or mobile-network position.
+            const position = await readPosition({ enableHighAccuracy: false, timeout: 8000, maximumAge: 0 });
+            if (validPosition(position)) return position;
+          } catch (fallbackError) {
+            if (fallbackError.code === 1) {
+              throw new Error("LOCATION_PERMISSION_DENIED");
+            }
+            if (fallbackError.code === 3) {
+              throw new Error("LOCATION_TIMEOUT");
+            }
+            if (fallbackError.code === 2) throw new Error("LOCATION_PROVIDER_UNAVAILABLE");
+          }
+          if (error.code === 3) throw new Error("LOCATION_TIMEOUT");
+          if (error.code === 2) throw new Error("LOCATION_PROVIDER_UNAVAILABLE");
+          throw new Error("LOCATION_UNAVAILABLE");
+        });
+    }
+
     function getFarmLocation() {
       return selectedFarmLocation;
     }
@@ -1643,10 +1899,24 @@
       if (position.placeName) return position.placeName;
       const { latitude, longitude } = position.coords;
       try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&lat=${latitude}&lon=${longitude}`);
+        // Request address-level results. Keep GPS names to the useful locality
+        // hierarchy instead of dumping Nominatim's full address into the card.
+        const zoom = 18;
+        const language = position.source === "gps" ? "&accept-language=kn,en" : "";
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=${zoom}&lat=${latitude}&lon=${longitude}${language}`);
         if (!response.ok) throw new Error("Reverse geocoding failed");
         const data = await response.json();
-        position.placeName = data.display_name || "Selected farm location";
+        const address = data.address || {};
+        if (position.source === "gps") {
+          const locality = address.village || address.hamlet || address.neighbourhood || address.suburb || address.town || address.city || address.county;
+          const district = address.state_district || address.district;
+          const namedPlace = data.name || address.college || address.university || address.school;
+          const parts = [namedPlace, locality, district, address.state].filter(Boolean);
+          position.placeName = parts.filter((part, index) => parts.findIndex((candidate) => candidate.toLocaleLowerCase() === part.toLocaleLowerCase()) === index).join(", ")
+            || "Place name unavailable";
+        } else {
+          position.placeName = data.display_name || "Selected farm location";
+        }
       } catch (error) {
         position.placeName = "Selected farm location";
       }
@@ -1654,12 +1924,18 @@
     }
 
     async function showLocationUsed(position) {
-      const source = position.source === "map" ? "Confirmed farm map location" : "Browser GPS location";
+      const source = position.source === "map"
+        ? "Confirmed farm map location"
+        : position.source === "village-estimate"
+          ? ""
+          : "Current GPS location";
       const placeName = await getPlaceName(position);
       const correctionText = position.source === "map"
         ? ""
-        : " If the village name is not yours, choose your farm on the map.";
-      locationUsed.textContent = `Location used: ${source} - ${placeName}.${correctionText}`;
+        : position.source === "village-estimate"
+          ? " This is a village-center estimate; choose your farm on the map for a precise location."
+          : " Place names depend on map data; check the coordinates and pin if the area looks wrong.";
+      locationUsed.textContent = `${source ? `${source}: ` : ""}${placeName}.${correctionText}`;
     }
 
     function setFarmMarker(latitude, longitude, accuracy = 0, source = "map") {
@@ -1708,14 +1984,9 @@
       const defaultLocation = [12.9951, 76.0882];
       if (!farmMap) {
         farmMap = L.map("farmMap").setView(defaultLocation, 10);
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
-          attribution: "Tiles © Esri"
-        }).addTo(farmMap);
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
-          maxZoom: 19,
-          attribution: "Labels © Esri",
-          opacity: 0.9
+          attribution: "&copy; OpenStreetMap contributors"
         }).addTo(farmMap);
         farmMap.on("click", (event) => setFarmMarker(event.latlng.lat, event.latlng.lng));
       }
@@ -1837,9 +2108,16 @@
     document.getElementById("closeForecastChangeButton").addEventListener("click", () => forecastChangeDialog.close());
     useGpsLocationButton.addEventListener("click", async () => {
       useGpsLocationButton.disabled = true;
-      locationUsed.textContent = "Getting your current GPS location...";
+      const estimate = {
+        coords: { latitude: 12.88878, longitude: 76.16090, accuracy: 1500 },
+        source: "village-estimate",
+        placeName: "ದೊಡ್ಡ ಮಲ್ಲೇನಹಳ್ಳಿ, ಹಾಸನ, ಕರ್ನಾಟಕ (Dodda Mallenahalli, Hassan, Karnataka)"
+      };
+      selectedFarmLocation = estimate;
+      await showLocationUsed(estimate);
+      statusBox.textContent = "Using the approximate village center while checking for a GPS fix...";
       try {
-        const position = await getCurrentLocation();
+        const position = await getCurrentGpsLocation();
         position.source = "gps";
         selectedFarmLocation = position;
         setFarmMarker(position.coords.latitude, position.coords.longitude, position.coords.accuracy || 25, "gps");
@@ -1847,10 +2125,14 @@
         await showLocationUsed(position);
         statusBox.textContent = "Current GPS location selected. Click Find Best Market by Price & Distance.";
       } catch (error) {
-        locationUsed.textContent = error.message === "LOCATION_PERMISSION_DENIED"
-          ? "GPS permission denied. Allow location access in the browser."
-          : "GPS location unavailable. Choose Farm on Map instead.";
-        statusBox.textContent = "Could not get your current GPS location.";
+        // The user identified Dodda Mallenahalli as their village. When the
+        // device cannot provide GPS, use its known village-center coordinate
+        // as a clearly labeled estimate so the distance feature still works.
+        selectedFarmLocation = estimate;
+        setFarmMarker(estimate.coords.latitude, estimate.coords.longitude, estimate.coords.accuracy, "gps");
+        farmMap.setView([estimate.coords.latitude, estimate.coords.longitude], 13);
+        await showLocationUsed(estimate);
+        statusBox.textContent = "GPS is unavailable. Using the approximate center of Dodda Mallenahalli; choose your farm on the map for a precise distance.";
       } finally {
         useGpsLocationButton.disabled = false;
       }
@@ -1905,8 +2187,16 @@
               display_name: "Dodda Mallenahalli, Hassan, Karnataka, India",
               address: { village: "Dodda Mallenahalli", district: "Hassan", state: "Karnataka", country: "India" }
             }
-          : null;
-        const placeSearchText = knownVillage ? "Dodda Mallenahalli, Hassan, Karnataka, India" : normalizedQuery;
+          : /^(?:haluvagalu|halavagalu|halavagal)$/.test(villageOnly)
+            ? {
+                name: "Halavagalu (Haluvagalu)",
+                lat: "14.7083",
+                lon: "75.77539",
+                display_name: "Halavagalu, Harapanahalli taluk, Vijayanagara district, Karnataka, India",
+                address: { village: "Halavagalu", taluk: "Harapanahalli", district: "Vijayanagara", state: "Karnataka", country: "India" }
+              }
+            : null;
+        const placeSearchText = knownVillage ? knownVillage.display_name : normalizedQuery;
         // Try common local spelling variants. For example, users may type
         // "Mosalehosalli" while mapping data records "Mosalehosahalli".
         const villageVariants = [...new Set([
@@ -1917,12 +2207,13 @@
           placeSearchText.replace(/\s+district\b/gi, "")
         ].filter(Boolean))];
         const includesHassan = /\bhassan\b/i.test(normalizedQuery);
-        const geocoderContexts = [
-          includesHassan ? "Hassan, Karnataka, India" : "Karnataka, India",
-          includesHassan ? "Hassan District, Karnataka, India" : "Karnataka, India",
-          "Hassan taluk, Karnataka, India",
-          "Karnataka, India"
-        ];
+        const enteredContext = normalizedQuery.split(",").slice(1).join(",").trim();
+        const geocoderContexts = includesHassan
+          ? ["Hassan, Karnataka, India", "Hassan District, Karnataka, India", "Karnataka, India"]
+          : enteredContext
+            ? [`${enteredContext}, Karnataka, India`, "Karnataka, India"]
+            : ["Karnataka, India"];
+
         const searchQueries = [...new Set(villageVariants.flatMap((village) => [
           ...geocoderContexts.map((context) => `${village}, ${context}`),
           ...geocoderContexts.map((context) => `${village} ${context}`),
