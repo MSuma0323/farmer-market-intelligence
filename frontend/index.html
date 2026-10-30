@@ -34,6 +34,54 @@
       z-index: 1;
     }
 
+    .welcome-screen {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(24px, 6vw, 84px);
+      color: #ffffff;
+      background: linear-gradient(120deg, rgba(10, 35, 22, 0.94) 0%, rgba(22, 63, 39, 0.86) 56%, rgba(25, 67, 42, 0.64) 100%), url("/assets/allcrops.jpeg") center / cover;
+    }
+
+    .welcome-content {
+      width: min(1180px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .8fr);
+      align-items: center;
+      gap: clamp(36px, 7vw, 96px);
+    }
+
+    .welcome-copy { max-width: 660px; }
+    .welcome-kicker { margin: 0 0 22px; color: #f0c36e; font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    .welcome-content h1 { max-width: 700px; margin: 0 0 22px; font-size: clamp(46px, 6.4vw, 78px); line-height: 1.02; letter-spacing: -2px; }
+    .welcome-content h1 span { color: #efc36c; }
+    .welcome-description { max-width: 550px; margin: 0 0 32px; color: rgba(255,255,255,.82); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.7; }
+    .welcome-content button { display: inline-flex; align-items: center; gap: 16px; padding: 15px 22px; border-radius: 7px; background: #e6b457; color: #183822; font-size: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.2); }
+    .welcome-content button:hover { background: #f2c975; }
+    .welcome-content button span { font-size: 20px; line-height: 1; }
+    .welcome-visual { position: relative; padding: 12px; border: 1px solid rgba(255,255,255,.34); border-radius: 18px; background: rgba(255,255,255,.1); box-shadow: 0 28px 70px rgba(0,0,0,.28); transform: rotate(2deg); }
+    .welcome-visual img { display: block; width: 100%; aspect-ratio: .92; max-height: 480px; object-fit: cover; border-radius: 11px; }
+    .welcome-visual-caption { position: absolute; left: -26px; bottom: 34px; max-width: 245px; padding: 15px 18px; border: 1px solid rgba(255,255,255,.48); border-radius: 9px; color: #203a27; background: #fffaf0; box-shadow: 0 12px 30px rgba(0,0,0,.2); transform: rotate(-2deg); }
+    .welcome-visual-caption strong { display: block; margin-bottom: 4px; font-size: 15px; }
+    .welcome-visual-caption span { color: #5d6c5e; font-size: 12px; }
+    .welcome-market-card { position: absolute; top: 28px; right: -24px; width: 190px; padding: 14px; border: 1px solid rgba(255,255,255,.6); border-radius: 10px; color: #263c2b; background: rgba(255, 253, 246, .96); box-shadow: 0 14px 34px rgba(0,0,0,.22); transform: rotate(-2deg); }
+    .welcome-market-card small { display: block; color: #758075; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .welcome-market-card strong { display: block; margin: 5px 0 2px; font-size: 19px; }
+    .welcome-market-card span { color: #2f794a; font-size: 12px; font-weight: 700; }
+    .welcome-market-card svg { display: block; width: 100%; height: 40px; margin-top: 8px; overflow: visible; }
+    .project-back { width: min(1440px, calc(100% - 32px)); margin: 18px auto 0; }
+
+    @media (max-width: 720px) {
+      .welcome-content { grid-template-columns: 1fr; gap: 34px; }
+      .welcome-content h1 { letter-spacing: -1px; }
+      .welcome-visual { width: min(440px, calc(100% - 20px)); justify-self: center; }
+      .welcome-visual img { aspect-ratio: 1.35; max-height: 300px; }
+      .welcome-visual-caption { left: -12px; bottom: 22px; }
+      .welcome-market-card { top: 18px; right: -10px; width: 164px; }
+    }
+
+    [hidden] { display: none !important; }
+
     header {
       position: relative;
       overflow: hidden;
@@ -1054,6 +1102,29 @@
   </style>
 </head>
 <body>
+  <section class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
+    <div class="welcome-content">
+      <div class="welcome-copy">
+        <p class="welcome-kicker">Better insights. Stronger harvests.</p>
+        <h1 id="welcomeTitle">A smarter market journey for <span>farmers.</span></h1>
+        <p class="welcome-description">Understand crop prices, compare nearby markets, and make your next selling decision with confidence.</p>
+        <button type="button" id="openProjectButton">Explore the platform <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="welcome-visual" aria-hidden="true">
+        <img src="/assets/women.jpeg" alt="" />
+        <div class="welcome-market-card">
+          <small>Market outlook</small>
+          <strong>Know your next move</strong>
+          <span>Price trends at a glance</span>
+          <svg viewBox="0 0 160 40" fill="none" aria-hidden="true"><path d="M2 32 28 25 48 29 72 14 96 20 119 8 158 3" stroke="#398052" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 32 28 25 48 29 72 14 96 20 119 8 158 3V40H2Z" fill="url(#welcomeTrendFill)"/><defs><linearGradient id="welcomeTrendFill" x1="80" y1="3" x2="80" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6db77c" stop-opacity=".3"/><stop offset="1" stop-color="#6db77c" stop-opacity="0"/></linearGradient></defs></svg>
+        </div>
+        <div class="welcome-visual-caption"><strong>Made for better decisions</strong><span>Crop forecasts · Market insights · Local prices</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="projectView" hidden>
+  <div class="project-back"><button class="secondary" type="button" id="backToWelcomeButton">← Back to Welcome</button></div>
   <header>
     <div class="header-inner">
       <div class="hero-copy">
@@ -1202,6 +1273,7 @@
     </section>
 
   </main>
+  </div>
 
   <dialog id="farmLocationDialog">
     <h2>Choose your farm location</h2>
@@ -1231,6 +1303,19 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
+    const welcomeScreen = document.getElementById("welcomeScreen");
+    const projectView = document.getElementById("projectView");
+    document.getElementById("openProjectButton").addEventListener("click", () => {
+      welcomeScreen.hidden = true;
+      projectView.hidden = false;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("backToWelcomeButton").addEventListener("click", () => {
+      projectView.hidden = true;
+      welcomeScreen.hidden = false;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
     // The FastAPI server serves both this page and the prediction API.
     // Using the current origin prevents requests from being sent to a
     // different port when the server is started with its default settings.
