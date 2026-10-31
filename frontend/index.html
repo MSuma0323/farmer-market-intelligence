@@ -1255,6 +1255,9 @@
             </svg>
             <span>Choose farm on map</span>
           </button>
+          <button class="map-action" type="button" id="useVillageEstimateButton">
+            <span>Use village-center estimate (Dodda Mallenahalli)</span>
+          </button>
         </div>
       </div>
 
@@ -1426,6 +1429,7 @@
     const farmLocationDialog = document.getElementById("farmLocationDialog");
     const farmMapSelection = document.getElementById("farmMapSelection");
     const useGpsLocationButton = document.getElementById("useGpsLocationButton");
+    const useVillageEstimateButton = document.getElementById("useVillageEstimateButton");
     const farmSearchInput = document.getElementById("farmSearchInput");
     const useCurrentLocationButton = document.getElementById("useCurrentLocationButton");
     const farmSearchResults = document.getElementById("farmSearchResults");
@@ -2058,6 +2062,10 @@
 
     async function getPlaceName(position) {
       if (position.placeName) return position.placeName;
+      if (position.source === "village-estimate") {
+        position.placeName = "Dodda Mallenahalli, Hassan, Karnataka";
+        return position.placeName;
+      }
       const { latitude, longitude } = position.coords;
       try {
         // Request address-level results. Keep GPS names to the useful locality
@@ -2087,11 +2095,15 @@
     async function showLocationUsed(position) {
       const source = position.source === "map"
         ? "Confirmed farm map location"
-        : "Current GPS location";
+        : position.source === "village-estimate"
+          ? "Approximate village-center location"
+          : "Current GPS location";
       const placeName = await getPlaceName(position);
-      const correctionText = position.source === "map"
-        ? ""
-        : " Place names depend on map data; check the coordinates and pin if the area looks wrong.";
+      const correctionText = position.source === "village-estimate"
+        ? " This is an approximate village center; choose your farm on the map for a more accurate distance."
+        : position.source === "map"
+          ? ""
+          : " Place names depend on map data; check the coordinates and pin if the area looks wrong.";
       locationUsed.textContent = `${source ? `${source}: ` : ""}${placeName}.${correctionText}`;
     }
 
@@ -2263,6 +2275,14 @@
 
     farmMapButton.addEventListener("click", openFarmMap);
     document.getElementById("closeForecastChangeButton").addEventListener("click", () => forecastChangeDialog.close());
+    useVillageEstimateButton.addEventListener("click", async () => {
+      selectedFarmLocation = {
+        coords: { latitude: 12.88878, longitude: 76.16090, accuracy: 1500 },
+        source: "village-estimate"
+      };
+      await showLocationUsed(selectedFarmLocation);
+      statusBox.textContent = "Approximate village location selected. Click Find Best Market by Price & Distance to continue.";
+    });
     useGpsLocationButton.addEventListener("click", async () => {
       useGpsLocationButton.disabled = true;
       selectedFarmLocation = null;
