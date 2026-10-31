@@ -2056,6 +2056,13 @@
       return selectedFarmLocation;
     }
 
+    function getVillageCenterEstimate() {
+      return {
+        coords: { latitude: 12.88878, longitude: 76.16090, accuracy: 1500 },
+        source: "village-estimate"
+      };
+    }
+
     function getCurrentLocationForMap() {
       return getCurrentLocation();
     }
@@ -2248,10 +2255,20 @@
 
       try {
         statusBox.textContent = "Getting a precise location and comparing price with road distance...";
-        const manualLocation = getFarmLocation();
-        const position = manualLocation || await getCurrentLocation();
+        let position = getFarmLocation();
+        if (!position) {
+          try {
+            position = await getCurrentLocation();
+          } catch (error) {
+            if (!["LOCATION_UNAVAILABLE", "LOCATION_PERMISSION_DENIED", "LOCATION_TIMEOUT", "LOCATION_PROVIDER_UNAVAILABLE"].includes(error.message)) throw error;
+            position = getVillageCenterEstimate();
+            selectedFarmLocation = position;
+          }
+        }
         await showLocationUsed(position);
-        statusBox.textContent = "Location received. Comparing markets...";
+        statusBox.textContent = position.source === "village-estimate"
+          ? "Using the approximate Dodda Mallenahalli village center. Comparing nearby markets..."
+          : "Location received. Comparing markets...";
         const data = await postJson("/nearest-market-with-best-price", getTransportPayload(position));
         const nearest = data.nearest_market;
         const recommended = data.best_market_after_transport;
@@ -2276,12 +2293,9 @@
     farmMapButton.addEventListener("click", openFarmMap);
     document.getElementById("closeForecastChangeButton").addEventListener("click", () => forecastChangeDialog.close());
     useVillageEstimateButton.addEventListener("click", async () => {
-      selectedFarmLocation = {
-        coords: { latitude: 12.88878, longitude: 76.16090, accuracy: 1500 },
-        source: "village-estimate"
-      };
+      selectedFarmLocation = getVillageCenterEstimate();
       await showLocationUsed(selectedFarmLocation);
-      statusBox.textContent = "Approximate village location selected. Click Find Best Market by Price & Distance to continue.";
+      nearestMarketButton.click();
     });
     useGpsLocationButton.addEventListener("click", async () => {
       useGpsLocationButton.disabled = true;
@@ -2297,17 +2311,10 @@
         await showLocationUsed(position);
         statusBox.textContent = "Current GPS location selected. Click Find Best Market by Price & Distance.";
       } catch (error) {
-        const help = error.message === "LOCATION_PERMISSION_DENIED"
-          ? "Allow location access for this site in your browser, then try again. You can also choose your farm on the map."
-          : error.message === "LOCATION_REQUIRES_SECURE_CONTEXT"
-            ? "Location access requires the secure HTTPS site. Open the deployed HTTPS address, or choose your farm on the map."
-            : error.message === "LOCATION_TIMEOUT"
-              ? "Your device took too long to find its location. Turn on location services, try near a window, or choose your farm on the map."
-              : error.message === "LOCATION_PROVIDER_UNAVAILABLE"
-                ? "Your device could not determine a location. Turn on device location services or choose your farm on the map."
-                : "Your browser could not determine a location. Check device location services and site permissions, or choose your farm on the map.";
-        locationUsed.textContent = "Device location unavailable. Choose your farm on the map to continue.";
-        statusBox.textContent = help;
+        selectedFarmLocation = getVillageCenterEstimate();
+        await showLocationUsed(selectedFarmLocation);
+        statusBox.textContent = "GPS unavailable. Using the approximate Dodda Mallenahalli village center and comparing nearby markets.";
+        nearestMarketButton.click();
       } finally {
         useGpsLocationButton.disabled = false;
       }
