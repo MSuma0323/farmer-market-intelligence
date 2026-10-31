@@ -2070,7 +2070,7 @@
     async function getPlaceName(position) {
       if (position.placeName) return position.placeName;
       if (position.source === "village-estimate") {
-        position.placeName = "Dodda Mallenahalli, Hassan, Karnataka";
+        position.placeName = "ದೊಡ್ಡ ಮಲ್ಲೇನಹಳ್ಳಿ, ಹಾಸನ, ಕರ್ನಾಟಕ (Dodda Mallenahalli, Hassan, Karnataka)";
         return position.placeName;
       }
       const { latitude, longitude } = position.coords;
@@ -2101,13 +2101,13 @@
 
     async function showLocationUsed(position) {
       const source = position.source === "map"
-        ? "Confirmed farm map location"
+        ? "ದೃಢೀಕರಿಸಿದ ನಕ್ಷೆ ಸ್ಥಳ / Confirmed map location"
         : position.source === "village-estimate"
-          ? "Approximate village-center location"
-          : "Current GPS location";
+          ? "ಅಂದಾಜು ಗ್ರಾಮ ಕೇಂದ್ರ / Approximate village center"
+          : "ನಿಮ್ಮ GPS ಸ್ಥಳ / Your GPS location";
       const placeName = await getPlaceName(position);
       const correctionText = position.source === "village-estimate"
-        ? " This is an approximate village center; choose your farm on the map for a more accurate distance."
+        ? " ಇದು ಗ್ರಾಮದ ಅಂದಾಜು ಕೇಂದ್ರ. ಹೆಚ್ಚು ನಿಖರವಾದ ದೂರಕ್ಕಾಗಿ ನಕ್ಷೆಯಲ್ಲಿ ನಿಮ್ಮ ಜಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ. / This is an approximate village center; choose your farm on the map for a more accurate distance."
         : position.source === "map"
           ? ""
           : " Place names depend on map data; check the coordinates and pin if the area looks wrong.";
@@ -2267,7 +2267,7 @@
         }
         await showLocationUsed(position);
         statusBox.textContent = position.source === "village-estimate"
-          ? "Using the approximate Dodda Mallenahalli village center. Comparing nearby markets..."
+          ? "ದೊಡ್ಡ ಮಲ್ಲೇನಹಳ್ಳಿಯ ಅಂದಾಜು ಗ್ರಾಮ ಕೇಂದ್ರವನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ. ಹತ್ತಿರದ ಮಾರುಕಟ್ಟೆಗಳನ್ನು ಹೋಲಿಸಲಾಗುತ್ತಿದೆ. / Using the approximate Dodda Mallenahalli village center. Comparing nearby markets..."
           : "Location received. Comparing markets...";
         const data = await postJson("/nearest-market-with-best-price", getTransportPayload(position));
         const nearest = data.nearest_market;
@@ -2313,7 +2313,7 @@
       } catch (error) {
         selectedFarmLocation = getVillageCenterEstimate();
         await showLocationUsed(selectedFarmLocation);
-        statusBox.textContent = "GPS unavailable. Using the approximate Dodda Mallenahalli village center and comparing nearby markets.";
+        statusBox.textContent = "GPS ಲಭ್ಯವಿಲ್ಲ. ದೊಡ್ಡ ಮಲ್ಲೇನಹಳ್ಳಿಯ ಅಂದಾಜು ಗ್ರಾಮ ಕೇಂದ್ರವನ್ನು ಬಳಸಿ ಹತ್ತಿರದ ಮಾರುಕಟ್ಟೆಗಳನ್ನು ಹೋಲಿಸಲಾಗುತ್ತಿದೆ. / GPS unavailable. Using the approximate Dodda Mallenahalli village center and comparing nearby markets.";
         nearestMarketButton.click();
       } finally {
         useGpsLocationButton.disabled = false;
