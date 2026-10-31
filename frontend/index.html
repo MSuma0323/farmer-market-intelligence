@@ -2281,7 +2281,12 @@
           ? "Allow location access for this site in your browser, then try again. You can also choose your farm on the map."
           : error.message === "LOCATION_REQUIRES_SECURE_CONTEXT"
             ? "Location access requires the secure HTTPS site. Open the deployed HTTPS address, or choose your farm on the map."
-            : "Could not get your device's location. Check that location services are on and try again, or choose your farm on the map.";
+            : error.message === "LOCATION_TIMEOUT"
+              ? "Your device took too long to find its location. Turn on location services, try near a window, or choose your farm on the map."
+              : error.message === "LOCATION_PROVIDER_UNAVAILABLE"
+                ? "Your device could not determine a location. Turn on device location services or choose your farm on the map."
+                : "Your browser could not determine a location. Check device location services and site permissions, or choose your farm on the map.";
+        locationUsed.textContent = "Device location unavailable. Choose your farm on the map to continue.";
         statusBox.textContent = help;
       } finally {
         useGpsLocationButton.disabled = false;
